@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Industry AI Maturity Survey 2.0</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        [v-cloak] { display: none; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; color: black !important; }
+            .card-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+    <div id="app" v-cloak class="flex-grow flex flex-col">
+        <!-- Header / Hero Header -->
+        <header class="gradient-bg text-white py-12 px-4 sm:px-6 lg:px-8 shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-4xl mx-auto relative z-10 text-center">
+                <div class="inline-flex items-center space-x-2 bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3.5 py-1 rounded-full text-xs font-semibold mb-5 tracking-wide uppercase">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>Industry 4.0 & AI Evaluation 2.0</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">
+                    Manufacturing Industry AI Maturity Survey
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                    Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+            
+            <!-- Welcome / Intro Card (Stage 0) -->
+            <div v-if="currentStep === 0" class="bg-white rounded-2xl p-6 sm:p-10 card-shadow border border-slate-100">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Welcome to the Survey</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Diagnose your AI readiness and match customized solutions from AI Toolbox</p>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base mb-10 bg-slate-50 p-6 rounded-xl border border-slate-100">
+                    In the wave of smart manufacturing, AI technology is becoming a critical tool for manufacturing companies to improve efficiency, reduce costs, and strengthen competitiveness. Through this index, you can quickly diagnose your company's current AI application status, identify gaps compared to industry benchmarks, and obtain exclusive recommendations to accelerate digital transformation and secure a leading position in the future of manufacturing.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="p-5 rounded-xl bg-blue-50/50 border border-blue-100/60 flex items-start space-x-3">
+                        <i class="fa-solid fa-shield-halved text-blue-600 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">19 Standardized Items</h4>
+                            <p class="text-xs text-slate-500 mt-1">5 Core Dimensions + Operational Pain Points</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-emerald-50/50 border border-emerald-100/60 flex items-start space-x-3">
+                        <i class="fa-solid fa-bolt text-emerald-600 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">Instant Diagnosis</h4>
+                            <p class="text-xs text-slate-500 mt-1">Automated Radar Chart & Level Calculation</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-purple-50/50 border border-purple-100/60 flex items-start space-x-3">
+                        <i class="fa-solid fa-toolbox text-purple-600 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">AI Toolbox Matching</h4>
+                            <p class="text-xs text-slate-500 mt-1">Matched AI Solutions integrated into PDF Report</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homepage Action Row (Join AI Toolbox on the left + Start Assessment on the right) -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit" target="_blank" rel="noopener text-decoration-none" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-md shadow-purple-500/20">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Join AI Toolbox</span>
+                    </a>
+
+                    <button @click="nextStep" class="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25">
+                        <span>Start Assessment</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                    <button @click="loadTestData" class="w-full sm:w-auto px-8 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/25">
+                        <span>Load Test Report</span>
+                        <i class="fa-solid fa-flask text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar (for Steps 1 to 7) -->
+            <div v-if="currentStep >= 1 && currentStep <= 7" class="mb-10">
+                <div class="flex justify-between items-center text-xs font-semibold text-slate-500 mb-2">
+                    <span>Step {{ currentStep }} of 7: {{ stepTitles[currentStep - 1] }}</span>
+                    <span>{{ Math.round((currentStep / 7) * 100) }}% Completed</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" :style="{ width: (currentStep / 7 * 100) + '%' }"></div>
+                </div>
+            </div>
+
+            <!-- Form Validation Alert -->
+            <div v-if="errorMessage" class="mb-6 p-4 bg-rose-50 border border-red-200 text-rose-700 rounded-xl text-sm flex items-center space-x-3">
+                <i class="fa-solid fa-circle-exclamation text-rose-500 text-lg flex-shrink-0"></i>
+                <span>{{ errorMessage }}</span>
+            </div>
+
+            <!-- Step 1: Company Information -->
+            <div v-if="currentStep === 1" class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                <h2 class="text-xl font-bold text-slate-900 mb-1 pb-4 border-b border-slate-100 flex items-center space-x-2">
+                    <i class="fa-solid fa-building text-blue-600"></i>
+                    <span>Company Information</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Company name <span class="text-rose-500">*</span></label>
+                        <input type="text" v-model="form.company_name" placeholder="e.g. Taiwan Semiconductor Manufacturing Co." class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tax ID / Registration No. <span class="text-rose-500">*</span></label>
+                        <input type="text" v-model="form.tax_id" placeholder="e.g. 22099118" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Sub-industry <span class="text-rose-500">*</span></label>
+                        <p class="text-xs text-slate-500 mb-2">Specify your sub-industry based on Executive Yuan DGBAS classification.</p>
+                        <select v-model="form.sub_industry" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm bg-white">
+                            <option value="" disabled>-- Select Sub-industry --</option>
+                            <option value="Non-C Section Manufacture">Non-C Section Manufacture</option>
+                            <option value="C08 Manufacture of Food & Feed Products">C08 Manufacture of Food & Feed Products</option>
+                            <option value="C09 Manufacture of Beverages">C09 Manufacture of Beverages</option>
+                            <option value="C10 Manufacture of Tobacco Products">C10 Manufacture of Tobacco Products</option>
+                            <option value="C11 Manufacture of Textiles">C11 Manufacture of Textiles</option>
+                            <option value="C12 Manufacture of Wearing Apparel and Clothing Accessories">C12 Manufacture of Wearing Apparel and Clothing Accessories</option>
+                            <option value="C13 Manufacture of Leather, Fur and Related Products">C13 Manufacture of Leather, Fur and Related Products</option>
+                            <option value="C14 Manufacture of Wood and of Products of Wood and Bamboo">C14 Manufacture of Wood and of Products of Wood and Bamboo</option>
+                            <option value="C15 Manufacture of Paper and Paper Products">C15 Manufacture of Paper and Paper Products</option>
+                            <option value="C16 Printing and Reproduction of Recorded Media">C16 Printing and Reproduction of Recorded Media</option>
+                            <option value="C17 Manufacture of Petroleum and Coal Products">C17 Manufacture of Petroleum and Coal Products</option>
+                            <option value="C18 Manufacture of Chemical Material and Fertilizers">C18 Manufacture of Chemical Material and Fertilizers</option>
+                            <option value="C19 Manufacture of Other Chemical Products">C19 Manufacture of Other Chemical Products</option>
+                            <option value="C20 Manufacture of Pharmaceuticals and Medicinal Chemical Products">C20 Manufacture of Pharmaceuticals and Medicinal Chemical Products</option>
+                            <option value="C21 Manufacture of Rubber Products">C21 Manufacture of Rubber Products</option>
+                            <option value="C22 Manufacture of Plastics Products">C22 Manufacture of Plastics Products</option>
+                            <option value="C23 Manufacture of Other Non-metallic Mineral Products">C23 Manufacture of Other Non-metallic Mineral Products</option>
+                            <option value="C24 Manufacture of Basic Metals">C24 Manufacture of Basic Metals</option>
+                            <option value="C25 Manufacture of Fabricated Metal Products">C25 Manufacture of Fabricated Metal Products</option>
+                            <option value="C26 Manufacture of Electronic Parts and Components">C26 Manufacture of Electronic Parts and Components</option>
+                            <option value="C27 Manufacture of Computers, Electronic and Optical Products">C27 Manufacture of Computers, Electronic and Optical Products</option>
+                            <option value="C28 Manufacture of Electrical Equipment">C28 Manufacture of Electrical Equipment</option>
+                            <option value="C29 Manufacture of Machinery and Equipment">C29 Manufacture of Machinery and Equipment</option>
+                            <option value="C30 Manufacture of Motor Vehicles and Parts">C30 Manufacture of Motor Vehicles and Parts</option>
+                            <option value="C31 Manufacture of Other Transport Equipment and Parts">C31 Manufacture of Other Transport Equipment and Parts</option>
+                            <option value="C32 Manufacture of Furniture">C32 Manufacture of Furniture</option>
+                            <option value="C33 Other Manufacturing">C33 Other Manufacturing</option>
+                            <option value="C34 Repair and Installation of Industrial Machinery and Equipment">C34 Repair and Installation of Industrial Machinery and Equipment</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Respondent’s position level <span class="text-rose-500">*</span></label>
+                        <select v-model="form.position_level" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm bg-white">
+                            <option value="" disabled>-- Select Position Level --</option>
+                            <option value="a. C-suite (CEO/CTO/COO/CMO)">a. C-suite (CEO/CTO/COO/CMO)</option>
+                            <option value="b. Departmental middle-/senior-level supervisor">b. Departmental middle-/senior-level supervisor</option>
+                            <option value="c. Business unit junior-level supervisor">c. Business unit junior-level supervisor</option>
+                            <option value="d. Senior employee/general employee (non-managerial position)">d. Senior employee/general employee (non-managerial position)</option>
+                            <option value="e. Non-worker (Student/military or police personnel/retiree, etc.)">e. Non-worker (Student/military or police personnel/retiree, etc.)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Respondent Email <span class="text-rose-500">*</span></label>
+                        <input type="email" v-model="form.email" placeholder="name@company.com" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-700 mb-2">Respondent’s department (Select all that apply) <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="a. Manufacturing-related department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>a. Manufacturing-related department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="b. Information-related department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>b. Information-related department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="c. R&D department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>c. R&D department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="d. Business-related department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>d. Business-related department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="e. Marketing-related department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>e. Marketing-related department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="f. Office of the President/CEO/Other Level-one Executive" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>f. Office of the President/CEO/Other Level-one Executive</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="g. AI-promotion-related department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>g. AI-promotion-related department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="h. Administrative management department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>h. Administrative management department</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-medium text-slate-700">
+                                <input type="checkbox" value="i. Other department" v-model="form.department" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2.5">
+                                <span>i. Other department</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end">
+                    <button @click="validateAndNext" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center space-x-2">
+                        <span>Next Step</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Steps 2 to 6: Dimensions I to V -->
+            <div v-for="(dim, index) in surveyData.dimensions.slice(0, 5)" :key="dim.id">
+                <div v-if="currentStep === (index + 2)" class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                    <div class="mb-6 pb-4 border-b border-slate-100">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Dimension {{ dim.number }}</span>
+                        <h2 class="text-xl font-bold text-slate-900 mt-1">{{ dim.title }}</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div v-for="q in dim.questions" :key="q.id" class="p-6 rounded-xl bg-slate-50/70 border border-slate-200/80">
+                            <div class="flex items-start space-x-2 mb-4">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded flex-shrink-0 mt-0.5">{{ q.num_str }}</span>
+                                <h3 class="font-semibold text-slate-900 text-sm sm:text-base leading-snug">{{ q.text }}</h3>
+                            </div>
+
+                            <!-- Matrix Question (Q1) -->
+                            <div v-if="q.type === 'matrix'" class="overflow-x-auto mt-4">
+                                <table class="w-full text-xs text-left text-slate-700 border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-100/80 border-b border-slate-200">
+                                            <th class="p-3 font-semibold w-2/5">Information System</th>
+                                            <th v-for="(col, cIdx) in q.columns" :key="cIdx" class="p-3 text-center font-semibold">{{ col }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200">
+                                        <tr v-for="(row, rIdx) in q.rows" :key="rIdx" class="hover:bg-white transition-colors">
+                                            <td class="p-3 font-medium text-slate-800">{{ row }}</td>
+                                            <td v-for="(col, cIdx) in q.columns" :key="cIdx" class="p-3 text-center">
+                                                <input type="radio" :name="q.id + '_' + rIdx" :value="cIdx" v-model="answers.matrix[q.id][rIdx]" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Single Choice Question -->
+                            <div v-else-if="q.type === 'single'" class="space-y-2.5 mt-4">
+                                <label v-for="(opt, oIdx) in q.options" :key="oIdx" class="flex items-start p-3.5 rounded-lg border border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/30 cursor-pointer transition-all">
+                                    <input type="radio" :name="q.id" :value="oIdx" v-model="answers.single[q.id]" class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 mt-0.5 mr-3 flex-shrink-0">
+                                    <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">{{ opt.text }}</span>
+                                </label>
+                            </div>
+
+                            <!-- Multiple Choice Question -->
+                            <div v-else-if="q.type === 'multiple'" class="space-y-2.5 mt-4">
+                                <label v-for="(opt, oIdx) in q.options" :key="oIdx" class="flex items-start p-3.5 rounded-lg border border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/30 cursor-pointer transition-all">
+                                    <input type="checkbox" :value="oIdx" v-model="answers.multiple[q.id]" @change="handleMultipleChange(q.id, oIdx, opt.exclusive)" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mt-0.5 mr-3 flex-shrink-0">
+                                    <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">{{ opt.text }}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between">
+                        <button @click="prevStep" class="px-5 py-2.5 border border-slate-300 text-slate-700 font-semibold text-sm rounded-xl hover:bg-slate-50 transition duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button @click="validateAndNext" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center space-x-2">
+                            <span>Next Step</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Dimension A (Operational Goals & Pain Points) -->
+            <div v-if="currentStep === 7" class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                <div class="mb-6 pb-4 border-b border-slate-100">
+                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Section A</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">{{ surveyData.dimensions[5].title }}</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div v-for="q in surveyData.dimensions[5].questions" :key="q.id" class="p-6 rounded-xl bg-slate-50/70 border border-slate-200/80">
+                        <div class="flex items-start space-x-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-0.5 rounded flex-shrink-0 mt-0.5">{{ q.num_str }}</span>
+                            <h3 class="font-semibold text-slate-900 text-sm sm:text-base leading-snug">{{ q.text }}</h3>
+                        </div>
+
+                        <div class="space-y-2.5 mt-4">
+                            <label v-for="(opt, oIdx) in q.options" :key="oIdx" class="flex items-start p-3.5 rounded-lg border border-slate-200 bg-white hover:border-purple-300 hover:bg-purple-50/30 cursor-pointer transition-all">
+                                <input type="checkbox" :value="oIdx" v-model="answers.multiple[q.id]" class="w-4 h-4 text-purple-600 rounded border-slate-300 focus:ring-purple-500 mt-0.5 mr-3 flex-shrink-0">
+                                <div class="flex-grow">
+                                    <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">{{ opt.text }}</span>
+                                    <input v-if="opt.has_input && answers.multiple[q.id].includes(oIdx)" type="text" v-model="answers.other_inputs[q.id]" placeholder="Please specify..." class="mt-2 w-full px-3 py-1.5 text-xs border border-slate-300 rounded-md focus:ring-1 focus:ring-purple-500">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between">
+                    <button @click="prevStep" class="px-5 py-2.5 border border-slate-300 text-slate-700 font-semibold text-sm rounded-xl hover:bg-slate-50 transition duration-200 flex items-center space-x-2">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button @click="submitAssessment" class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center space-x-2 shadow-lg shadow-emerald-600/25">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Complete & View Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 8: Results & Analysis Report -->
+            <div v-if="currentStep === 8" class="space-y-8">
+                
+                <!-- Overall Score Header Card -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100 overflow-hidden relative">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-2 text-center md:text-left">
+                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full uppercase tracking-wider">AI Maturity Diagnosis 2.0</span>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">{{ form.company_name }}</h2>
+                            <p class="text-xs text-slate-500">Industry: {{ form.sub_industry }} | Respondent: {{ form.email }}</p>
+                            <div class="pt-2">
+                                <span class="text-xs text-slate-500">Maturity Stage:</span>
+                                <span class="ml-2 font-bold px-3 py-1 rounded-lg text-sm" :class="maturityStageClass">
+                                    {{ maturityStage.level }}: {{ maturityStage.title }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-2xl border border-slate-200 min-w-[200px]">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Overall Score</span>
+                            <div class="text-5xl font-black text-blue-600 mt-1 mb-1">{{ overallScore }}</div>
+                            <span class="text-xs font-medium text-slate-400">out of 100 points</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Radar Chart & Dimension Breakdown -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Radar Chart -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-100 flex flex-col items-center">
+                        <h3 class="text-base font-bold text-slate-900 mb-4 w-full text-left flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-pie text-blue-600"></i>
+                            <span>5-Dimension Maturity Radar</span>
+                        </h3>
+                        <div class="w-full max-w-[380px] aspect-square relative">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Scores List -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center space-x-2">
+                                <i class="fa-solid fa-list-check text-blue-600"></i>
+                                <span>Dimension Scores</span>
+                            </h3>
+                            <div class="space-y-4">
+                                <div v-for="(dim, idx) in dimensionScores" :key="idx" class="space-y-1">
+                                    <div class="flex justify-between text-xs font-semibold">
+                                        <span class="text-slate-700">{{ dim.number }}. {{ dim.title }}</span>
+                                        <span class="text-blue-600 font-bold">{{ dim.score }} / 100</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" :style="{ width: dim.score + '%' }"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 leading-relaxed">
+                            <i class="fa-solid fa-circle-info text-blue-500 mr-1"></i>
+                            Scores reflect company-wide maturity across data foundation, capital investment, strategy, MLOps capability, and quantified ROI.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage Description & Recommendations -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                        <span>Diagnosis Analysis & Action Recommendations</span>
+                    </h3>
+
+                    <div class="p-5 rounded-xl bg-amber-50/60 border border-amber-200/80 mb-6">
+                        <h4 class="font-bold text-amber-900 text-sm mb-1">Stage Profile: {{ maturityStage.title }}</h4>
+                        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">{{ maturityStage.description }}</p>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <h4 class="text-sm font-bold text-slate-900">Recommended Key Next Steps:</h4>
+                        <ul class="space-y-2.5">
+                            <li v-for="(rec, rIdx) in maturityStage.recommendations" :key="rIdx" class="flex items-start text-xs sm:text-sm text-slate-700">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-2.5 flex-shrink-0"></i>
+                                <span>{{ rec }}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- AI Toolbox Matched Solutions Section (Will be printed into PDF) -->
+                    <div class="border-t border-slate-200 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-toolbox text-blue-600"></i>
+                                <span>Matched AI Solutions (From AI Toolbox)</span>
+                            </h4>
+                            <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-200/60">Targeted Recommendations</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">Based on your identified operational pain points (Q18/Q19) and current AI applications (Q13), the following proven AI Toolbox solutions are recommended:</p>
+
+                        <div v-if="matchedTools.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div v-for="(tool, tIdx) in matchedTools" :key="tIdx" class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h5 class="font-bold text-sm text-slate-900 leading-snug">{{ toolField(tool, 'name') }}</h5>
+                                        <a v-if="tool.url" :href="tool.url" target="_blank" rel="noopener" class="text-[11px] text-blue-600 hover:text-blue-800 font-semibold whitespace-nowrap">Visit →</a>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-slate-700 mt-1"><i class="fa-solid fa-building-circle-check mr-1 text-blue-600"></i> {{ toolField(tool, 'provider') }}</p>
+                                        <p v-if="tool.tech" class="text-xs text-slate-500 mt-1 leading-relaxed"><span class="font-semibold">Tech:</span> {{ toolField(tool, 'tech') }}</p>
+                                        <p class="text-xs text-slate-600 mb-2 leading-relaxed">{{ toolField(tool, 'benefit') }}</p>
+                                        <p v-if="tool.production_pain" class="text-xs text-slate-500 mt-1 leading-relaxed">{{ toolField(tool, 'production_pain') }}</p>
+                                        <p v-if="tool.non_production" class="text-xs text-slate-500 mt-1 leading-relaxed">{{ toolField(tool, 'non_production') }}</p>
+                                        <div class="flex flex-wrap gap-1.5 mt-2">
+                                            <span v-if="tool.deployment" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-cloud mr-1"></i>{{ toolField(tool, 'deployment') }}</span>
+                                            <span v-if="tool.pricing" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-tag mr-1"></i>{{ toolField(tool, 'pricing') }}</span>
+                                            <span v-if="tool.lead_time" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1"></i>{{ toolField(tool, 'lead_time') }}</span>
+                                        </div>
+                                    <div v-if="tool.pain_tags && tool.pain_tags.length" class="flex flex-wrap gap-1 mt-2">
+                                        <span v-for="(tag, i) in (tool.pain_tags_en || tool.pain_tags).slice(0,3)" :key="'p'+i" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200/60">{{ tag }}</span>
+                                    </div>
+                                    <p v-if="tool.__reason" class="text-[10px] text-slate-400 mt-2 italic"><i class="fa-solid fa-circle-info mr-1"></i>{{ tool.__reason }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="p-4 bg-slate-50 rounded-xl text-center text-xs text-slate-500">
+                            General AI Tooling recommendations apply. Take an exploratory assessment in AI Toolbox.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Action Buttons / Join AI Toolbox CTA -->
+                <div class="bg-gradient-to-r from-blue-900 to-slate-900 rounded-2xl p-6 sm:p-8 text-white card-shadow no-print flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="space-y-1 text-center sm:text-left">
+                        <h4 class="text-lg font-bold">Are you an AI Solution Provider or Enterprise Partner?</h4>
+                        <p class="text-xs text-slate-300">Submit your AI solutions or join the AI Toolbox ecosystem for matchmaking and cooperation.</p>
+                    </div>
+                    <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit" target="_blank" rel="noopener text-decoration-none" class="px-7 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center space-x-2 shadow-lg shadow-blue-500/30 flex-shrink-0">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Join AI Toolbox</span>
+                    </a>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-between items-center gap-4 no-print">
+                    <button @click="restartSurvey" class="px-5 py-2.5 border border-slate-300 text-slate-700 font-semibold text-sm rounded-xl hover:bg-slate-50 transition duration-200">
+                        <i class="fa-solid fa-rotate-left mr-2"></i>Re-take Assessment
+                    </button>
+                    <button @click="printReport" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl transition duration-200 shadow-md">
+                        <i class="fa-solid fa-print mr-2"></i>Print / Save Report PDF
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-amber-400 py-6 text-center text-xs font-semibold border-t border-slate-800 no-print mt-auto">
+            <p>Institute For Information Industry &copy; 2026. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="toolbox_db.js"></script>
+    <script>
+        const surveyData = {"title": "Manufacturing Industry AI Maturity Survey", "sub-title": "Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?", "intro": "In the wave of smart manufacturing, AI technology is becoming a critical tool for manufacturing companies to improve efficiency, reduce costs, and strengthen competitiveness. Through this index, you can quickly diagnose your company's current AI application status, identify gaps compared to industry benchmarks, and obtain exclusive recommendations to accelerate digital transformation and secure a leading position in the future of manufacturing.", "company_info": {"title": "Company Information", "fields": [{"id": "company_name", "label": "Company name:", "type": "text", "required": true}, {"id": "tax_id", "label": "Tax ID:", "type": "text", "required": true}, {"id": "date", "label": "Date:", "type": "date", "required": false}, {"id": "sub_industry", "label": "Sub-industry", "desc": "Specify your sub-industry (based on the Standard Industrial Classification System established by the Executive Yuan’s Directorate General of Budget, Accounting and Statistics, DGBAS) below.", "type": "select", "required": true, "options": ["Non-C Section Manufacture", "C08 Manufacture of Food & Feed Products", "C09 Manufacture of Beverages", "C10 Manufacture of Tobacco Products", "C11 Manufacture of Textiles", "C12 Manufacture of Wearing Apparel and Clothing Accessories", "C13 Manufacture of Leather, Fur and Related Products", "C14 Manufacture of Wood and of Products of Wood and Bamboo", "C15 Manufacture of Paper and Paper Products", "C16 Printing and Reproduction of Recorded Media", "C17 Manufacture of Petroleum and Coal Products", "C18 Manufacture of Chemical Material and Fertilizers", "C19 Manufacture of Other Chemical Products", "C20 Manufacture of Pharmaceuticals and Medicinal Chemical Products", "C21 Manufacture of Rubber Products", "C22 Manufacture of Plastics Products", "C23 Manufacture of Other Non-metallic Mineral Products", "C24 Manufacture of Basic Metals", "C25 Manufacture of Fabricated Metal Products", "C26 Manufacture of Electronic Parts and Components", "C27 Manufacture of Computers, Electronic and Optical Products", "C28 Manufacture of Electrical Equipment", "C29 Manufacture of Machinery and Equipment", "C30 Manufacture of Motor Vehicles and Parts", "C31 Manufacture of Other Transport Equipment and Parts", "C32 Manufacture of Furniture", "C33 Other Manufacturing", "C34 Repair and Installation of Industrial Machinery and Equipment"]}, {"id": "position_level", "label": "Respondent’s position level", "desc": "Specify your job title/position level below.", "type": "select", "required": true, "options": ["a. C-suite (CEO/CTO/COO/CMO)", "b. Departmental middle-/senior-level supervisor", "c. Business unit junior-level supervisor", "d. Senior employee/general employee (non-managerial position)", "e. Non-worker (Student/military or police personnel/retiree, etc.)"]}, {"id": "department", "label": "Respondent’s department", "desc": "Specify your department (If there are more than one respondent, multiple departments can be specified)", "type": "checkbox_group", "required": true, "options": ["a. Manufacturing-related department", "b. Information-related department", "c. R&D department", "d. Business-related department", "e. Marketing-related department", "f. Office of the President/CEO/Other Level-one Executive", "g. AI-promotion-related department", "h. Administrative management department", "i. Other department"]}, {"id": "email", "label": "Respondent Email", "desc": "Specify your email address below.", "type": "email", "required": true}]}, "dimensions": [{"id": "dim_1", "number": "I", "title": "Data & Basic Facilities", "questions": [{"id": "q1", "num_str": "1-1 Level of digitization", "text": "1. How is your company adopting digital information systems in manufacturing?", "type": "matrix", "columns": ["a. No plans for introduction/still under evaluation", "b. System currently under development", "c. System introduced and in use"], "col_scores": [0, 50, 100], "rows": ["1.1 Manufacturing execution systems (MES)", "1.2 Equipment management systems (EMS)", "1.3 Advanced planning & scheduling (APS) systems", "1.4 Recipe management systems (RMS)", "1.5 Warehouse management systems (WMS)", "1.6 Product lifecycle management (PLM) systems", "1.7 Enterprise resource planning (ERP) systems", "1.8 Supply chain management (SCM) systems", "1.9 Customer relationship management (CRM) systems", "1.10 Enterprise business intelligence (BI) decision support & management systems"]}, {"id": "q2", "num_str": "1-2 Level of industrial IoT (IIoT) integration", "text": "2. Are your company’s current production lines or factory facilities capable of connecting to the internet and automatically collecting data?", "type": "single", "options": [{"text": "a. Most production line facilities still require manual operation and are not yet fully automated.", "score": 20}, {"text": "b. Most production line facilities are still at the automated control stage and have not yet adopted industrial IoT (IIoT).", "score": 40}, {"text": "c. In our production line facilities, IIoT is implemented only on the primary machinery of a small number of key production lines.", "score": 60}, {"text": "d. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where single-machine and full-line visualization applications are adopted.", "score": 80}, {"text": "e. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where two-way remote operation/control has been achieved.", "score": 100}]}, {"id": "q3", "num_str": "1-3 Degree of data integration", "text": "3. What is the degree of integration between your company’s system data collection and data connection?", "type": "single", "options": [{"text": "a. Most of our operations have not adopted digital systems, and no data has been accumulated.", "score": 20}, {"text": "b. Our company has its own information systems, most of which operate independently and are not connected.", "score": 40}, {"text": "c. Some of our company’s information systems have already been connected, allowing for application and data interoperability.", "score": 60}, {"text": "d. Our company’s information systems have connected to external third-party data resource; a “data management platform” has been established to centralize and compile all information.", "score": 80}, {"text": "e. Our company has achieved flexible data utilization within its internal information systems, and has established a “data dashboard” for visualized data analysis, which can be used for corporate business strategy analysis.", "score": 100}]}, {"id": "q4", "num_str": "1-4 Server computing capacity", "text": "4. What server computing and storage resource environments does your company currently use to support its AI-related applications?", "type": "single", "options": [{"text": "a. Our company does not use any servers or computing equipment to provide AI application services.", "score": 20}, {"text": "b. Our company uses “GPU-free” basic servers or computing equipment for data storage, access, and AI application services.", "score": 40}, {"text": "c. Our company has established its own GPU-powered servers or accessed them through cloud services to deploy its AI application services.", "score": 60}, {"text": "d. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services to train and deploy AI models for its AI application service development.", "score": 80}, {"text": "e. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services, and has self-developed onsite edge computing terminal devices to train and deploy AI models, thereby developing its own real-time AI edge computing application services.", "score": 100}]}]}, {"id": "dim_2", "number": "II", "title": "Resource Investment for AI Development", "questions": [{"id": "q5", "num_str": "2-1 Capital investment", "text": "5. In response to the introduction of AI applications for digital transformation, based on your estimate, what level of resources does your company allocate to AI-related investment in its annual plans? (Include software, hardware, projects, personnel recruitment, etc.)", "type": "single", "options": [{"text": "a. At present, we have no plans regarding AI personnel recruitment, software/hardware, or application development.", "score": 20}, {"text": "b. Our company has developed plans to recruit AI personnel, but has no budget for related software/hardware or application development.", "score": 40}, {"text": "c. Our company has developed investment plans for AI software, hardware, or applications, but has no plans to invest in AI-related talent.", "score": 60}, {"text": "d. Our company has developed investment plans for AI personnel recruitment, software/hardware, and application development.", "score": 80}, {"text": "e. Our company has dedicated departments and budget to implement plans for AI personnel, software/hardware, and applications.", "score": 100}]}, {"id": "q6", "num_str": "2-2 Personnel training", "text": "6. Has your company established any education/training mechanisms to provide AI-related training courses/resources for employees?", "type": "single", "options": [{"text": "a. Currently, our company has no need for AI courses/training and no related plans.", "score": 20}, {"text": "b. Our company has not provided any AI-related training resources; instead, supervisors encourage employees to take the initiative in learning AI-related knowledge and applications.", "score": 40}, {"text": "c. While our company has not established internal AI training resources, we encourage employees to proactively participate in external AI training courses and provides modest course subsidies.", "score": 60}, {"text": "d. Our company has established initial-phase AI training mechanisms, and encourages employees to participate in external training courses. Internal AI training courses are only provided for a small number of key personnel.", "score": 80}, {"text": "e. Our company has established comprehensive AI personnel cultivation mechanisms and regularly provides internal courses and external training opportunities for employees across various roles.", "score": 100}]}, {"id": "q7", "num_str": "2-3 AI technical personnel", "text": "7. When promoting the introduction of AI, does your company employ any AI technical staff specializing in AI algorithms, model training, software development, etc.?", "type": "single", "options": [{"text": "a. Our company has no designated headcount for AI technical roles.", "score": 20}, {"text": "b. Our company has no dedicated AI technical personnel, but its information management office is responsible for AI application assessment, development and operation/maintenance.", "score": 40}, {"text": "c. Our company has designated a few AI technical personnel in its information management office to be responsible for AI application assessment, development and operation/maintenance.", "score": 60}, {"text": "d. Our company has established an AI team in its information management office to be responsible for AI application assessment, development and operation/maintenance.", "score": 80}, {"text": "e. Our company has established a dedicated AI Technology Department, which operates independently of the information management office. The department is staffed with multiple AI professionals, and is responsible for the organization’s overall AI technology development, application promotion, and system establishment.", "score": 100}]}]}, {"id": "dim_3", "number": "III", "title": "AI Strategy Planning and Management", "questions": [{"id": "q8", "num_str": "3-1 Company AI promotion strategy", "text": "8. What are your company’s plans regarding its AI development strategy?", "type": "single", "options": [{"text": "a. Our company has not developed or announced any AI-related development strategy.", "score": 20}, {"text": "b. Our company is beginning to develop a digital transformation strategy.", "score": 40}, {"text": "c. Our company already has a digital transformation strategy in place, but does not yet have any plans specifically for AI applications.", "score": 60}, {"text": "d. Our company already has a digital transformation strategy in place and has clearly defined the role of AI applications.", "score": 80}, {"text": "e. Our company has established an independent strategic direction for AI development and set specific development goals aligned with its business strategies.", "score": 100}]}, {"id": "q9", "num_str": "3-2 AI promotion organization", "text": "9. Has your company established a dedicated department or office for promoting AI-powered digital transformation?", "type": "single", "options": [{"text": "a. No related office or department has been established yet.", "score": 20}, {"text": "b. Our company’s information or specialized department has established an AI task force to consolidate AI-related needs and task progress across various departments.", "score": 40}, {"text": "c. Our company has established an interdepartmental AI task force, which regularly reports to senior executives on AI-related needs and task progress.", "score": 60}, {"text": "d. Our company has established an AI promotion task force led by senior executives to develop annual AI objectives and regularly track task progress.", "score": 80}, {"text": "e. Our company has already established a formal, dedicated AI Promotion Committee formed by senior executives and relevant promotion organizations to set annual goals and regularly track progress.", "score": 100}]}, {"id": "q10", "num_str": "3-3 Data governance systems", "text": "10. Has your company established any management mechanisms for the data and information collected through digitalized systems?", "type": "multiple", "options": [{"text": "a. Our company has designated dedicated personnel or a team for data management to define and assign responsibilities for data maintenance.", "score": 12.5}, {"text": "b. Our company has established data indexing systems to facilitate data retrieval.", "score": 12.5}, {"text": "c. Our company has established data format standards to facilitate data consolidation and interoperability.", "score": 12.5}, {"text": "d. Our company has established data quality monitoring mechanisms for data cleaning and error handling.", "score": 12.5}, {"text": "e. Our company has established data/information security mechanisms such as access authorization controls, log records, and encryption protection.", "score": 12.5}, {"text": "f. Our company complies with international and regional data privacy (anonymization/de-identification) regulations, such as the General Data Protection Regulation (GDPR).", "score": 12.5}, {"text": "g. Our company has established data lifecycle management systems to regulate data storage and deletion procedures.", "score": 12.5}, {"text": "h. Our company has established historical data version control and recovery/traceability mechanisms.", "score": 12.5}, {"text": "i. None of the above.", "score": 0, "exclusive": true}]}, {"id": "q11", "num_str": "3-4 Trustworthy AI management", "text": "11. Has your company developed any guidelines, regulations, or policies related to the utilization of AI systems?", "type": "multiple", "options": [{"text": "a. Transparency — Users can understand and trace AI decision-making process.", "score": 14.3}, {"text": "b. Security and resilience — AI must be secure, reliable, and error-detectable, with minimized errors and resilience against attacks.", "score": 14.3}, {"text": "c. Accountability — Ensure AI inference behavior is traceable, with clear team accountability for error correction and handling of relevant issues.", "score": 14.3}, {"text": "d. Fairness — Ensure AI inference is impartial and free from discrimination and prejudice.", "score": 14.3}, {"text": "e. Privacy and data protection — Ensure AI-processed data complies with privacy regulations and relevant protection standards, and prevent the misuse of personal data.", "score": 14.3}, {"text": "f. Human oversight — AI is not allowed to make decisions entirely on its own; there must be human oversight along with emergency intervention mechanisms.", "score": 14.3}, {"text": "g. Social and environmental responsibilities — AI decisions should bring positive impacts to society and the environment rather than aggravating existing problems; enterprises should avoid technology misuse.", "score": 14.3}, {"text": "h. None of the above.", "score": 0, "exclusive": true}]}]}, {"id": "dim_4", "number": "IV", "title": "Manufacturing Industry AI System Operation & Maintenance", "questions": [{"id": "q12", "num_str": "4-1 Depth of implementing AI applications", "text": "12. Has your company introduced AI into its actual business processes?", "type": "single", "options": [{"text": "a. Our company has not yet initiated AI research or planning.", "score": 20}, {"text": "b. Our company is exploring the possibility for introducing AI into some workflows, but it has not been implemented yet.", "score": 40}, {"text": "c. Our company has implemented AI proofs of concept (PoC) in some workflows, but has not introduced them into formal business processes yet.", "score": 60}, {"text": "d. AI applications have been introduced into some business processes and fields.", "score": 80}, {"text": "e. AI applications have been introduced into most business processes and fields.", "score": 100}]}, {"id": "q13", "num_str": "4-2 Level of applied AI implementation", "text": "13. In which business fields has your company introduced AI pilot projects, or the projects that have progressed to AI applications?", "type": "multiple", "options": [{"text": "a. Product R&D and design", "score": 9.1}, {"text": "b. Production process", "score": 9.1}, {"text": "c. Supply chain management", "score": 9.1}, {"text": "d. Quality testing", "score": 9.1}, {"text": "e. Equipment maintenance", "score": 9.1}, {"text": "f. Facility management", "score": 9.1}, {"text": "g. Factory carbon emissions and energy consumption", "score": 9.1}, {"text": "h. Business-related customer service", "score": 9.1}, {"text": "i. Operational management and marketing", "score": 9.1}, {"text": "j. Human resources", "score": 9.1}, {"text": "k. Logistics and warehousing", "score": 9.1}, {"text": "l. None of the above.", "score": 0, "exclusive": true}]}, {"id": "q14", "num_str": "4-3 Technical development channels", "text": "14. What is the approach your company generally adopts to obtain technical support after the introduction of AI systems?", "type": "single", "options": [{"text": "a. Our company has not adopted any AI technologies or platform services.", "score": 20}, {"text": "b. Basically, most AI services are either outsourced or provided by AI technical service providers for comprehensive solutions.", "score": 40}, {"text": "c. Our company can establish small-scale AI system services internally; most services are outsourced to external AI technical service providers.", "score": 60}, {"text": "d. Most AI system services are established by our company internally; for advanced critical technologies, which account for a small portion, the company conducts joint R&D with AI technical service providers and external experts.", "score": 80}, {"text": "e. Our company has accumulated profound AI technical R&D strength, so all AI system services can be handled internally by its employees.", "score": 100}]}, {"id": "q15", "num_str": "4-4 AI system operation/maintenance and update", "text": "15. With any AI system your company has introduced, what is its current operation/maintenance and update status?", "type": "single", "options": [{"text": "a. Currently, our company has no AI system that needs maintenance.", "score": 20}, {"text": "b. While our company’s AI application systems have been implemented, they rely primarily on temporary maintenance from the R&D team or the IT department, lacking a comprehensive AI operation-maintenance framework.", "score": 40}, {"text": "c. While AI application systems have been implemented and basic operation-maintenance procedures (such as routine monitoring and error correction) have been established, automated monitoring and continuous AI model optimization have not yet been carried out.", "score": 60}, {"text": "d. AI systems have been incorporated into our company’s IT operation/maintenance framework, which can provide AI-powered technological monitoring (MLOps/AIOps) and optimization mechanisms, and regularly update AI models and relevant data based on business needs.", "score": 80}, {"text": "e. AI systems have been integrated with automated model monitoring, anomaly prediction, and data feedback mechanisms, and possess continuous learning, model self-optimization, and self-adaptation capabilities, enabling the systems to operate without frequent human intervention. AI systems’ automated operation-maintenance is reaching maturity.", "score": 100}]}]}, {"id": "dim_5", "number": "V", "title": "Operational Benefits from AI-powered Digital Transformation", "questions": [{"id": "q16", "num_str": "5-1 Benefits from introduced AI applications", "text": "16. Since introducing AI systems, has your company received your expected operational benefits and achieved your business goals set for AI-powered digital transformation?", "type": "single", "options": [{"text": "a. There are no plans to introduce AI; or the benefits of AI introduction have not been evaluated.", "score": 20}, {"text": "b. It is difficult to evaluate the benefits of AI introduction at this stage.", "score": 40}, {"text": "c. A preliminary evaluation of the benefits of AI introduction shows that they are not meeting expectations; therefore, continuous optimization is required.", "score": 60}, {"text": "d. The introduced AI pilot projects or application services have produced early-stage operational benefits.", "score": 80}, {"text": "e. The benefits of AI introduction have been specifically quantified, which indicates high-level benefits and the achievement of AI digital transformation goals.", "score": 100}]}, {"id": "q17", "num_str": "5-2 ROI from introducing AI", "text": "17. Regarding your company’s investment in AI development, is the ROI meeting your set targets?", "type": "single", "options": [{"text": "a. There are no plans to introduce AI; or the ROI has not been estimated.", "score": 20}, {"text": "b. Some research has been done; yet the ROI is still hard to quantify and evaluate.", "score": 40}, {"text": "c. Estimation approaches are in place; the ROI has not met expectations.", "score": 60}, {"text": "d. Estimation approaches are in place; the ROI has met basic expectations.", "score": 80}, {"text": "e. Estimation approaches are in place; the ROI indicates significant benefits.", "score": 100}]}]}, {"id": "dim_aux", "number": "A", "title": "Company’s Operational Goals and Pain Points", "is_auxiliary": true, "questions": [{"id": "q18", "num_str": "A-1 Business fields where operational pain points exist", "text": "18. In addition to the currently introduced AI applications, are there other operational pain points or business scenarios for which your company plans to introduce AI solutions at the next stage?", "type": "multiple", "options": [{"text": "a. Product R&D and design"}, {"text": "b. Production process"}, {"text": "c. Supply chain management"}, {"text": "d. Quality testing"}, {"text": "e. Equipment maintenance"}, {"text": "f. Facility management"}, {"text": "g. Factory carbon emissions and energy consumption"}, {"text": "h. Business-related customer service"}, {"text": "i. Operational management and marketing"}, {"text": "j. Human resources"}, {"text": "k. Logistics and warehousing"}, {"text": "l. Other", "has_input": true}]}, {"id": "q19", "num_str": "A-2 Challenges in introducing AI", "text": "19. Whatever AI adoption stage your company is currently at, what have been your primary challenges to adopting AI or implementing AI projects?", "type": "multiple", "options": [{"text": "a. Currently no AI adoption needs"}, {"text": "b. Too costly to introduce AI"}, {"text": "c. Lack of relevant technical talent"}, {"text": "d. Target benefits are difficult to quantify"}, {"text": "e. Risks are difficult to assess"}, {"text": "f. Organization’s culture does not support innovation"}, {"text": "g. Concerns about company data leaks"}, {"text": "h. Company data has not been integrated yet"}, {"text": "i. Leaders’ insufficient understanding of AI"}, {"text": "j. Inadequate IT infrastructure"}, {"text": "k. AI system stability and reliability is unsatisfactory"}, {"text": "l. High maintenance and upgrade costs"}, {"text": "m. High energy consumption/cost; fails to meet company’s energy-saving and carbon reduction targets"}, {"text": "n. Other", "has_input": true}]}]}]};
+        const toolboxDatabase = [{"category": "a. Product R&D and design", "keywords": ["Product R&D and design", "R&D", "design", "Generative design", "simulation"], "tools": [{"name": "Generative Design & CAD Simulation AI", "provider": "CAD/CAM AI Solutions", "tech": "Generative Design, Finite Element Simulation AI", "benefit": "Automates 3D CAD modeling and structural generative optimization, cutting product design cycles by 40%.", "url": "https://ai-readiness.aimfg.org.tw"}, {"name": "AI Formula & Material Recipe Optimizer", "provider": "Smart Materials Tech", "tech": "Machine Learning Recipe Prediction", "benefit": "Predicts physical properties of chemical/material formulas to reduce R&D trial-and-error costs."}]}, {"category": "b. Production process", "keywords": ["Production process", "Scheduling optimization", "process parameter monitoring"], "tools": [{"name": "AI Advanced Planning & Dynamic Scheduling (APS)", "provider": "Smart Manufacturing Operations", "tech": "Constraint Satisfaction, Reinforcement Learning", "benefit": "Dynamically adjusts production scheduling upon urgent orders or machine breakdowns, improving OEE by 25%.", "url": "https://ai-readiness.aimfg.org.tw"}, {"name": "Process Parameter Real-Time Optimizer", "provider": "Process Intelligence Co.", "tech": "Time-series Anomaly Detection, Neural Networks", "benefit": "Monitors multi-sensor parameters in real time to prevent yield drops during complex manufacturing."}]}, {"category": "c. Supply chain management", "keywords": ["Supply chain management", "Demand forecasting", "Supplier risk"], "tools": [{"name": "AI Demand Forecasting & Inventory Optimizer", "provider": "Supply Chain AI Labs", "tech": "XGBoost, Recurrent Neural Networks", "benefit": "Predicts multi-tier customer demand fluctuations to optimize safety stock levels and reduce inventory holding costs by 30%."}]}, {"category": "d. Quality testing", "keywords": ["Quality testing", "AOI visual recognition", "defect prediction"], "tools": [{"name": "AI AOI Defect Inspection & Classification System", "provider": "VisionAI Technologies", "tech": "Computer Vision (YOLOv8, Swin Transformer)", "benefit": "Replaces manual visual inspection with 99.5% accuracy, reducing false kill rates and inspection cycle times."}, {"name": "Virtual Metrology & Defect Early-Warning System", "provider": "Precision Quality AI", "tech": "Deep Learning Regression Models", "benefit": "Predicts wafer/component dimensions without destructive testing, detecting quality anomalies in advance."}]}, {"category": "e. Equipment maintenance", "keywords": ["Equipment maintenance", "Predictive maintenance", "Vibration analysis"], "tools": [{"name": "Equipment Predictive Maintenance & Vibration Diagnostic (PdM)", "provider": "Industrial IoT & PdM Corp", "tech": "Vibration Spectrum Analysis, Anomaly Detection AI", "benefit": "Detects bearing wear and motor anomalies weeks before catastrophic failure, eliminating unplanned downtime."}]}, {"category": "f. Facility management / Energy", "keywords": ["Facility management", "Factory carbon emissions and energy consumption"], "tools": [{"name": "Smart Factory Energy Optimization & Carbon Footprint AI", "provider": "Green Tech Automation", "tech": "HVAC Control AI, Carbon Accounting Analytics", "benefit": "Optimizes HVAC and chiller operations, achieving 15-20% electricity savings and automated ESG carbon reporting."}]}, {"category": "g. Operational management, Marketing & HR", "keywords": ["Business-related customer service", "Operational management and marketing", "Human resources", "Logistics and warehousing"], "tools": [{"name": "Enterprise Generative AI Knowledge Assistant & Chatbot", "provider": "Enterprise GenAI Solutions", "tech": "LLM, Retrieval-Augmented Generation (RAG)", "benefit": "Indexes internal SOPs and technical manuals for instant staff query resolution and automated customer service response."}]}];
+
+        const { createApp } = Vue;
+
+        // q13 option index -> toolbox Chinese category tag (for matching)
+        const TOOLBOX_Q13_MAP = {
+            0: '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
+            1: '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
+            2: '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
+            3: '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
+            4: '3. 設備與維護類（無預警停機、找不到故障點...）',
+            5: '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+            6: '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+            7: '8. 儀表板或戰情中心（協助跨部門溝通）',
+            8: '8. 儀表板或戰情中心（協助跨部門溝通）',
+            9: '7. 人機協作與知識類（經驗斷層、操作複雜...）',
+            10: '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+        };
+
+
+
+
+        function matchToolboxTools(answers) {
+            const selected = answers?.multiple?.q13 || [];
+            const categories = selected.map(i => TOOLBOX_Q13_MAP[i]).filter(Boolean);
+            const q19Sel = answers?.multiple?.q19 || [];
+            const q19Options = typeof surveyData !== 'undefined' ? surveyData.dimensions.flatMap(d => d.questions).find(q => q.id === 'q19')?.options || [] : [];
+            const q18Sel = answers?.multiple?.q18 || [];
+            const q18Options = typeof surveyData !== 'undefined' ? surveyData.dimensions.flatMap(d => d.questions).find(q => q.id === 'q18')?.options || [] : [];
+
+            const q13CatMap = {
+                'Product R&D and design': '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
+                'Production process': '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
+                'Supply chain management': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
+                'Quality testing': '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
+                'Equipment maintenance': '3. 設備與維護類（無預警停機、找不到故障點...）',
+                'Facility management': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+                'Factory carbon emissions and energy consumption': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+                'Business-related customer service': '8. 儀表板或戰情中心（協助跨部門溝通）',
+                'Operational management and marketing': '8. 儀表板或戰情中心（協助跨部門溝通）',
+                'Human resources': '7. 人機協作與知識類（經驗斷層、操作複雜...）',
+                'Logistics and warehousing': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+            };
+
+            const q19PainMap = {
+                'Currently no AI adoption needs': ['9. 其他／未分類'],
+                'Too costly to introduce AI': ['9. 其他／未分類'],
+                'Lack of relevant technical talent': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
+                'Target benefits are difficult to quantify': ['8. 儀表板或戰情中心（協助跨部門溝通）'],
+                'Risks are difficult to assess': ['9. 其他／未分類'],
+                'Organization\'s culture does not support innovation': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
+                'Concerns about company data leaks': ['9. 其他／未分類'],
+                'Company data has not been integrated yet': ['8. 儀表板或戰情中心（協助跨部門溝通）'],
+                'Leaders\' insufficient understanding of AI': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
+                'Inadequate IT infrastructure': ['9. 其他／未分類'],
+                'AI system stability and reliability is unsatisfactory': ['3. 設備與維護類（無預警停機、找不到故障點...）'],
+                'High maintenance and upgrade costs': ['3. 設備與維護類（無預警停機、找不到故障點...）'],
+                'High energy consumption/cost; fails to meet company\'s energy-saving and carbon reduction targets': ['5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）'],
+                'Other': ['9. 其他／未分類']
+            };
+
+            const q18CatMap = {
+                'Product R&D and design': '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
+                'Production process': '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
+                'Supply chain management': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
+                'Quality testing': '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
+                'Equipment maintenance': '3. 設備與維護類（無預警停機、找不到故障點...）',
+                'Facility management': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+                'Factory carbon emissions and energy consumption': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
+                'Business-related customer service': '8. 儀表板或戰情中心（協助跨部門溝通）',
+                'Operational management and marketing': '8. 儀表板或戰情中心（協助跨部門溝通）',
+                'Human resources': '7. 人機協作與知識類（經驗斷層、操作複雜...）',
+                'Logistics and warehousing': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+            };
+
+            const painKeywords = [
+                ...q19Sel.flatMap(i => (q19PainMap[(q19Options[i]?.text || '').trim()]) || []),
+                ...q18Sel.map(i => q18CatMap[(q18Options[i]?.text || '').trim()]).filter(Boolean)
+            ];
+            const cats = [...categories, ...painKeywords];
+            if (!cats.length) return [];
+
+            const q14 = typeof answers?.single?.q14 === 'number' ? answers.single.q14 : -1;
+            const q15 = typeof answers?.single?.q15 === 'number' ? answers.single.q15 : -1;
+            const hay = (s) => (s || '').toLowerCase();
+            const advancedTerms = ['mlops', 'aiops', '自動化', 'self-optim', 'continuous learning', '自適應', '異常預測', '模型自我優化'];
+            const beginnerTerms = ['ready', 'proven', '快速', '1週內', '一天', '上線', '低成本'];
+
+            return (typeof TOOLBOX_TOOLS !== 'undefined' ? TOOLBOX_TOOLS : []).map(t => {
+                const txt = [t.name, t.benefit, t.provider, t.production_pain, t.non_production, ...(t.pain_tags || []), ...(t.industry_tags || [])].map(hay).join(' ');
+                const techTxt = hay(t.tech || '') + ' ' + hay(t.benefit || '');
+                let score = 0;
+                const reasons = [];
+                // category relevance
+                for (const cat of cats) {
+                    if (txt.includes(cat.toLowerCase())) {
+                        score += 3;
+                        reasons.push('Category match');
+                        break;
+                    }
+                }
+                // q14 weighting
+                if (q14 >= 0) {
+                    const apiFull = txt.includes('完整 api');
+                    const cloudOnly = !(txt.includes('本地端') && t.deployment) && (txt.includes('雲端') || txt.includes('saas'));
+                    if (q14 <= 40) {
+                        if (cloudOnly) { score += 2; reasons.push('Low-code SaaS'); }
+                        if (apiFull) { score -= 1; reasons.push('API required'); }
+                    } else if (q14 >= 80) {
+                        if (apiFull) { score += 2; reasons.push('Full API integration'); }
+                    }
+                }
+                // q15 weighting
+                if (q15 >= 0) {
+                    if (q15 >= 80) {
+                        if (advancedTerms.some(term => techTxt.includes(term))) { score += 2; reasons.push('Advanced MLOps ready'); }
+                    } else if (q15 <= 40) {
+                        if (beginnerTerms.some(term => techTxt.includes(term))) { score += 1; reasons.push('Fast deployment'); }
+                    }
+                }
+                return { tool: t, score, reasons: [...new Set(reasons)] };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 8)
+            .map(item => ({ ...item.tool, __reason: item.reasons.join(', ') }));
+        }
+
+        createApp({
+            data() {
+                return {
+                    surveyData: surveyData,
+                    toolboxDatabase: toolboxDatabase,
+                    currentStep: 0,
+                    errorMessage: '',
+                    stepTitles: [
+                        "Company Information",
+                        "I. Data & Basic Facilities",
+                        "II. Resource Investment",
+                        "III. Strategy Planning",
+                        "IV. Operation & Maintenance",
+                        "V. Operational Benefits",
+                        "A. Operational Pain Points"
+                    ],
+                    form: {
+                        company_name: '',
+                        tax_id: '',
+                        sub_industry: '',
+                        position_level: '',
+                        department: [],
+                        email: ''
+                    },
+                    answers: {
+                        matrix: {
+                            q1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        single: {
+                            q2: null, q3: null, q4: null, q5: null, q6: null,
+                            q7: null, q8: null, q9: null, q12: null, q14: null,
+                            q15: null, q16: null, q17: null
+                        },
+                        multiple: {
+                            q10: [], q11: [], q13: [], q18: [], q19: []
+                        },
+                        other_inputs: {
+                            q18: '', q19: ''
+                        }
+                    },
+                    chartInstance: null
+                }
+            },
+            computed: {
+                dimensionScores() {
+                    const dims = this.surveyData.dimensions.slice(0, 5);
+                    return dims.map(dim => {
+                        let total = 0;
+                        let count = dim.questions.length;
+                        
+                        dim.questions.forEach(q => {
+                            if (q.type === 'matrix') {
+                                let rows = this.answers.matrix[q.id] || [];
+                                let sum = rows.reduce((acc, val) => acc + q.col_scores[val], 0);
+                                total += (sum / (rows.length * 100)) * 100;
+                            } else if (q.type === 'single') {
+                                let idx = this.answers.single[q.id];
+                                if (idx !== null && idx !== undefined) {
+                                    total += q.options[idx].score;
+                                }
+                            } else if (q.type === 'multiple') {
+                                let selected = this.answers.multiple[q.id] || [];
+                                let sum = selected.reduce((acc, idx) => acc + (q.options[idx] ? q.options[idx].score : 0), 0);
+                                total += Math.min(100, sum);
+                            }
+                        });
+
+                        return {
+                            number: dim.number,
+                            title: dim.title,
+                            score: Math.round(total / count)
+                        };
+                    });
+                },
+                overallScore() {
+                    const scores = this.dimensionScores.map(d => d.score);
+                    if (scores.length === 0) return 0;
+                    return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+                },
+                maturityStage() {
+                    const score = this.overallScore;
+                    if (score < 30) {
+                        return {
+                            level: "Level 1",
+                            title: "AI Unaware / Evaluation Phase",
+                            description: "The company is at an early stage of digitalization. Data is scattered in silos, and no dedicated AI investments or governance policies exist.",
+                            recommendations: [
+                                "Establish basic digitalization (ERP/MES/WMS) and data collection frameworks.",
+                                "Conduct foundational AI literacy workshops for leadership and key department heads.",
+                                "Identify low-hanging fruit business scenarios for potential PoC (Proof of Concept) evaluation."
+                            ]
+                        };
+                    } else if (score < 50) {
+                        return {
+                            level: "Level 2",
+                            title: "AI Exploring / PoC Phase",
+                            description: "Some departments have initiated automated controls or initial PoCs. Strategy and dedicated budget allocation are starting to take shape.",
+                            recommendations: [
+                                "Promote cross-departmental data interoperability and IIoT connectivity on key production lines.",
+                                "Form an interdepartmental task force to oversee AI trial projects and evaluate ROI.",
+                                "Implement foundational data governance standards and basic cyber-security policies."
+                            ]
+                        };
+                    } else if (score < 70) {
+                        return {
+                            level: "Level 3",
+                            title: "AI Practicing / Expansion Phase",
+                            description: "AI applications have been introduced into specific production or business processes with initial operational benefits.",
+                            recommendations: [
+                                "Establish a dedicated AI promotion unit and recruit/upskill technical AI talent.",
+                                "Adopt MLOps frameworks to automate model monitoring, retraining, and maintenance.",
+                                "Formulate Trustworthy AI guidelines including data privacy, transparency, and human oversight."
+                            ]
+                        };
+                    } else if (score < 88) {
+                        return {
+                            level: "Level 4",
+                            title: "AI Optimizing / Integrated Phase",
+                            description: "AI is deeply integrated into key manufacturing workflows with GPU server infrastructure and quantified ROI.",
+                            recommendations: [
+                                "Deploy hybrid cloud/edge computing architecture for real-time edge AI inference.",
+                                "Expand AI usage to supply chain optimization, automated quality inspection, and predictive maintenance.",
+                                "Establish automated data feedback loops to achieve self-learning AI models."
+                            ]
+                        };
+                    } else {
+                        return {
+                            level: "Level 5",
+                            title: "AI Leading / Transformation Champion",
+                            description: "AI serves as a core strategic driver. Autonomous AI systems run with continuous learning, self-optimization, and high quantifiable ROI.",
+                            recommendations: [
+                                "Set industry AI benchmark standards and explore AI-driven business model innovation.",
+                                "Integrate generative AI and agentic workflows across end-to-end lifecycle management.",
+                                "Lead sustainable AI initiatives focusing on carbon emission reduction and energy optimization."
+                            ]
+                        };
+                    }
+                },
+                maturityStageClass() {
+                    const level = this.maturityStage.level;
+                    if (level === 'Level 1') return 'bg-slate-100 text-slate-800';
+                    if (level === 'Level 2') return 'bg-amber-100 text-amber-800';
+                    if (level === 'Level 3') return 'bg-blue-100 text-blue-800';
+                    if (level === 'Level 4') return 'bg-purple-100 text-purple-800';
+                    return 'bg-emerald-100 text-emerald-800';
+                },
+                matchedTools() {
+                    return matchToolboxTools(this.answers) || [];
+                }
+            },
+            methods: {
+                nextStep() {
+                    this.errorMessage = '';
+                    this.currentStep++;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                prevStep() {
+                    this.errorMessage = '';
+                    if (this.currentStep > 0) this.currentStep--;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                validateAndNext() {
+                    this.errorMessage = '';
+                    if (this.currentStep === 1) {
+                        if (!this.form.company_name.trim()) {
+                            this.errorMessage = 'Please enter your company name.';
+                            return;
+                        }
+                        if (!this.form.tax_id.trim()) {
+                            this.errorMessage = 'Please enter your Tax ID / Registration No.';
+                            return;
+                        }
+                        if (!this.form.sub_industry) {
+                            this.errorMessage = 'Please select your sub-industry.';
+                            return;
+                        }
+                        if (!this.form.position_level) {
+                            this.errorMessage = 'Please select your position level.';
+                            return;
+                        }
+                        if (this.form.department.length === 0) {
+                            this.errorMessage = 'Please select at least one department.';
+                            return;
+                        }
+                        if (!this.form.email.trim() || !this.form.email.includes('@')) {
+                            this.errorMessage = 'Please enter a valid email address.';
+                            return;
+                        }
+                    } else if (this.currentStep >= 2 && this.currentStep <= 6) {
+                        const dimIdx = this.currentStep - 2;
+                        const dim = this.surveyData.dimensions[dimIdx];
+                        for (let q of dim.questions) {
+                            if (q.type === 'single' && this.answers.single[q.id] === null) {
+                                this.errorMessage = `Please answer question ${q.num_str}.`;
+                                return;
+                            }
+                        }
+                    }
+                    this.nextStep();
+                },
+                handleMultipleChange(qId, oIdx, isExclusive) {
+                    if (isExclusive) {
+                        this.answers.multiple[qId] = [oIdx];
+                    } else {
+                        const q = this.findQuestion(qId);
+                        const exclIdx = q.options.findIndex(o => o.exclusive);
+                        if (exclIdx !== -1) {
+                            this.answers.multiple[qId] = this.answers.multiple[qId].filter(i => i !== exclIdx);
+                        }
+                    }
+                },
+                findQuestion(qId) {
+                    for (let dim of this.surveyData.dimensions) {
+                        for (let q of dim.questions) {
+                            if (q.id === qId) return q;
+                        }
+                    }
+                    return null;
+                },
+                toolField(tool, field) {
+                    if (!tool) return '';
+                    const enVal = tool[field + '_en'];
+                    if (enVal && enVal !== tool[field]) return enVal;
+                    return tool[field] || '';
+                },
+                submitAssessment() {
+                    this.currentStep = 8;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.$nextTick(() => {
+                        this.renderChart();
+                    });
+                },
+                loadTestData() {
+                    this.form.company_name = 'Test Manufacturing Co.';
+                    this.form.tax_id = '12345678';
+                    this.form.sub_industry = 'C23 Manufacture of Other Non-metallic Mineral Products';
+                    this.form.position_level = 'b. Departmental middle-/senior-level supervisor';
+                    this.form.department = ['a. Manufacturing-related department', 'g. AI-promotion-related department'];
+                    this.form.email = 'test@example.com';
+                    this.answers.matrix.q1 = [2,2,2,2,2,2,2,2,2,2];
+                    this.answers.single = {
+                        q2: 3, q3: 3, q4: 2, q5: 3, q6: 3, q7: 2,
+                        q8: 3, q9: 2, q12: 3, q14: 1, q15: 2,
+                        q16: 3, q17: 3
+                    };
+                    this.answers.multiple = {
+                        q10: [0,3,5], q11: [2,5], q13: [1,3,4],
+                        q18: [5,6], q19: [1,2,12]
+                    };
+                    this.answers.other_inputs = { q18: '', q19: '' };
+                    this.submitAssessment();
+                },
+                renderChart() {
+                    const ctx = document.getElementById('radarChart').getContext('2d');
+                    if (this.chartInstance) {
+                        this.chartInstance.destroy();
+                    }
+
+                    const labels = this.dimensionScores.map(d => d.number + '. ' + d.title.split(' ')[0]);
+                    const dataScores = this.dimensionScores.map(d => d.score);
+
+                    this.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Maturity Score',
+                                data: dataScores,
+                                backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                                borderColor: 'rgba(37, 99, 235, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: 'rgba(37, 99, 235, 1)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(37, 99, 235, 1)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                r: {
+                                    angleLines: { color: 'rgba(203, 213, 225, 0.5)' },
+                                    grid: { color: 'rgba(203, 213, 225, 0.5)' },
+                                    pointLabels: { font: { size: 10, weight: 'bold' }, color: '#334155' },
+                                    suggestedMin: 0,
+                                    suggestedMax: 100
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false }
+                            }
+                        }
+                    });
+                },
+                printReport() {
+                    window.print();
+                },
+                restartSurvey() {
+                    this.currentStep = 0;
+                    this.errorMessage = '';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
