@@ -1,0 +1,780 @@
+{
+  "title": "Manufacturing Industry AI Maturity Survey",
+  "sub-title": "Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?",
+  "intro": "In the wave of smart manufacturing, AI technology is becoming a critical tool for manufacturing companies to improve efficiency, reduce costs, and strengthen competitiveness. Through this index, you can quickly diagnose your company's current AI application status, identify gaps compared to industry benchmarks, and obtain exclusive recommendations to accelerate digital transformation and secure a leading position in the future of manufacturing.",
+  "company_info": {
+    "title": "Company Information",
+    "fields": [
+      {
+        "id": "company_name",
+        "label": "Company name:",
+        "type": "text",
+        "required": true
+      },
+      {
+        "id": "tax_id",
+        "label": "Tax ID:",
+        "type": "text",
+        "required": true
+      },
+      {
+        "id": "date",
+        "label": "Date:",
+        "type": "date",
+        "required": false
+      },
+      {
+        "id": "sub_industry",
+        "label": "Sub-industry",
+        "desc": "Specify your sub-industry (based on the Standard Industrial Classification System established by the Executive Yuan’s Directorate General of Budget, Accounting and Statistics, DGBAS) below.",
+        "type": "select",
+        "required": true,
+        "options": [
+          "Non-C Section Manufacture",
+          "C08 Manufacture of Food & Feed Products",
+          "C09 Manufacture of Beverages",
+          "C10 Manufacture of Tobacco Products",
+          "C11 Manufacture of Textiles",
+          "C12 Manufacture of Wearing Apparel and Clothing Accessories",
+          "C13 Manufacture of Leather, Fur and Related Products",
+          "C14 Manufacture of Wood and of Products of Wood and Bamboo",
+          "C15 Manufacture of Paper and Paper Products",
+          "C16 Printing and Reproduction of Recorded Media",
+          "C17 Manufacture of Petroleum and Coal Products",
+          "C18 Manufacture of Chemical Material and Fertilizers",
+          "C19 Manufacture of Other Chemical Products",
+          "C20 Manufacture of Pharmaceuticals and Medicinal Chemical Products",
+          "C21 Manufacture of Rubber Products",
+          "C22 Manufacture of Plastics Products",
+          "C23 Manufacture of Other Non-metallic Mineral Products",
+          "C24 Manufacture of Basic Metals",
+          "C25 Manufacture of Fabricated Metal Products",
+          "C26 Manufacture of Electronic Parts and Components",
+          "C27 Manufacture of Computers, Electronic and Optical Products",
+          "C28 Manufacture of Electrical Equipment",
+          "C29 Manufacture of Machinery and Equipment",
+          "C30 Manufacture of Motor Vehicles and Parts",
+          "C31 Manufacture of Other Transport Equipment and Parts",
+          "C32 Manufacture of Furniture",
+          "C33 Other Manufacturing",
+          "C34 Repair and Installation of Industrial Machinery and Equipment"
+        ]
+      },
+      {
+        "id": "position_level",
+        "label": "Respondent’s position level",
+        "desc": "Specify your job title/position level below.",
+        "type": "select",
+        "required": true,
+        "options": [
+          "a. C-suite (CEO/CTO/COO/CMO)",
+          "b. Departmental middle-/senior-level supervisor",
+          "c. Business unit junior-level supervisor",
+          "d. Senior employee/general employee (non-managerial position)",
+          "e. Non-worker (Student/military or police personnel/retiree, etc.)"
+        ]
+      },
+      {
+        "id": "department",
+        "label": "Respondent’s department",
+        "desc": "Specify your department (If there are more than one respondent, multiple departments can be specified)",
+        "type": "checkbox_group",
+        "required": true,
+        "options": [
+          "a. Manufacturing-related department",
+          "b. Information-related department",
+          "c. R&D department",
+          "d. Business-related department",
+          "e. Marketing-related department",
+          "f. Office of the President/CEO/Other Level-one Executive",
+          "g. AI-promotion-related department",
+          "h. Administrative management department",
+          "i. Other department"
+        ]
+      },
+      {
+        "id": "email",
+        "label": "Respondent Email",
+        "desc": "Specify your email address below.",
+        "type": "email",
+        "required": true
+      }
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "dim_1",
+      "number": "I",
+      "title": "Data & Basic Facilities",
+      "questions": [
+        {
+          "id": "q1",
+          "num_str": "1-1 Level of digitization",
+          "text": "1. How is your company adopting digital information systems in manufacturing?",
+          "type": "matrix",
+          "columns": [
+            "a. No plans for introduction/still under evaluation",
+            "b. System currently under development",
+            "c. System introduced and in use"
+          ],
+          "col_scores": [
+            0,
+            50,
+            100
+          ],
+          "rows": [
+            "1.1 Manufacturing execution systems (MES)",
+            "1.2 Equipment management systems (EMS)",
+            "1.3 Advanced planning & scheduling (APS) systems",
+            "1.4 Recipe management systems (RMS)",
+            "1.5 Warehouse management systems (WMS)",
+            "1.6 Product lifecycle management (PLM) systems",
+            "1.7 Enterprise resource planning (ERP) systems",
+            "1.8 Supply chain management (SCM) systems",
+            "1.9 Customer relationship management (CRM) systems",
+            "1.10 Enterprise business intelligence (BI) decision support & management systems"
+          ]
+        },
+        {
+          "id": "q2",
+          "num_str": "1-2 Level of industrial IoT (IIoT) integration",
+          "text": "2. Are your company’s current production lines or factory facilities capable of connecting to the internet and automatically collecting data?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Most production line facilities still require manual operation and are not yet fully automated.",
+              "score": 20
+            },
+            {
+              "text": "b. Most production line facilities are still at the automated control stage and have not yet adopted industrial IoT (IIoT).",
+              "score": 40
+            },
+            {
+              "text": "c. In our production line facilities, IIoT is implemented only on the primary machinery of a small number of key production lines.",
+              "score": 60
+            },
+            {
+              "text": "d. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where single-machine and full-line visualization applications are adopted.",
+              "score": 80
+            },
+            {
+              "text": "e. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where two-way remote operation/control has been achieved.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q3",
+          "num_str": "1-3 Degree of data integration",
+          "text": "3. What is the degree of integration between your company’s system data collection and data connection?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Most of our operations have not adopted digital systems, and no data has been accumulated.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company has its own information systems, most of which operate independently and are not connected.",
+              "score": 40
+            },
+            {
+              "text": "c. Some of our company’s information systems have already been connected, allowing for application and data interoperability.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company’s information systems have connected to external third-party data resource; a “data management platform” has been established to centralize and compile all information.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has achieved flexible data utilization within its internal information systems, and has established a “data dashboard” for visualized data analysis, which can be used for corporate business strategy analysis.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q4",
+          "num_str": "1-4 Server computing capacity",
+          "text": "4. What server computing and storage resource environments does your company currently use to support its AI-related applications?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Our company does not use any servers or computing equipment to provide AI application services.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company uses “GPU-free” basic servers or computing equipment for data storage, access, and AI application services.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company has established its own GPU-powered servers or accessed them through cloud services to deploy its AI application services.",
+              "score": 60
+            },
+            {
+              "text": "d. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services to train and deploy AI models for its AI application service development.",
+              "score": 80
+            },
+            {
+              "text": "e. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services, and has self-developed onsite edge computing terminal devices to train and deploy AI models, thereby developing its own real-time AI edge computing application services.",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dim_2",
+      "number": "II",
+      "title": "Resource Investment for AI Development",
+      "questions": [
+        {
+          "id": "q5",
+          "num_str": "2-1 Capital investment",
+          "text": "5. In response to the introduction of AI applications for digital transformation, based on your estimate, what level of resources does your company allocate to AI-related investment in its annual plans? (Include software, hardware, projects, personnel recruitment, etc.)",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. At present, we have no plans regarding AI personnel recruitment, software/hardware, or application development.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company has developed plans to recruit AI personnel, but has no budget for related software/hardware or application development.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company has developed investment plans for AI software, hardware, or applications, but has no plans to invest in AI-related talent.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company has developed investment plans for AI personnel recruitment, software/hardware, and application development.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has dedicated departments and budget to implement plans for AI personnel, software/hardware, and applications.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q6",
+          "num_str": "2-2 Personnel training",
+          "text": "6. Has your company established any education/training mechanisms to provide AI-related training courses/resources for employees?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Currently, our company has no need for AI courses/training and no related plans.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company has not provided any AI-related training resources; instead, supervisors encourage employees to take the initiative in learning AI-related knowledge and applications.",
+              "score": 40
+            },
+            {
+              "text": "c. While our company has not established internal AI training resources, we encourage employees to proactively participate in external AI training courses and provides modest course subsidies.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company has established initial-phase AI training mechanisms, and encourages employees to participate in external training courses. Internal AI training courses are only provided for a small number of key personnel.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has established comprehensive AI personnel cultivation mechanisms and regularly provides internal courses and external training opportunities for employees across various roles.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q7",
+          "num_str": "2-3 AI technical personnel",
+          "text": "7. When promoting the introduction of AI, does your company employ any AI technical staff specializing in AI algorithms, model training, software development, etc.?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Our company has no designated headcount for AI technical roles.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company has no dedicated AI technical personnel, but its information management office is responsible for AI application assessment, development and operation/maintenance.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company has designated a few AI technical personnel in its information management office to be responsible for AI application assessment, development and operation/maintenance.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company has established an AI team in its information management office to be responsible for AI application assessment, development and operation/maintenance.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has established a dedicated AI Technology Department, which operates independently of the information management office. The department is staffed with multiple AI professionals, and is responsible for the organization’s overall AI technology development, application promotion, and system establishment.",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dim_3",
+      "number": "III",
+      "title": "AI Strategy Planning and Management",
+      "questions": [
+        {
+          "id": "q8",
+          "num_str": "3-1 Company AI promotion strategy",
+          "text": "8. What are your company’s plans regarding its AI development strategy?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Our company has not developed or announced any AI-related development strategy.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company is beginning to develop a digital transformation strategy.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company already has a digital transformation strategy in place, but does not yet have any plans specifically for AI applications.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company already has a digital transformation strategy in place and has clearly defined the role of AI applications.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has established an independent strategic direction for AI development and set specific development goals aligned with its business strategies.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q9",
+          "num_str": "3-2 AI promotion organization",
+          "text": "9. Has your company established a dedicated department or office for promoting AI-powered digital transformation?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. No related office or department has been established yet.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company’s information or specialized department has established an AI task force to consolidate AI-related needs and task progress across various departments.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company has established an interdepartmental AI task force, which regularly reports to senior executives on AI-related needs and task progress.",
+              "score": 60
+            },
+            {
+              "text": "d. Our company has established an AI promotion task force led by senior executives to develop annual AI objectives and regularly track task progress.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has already established a formal, dedicated AI Promotion Committee formed by senior executives and relevant promotion organizations to set annual goals and regularly track progress.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q10",
+          "num_str": "3-3 Data governance systems",
+          "text": "10. Has your company established any management mechanisms for the data and information collected through digitalized systems?",
+          "type": "multiple",
+          "options": [
+            {
+              "text": "a. Our company has designated dedicated personnel or a team for data management to define and assign responsibilities for data maintenance.",
+              "score": 12.5
+            },
+            {
+              "text": "b. Our company has established data indexing systems to facilitate data retrieval.",
+              "score": 12.5
+            },
+            {
+              "text": "c. Our company has established data format standards to facilitate data consolidation and interoperability.",
+              "score": 12.5
+            },
+            {
+              "text": "d. Our company has established data quality monitoring mechanisms for data cleaning and error handling.",
+              "score": 12.5
+            },
+            {
+              "text": "e. Our company has established data/information security mechanisms such as access authorization controls, log records, and encryption protection.",
+              "score": 12.5
+            },
+            {
+              "text": "f. Our company complies with international and regional data privacy (anonymization/de-identification) regulations, such as the General Data Protection Regulation (GDPR).",
+              "score": 12.5
+            },
+            {
+              "text": "g. Our company has established data lifecycle management systems to regulate data storage and deletion procedures.",
+              "score": 12.5
+            },
+            {
+              "text": "h. Our company has established historical data version control and recovery/traceability mechanisms.",
+              "score": 12.5
+            },
+            {
+              "text": "i. None of the above.",
+              "score": 0,
+              "exclusive": true
+            }
+          ]
+        },
+        {
+          "id": "q11",
+          "num_str": "3-4 Trustworthy AI management",
+          "text": "11. Has your company developed any guidelines, regulations, or policies related to the utilization of AI systems?",
+          "type": "multiple",
+          "options": [
+            {
+              "text": "a. Transparency — Users can understand and trace AI decision-making process.",
+              "score": 14.3
+            },
+            {
+              "text": "b. Security and resilience — AI must be secure, reliable, and error-detectable, with minimized errors and resilience against attacks.",
+              "score": 14.3
+            },
+            {
+              "text": "c. Accountability — Ensure AI inference behavior is traceable, with clear team accountability for error correction and handling of relevant issues.",
+              "score": 14.3
+            },
+            {
+              "text": "d. Fairness — Ensure AI inference is impartial and free from discrimination and prejudice.",
+              "score": 14.3
+            },
+            {
+              "text": "e. Privacy and data protection — Ensure AI-processed data complies with privacy regulations and relevant protection standards, and prevent the misuse of personal data.",
+              "score": 14.3
+            },
+            {
+              "text": "f. Human oversight — AI is not allowed to make decisions entirely on its own; there must be human oversight along with emergency intervention mechanisms.",
+              "score": 14.3
+            },
+            {
+              "text": "g. Social and environmental responsibilities — AI decisions should bring positive impacts to society and the environment rather than aggravating existing problems; enterprises should avoid technology misuse.",
+              "score": 14.3
+            },
+            {
+              "text": "h. None of the above.",
+              "score": 0,
+              "exclusive": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dim_4",
+      "number": "IV",
+      "title": "Manufacturing Industry AI System Operation & Maintenance",
+      "questions": [
+        {
+          "id": "q12",
+          "num_str": "4-1 Depth of implementing AI applications",
+          "text": "12. Has your company introduced AI into its actual business processes?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Our company has not yet initiated AI research or planning.",
+              "score": 20
+            },
+            {
+              "text": "b. Our company is exploring the possibility for introducing AI into some workflows, but it has not been implemented yet.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company has implemented AI proofs of concept (PoC) in some workflows, but has not introduced them into formal business processes yet.",
+              "score": 60
+            },
+            {
+              "text": "d. AI applications have been introduced into some business processes and fields.",
+              "score": 80
+            },
+            {
+              "text": "e. AI applications have been introduced into most business processes and fields.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q13",
+          "num_str": "4-2 Level of applied AI implementation",
+          "text": "13. In which business fields has your company introduced AI pilot projects, or the projects that have progressed to AI applications?",
+          "type": "multiple",
+          "options": [
+            {
+              "text": "a. Product R&D and design",
+              "score": 9.1
+            },
+            {
+              "text": "b. Production process",
+              "score": 9.1
+            },
+            {
+              "text": "c. Supply chain management",
+              "score": 9.1
+            },
+            {
+              "text": "d. Quality testing",
+              "score": 9.1
+            },
+            {
+              "text": "e. Equipment maintenance",
+              "score": 9.1
+            },
+            {
+              "text": "f. Facility management",
+              "score": 9.1
+            },
+            {
+              "text": "g. Factory carbon emissions and energy consumption",
+              "score": 9.1
+            },
+            {
+              "text": "h. Business-related customer service",
+              "score": 9.1
+            },
+            {
+              "text": "i. Operational management and marketing",
+              "score": 9.1
+            },
+            {
+              "text": "j. Human resources",
+              "score": 9.1
+            },
+            {
+              "text": "k. Logistics and warehousing",
+              "score": 9.1
+            },
+            {
+              "text": "l. None of the above.",
+              "score": 0,
+              "exclusive": true
+            }
+          ]
+        },
+        {
+          "id": "q14",
+          "num_str": "4-3 Technical development channels",
+          "text": "14. What is the approach your company generally adopts to obtain technical support after the introduction of AI systems?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Our company has not adopted any AI technologies or platform services.",
+              "score": 20
+            },
+            {
+              "text": "b. Basically, most AI services are either outsourced or provided by AI technical service providers for comprehensive solutions.",
+              "score": 40
+            },
+            {
+              "text": "c. Our company can establish small-scale AI system services internally; most services are outsourced to external AI technical service providers.",
+              "score": 60
+            },
+            {
+              "text": "d. Most AI system services are established by our company internally; for advanced critical technologies, which account for a small portion, the company conducts joint R&D with AI technical service providers and external experts.",
+              "score": 80
+            },
+            {
+              "text": "e. Our company has accumulated profound AI technical R&D strength, so all AI system services can be handled internally by its employees.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q15",
+          "num_str": "4-4 AI system operation/maintenance and update",
+          "text": "15. With any AI system your company has introduced, what is its current operation/maintenance and update status?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. Currently, our company has no AI system that needs maintenance.",
+              "score": 20
+            },
+            {
+              "text": "b. While our company’s AI application systems have been implemented, they rely primarily on temporary maintenance from the R&D team or the IT department, lacking a comprehensive AI operation-maintenance framework.",
+              "score": 40
+            },
+            {
+              "text": "c. While AI application systems have been implemented and basic operation-maintenance procedures (such as routine monitoring and error correction) have been established, automated monitoring and continuous AI model optimization have not yet been carried out.",
+              "score": 60
+            },
+            {
+              "text": "d. AI systems have been incorporated into our company’s IT operation/maintenance framework, which can provide AI-powered technological monitoring (MLOps/AIOps) and optimization mechanisms, and regularly update AI models and relevant data based on business needs.",
+              "score": 80
+            },
+            {
+              "text": "e. AI systems have been integrated with automated model monitoring, anomaly prediction, and data feedback mechanisms, and possess continuous learning, model self-optimization, and self-adaptation capabilities, enabling the systems to operate without frequent human intervention. AI systems’ automated operation-maintenance is reaching maturity.",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dim_5",
+      "number": "V",
+      "title": "Operational Benefits from AI-powered Digital Transformation",
+      "questions": [
+        {
+          "id": "q16",
+          "num_str": "5-1 Benefits from introduced AI applications",
+          "text": "16. Since introducing AI systems, has your company received your expected operational benefits and achieved your business goals set for AI-powered digital transformation?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. There are no plans to introduce AI; or the benefits of AI introduction have not been evaluated.",
+              "score": 20
+            },
+            {
+              "text": "b. It is difficult to evaluate the benefits of AI introduction at this stage.",
+              "score": 40
+            },
+            {
+              "text": "c. A preliminary evaluation of the benefits of AI introduction shows that they are not meeting expectations; therefore, continuous optimization is required.",
+              "score": 60
+            },
+            {
+              "text": "d. The introduced AI pilot projects or application services have produced early-stage operational benefits.",
+              "score": 80
+            },
+            {
+              "text": "e. The benefits of AI introduction have been specifically quantified, which indicates high-level benefits and the achievement of AI digital transformation goals.",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "id": "q17",
+          "num_str": "5-2 ROI from introducing AI",
+          "text": "17. Regarding your company’s investment in AI development, is the ROI meeting your set targets?",
+          "type": "single",
+          "options": [
+            {
+              "text": "a. There are no plans to introduce AI; or the ROI has not been estimated.",
+              "score": 20
+            },
+            {
+              "text": "b. Some research has been done; yet the ROI is still hard to quantify and evaluate.",
+              "score": 40
+            },
+            {
+              "text": "c. Estimation approaches are in place; the ROI has not met expectations.",
+              "score": 60
+            },
+            {
+              "text": "d. Estimation approaches are in place; the ROI has met basic expectations.",
+              "score": 80
+            },
+            {
+              "text": "e. Estimation approaches are in place; the ROI indicates significant benefits.",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dim_aux",
+      "number": "A",
+      "title": "Company’s Operational Goals and Pain Points",
+      "is_auxiliary": true,
+      "questions": [
+        {
+          "id": "q18",
+          "num_str": "A-1 Business fields where operational pain points exist",
+          "text": "18. In addition to the currently introduced AI applications, are there other operational pain points or business scenarios for which your company plans to introduce AI solutions at the next stage?",
+          "type": "multiple",
+          "options": [
+            {
+              "text": "a. Product R&D and design"
+            },
+            {
+              "text": "b. Production process"
+            },
+            {
+              "text": "c. Supply chain management"
+            },
+            {
+              "text": "d. Quality testing"
+            },
+            {
+              "text": "e. Equipment maintenance"
+            },
+            {
+              "text": "f. Facility management"
+            },
+            {
+              "text": "g. Factory carbon emissions and energy consumption"
+            },
+            {
+              "text": "h. Business-related customer service"
+            },
+            {
+              "text": "i. Operational management and marketing"
+            },
+            {
+              "text": "j. Human resources"
+            },
+            {
+              "text": "k. Logistics and warehousing"
+            },
+            {
+              "text": "l. Other",
+              "has_input": true
+            }
+          ]
+        },
+        {
+          "id": "q19",
+          "num_str": "A-2 Challenges in introducing AI",
+          "text": "19. Whatever AI adoption stage your company is currently at, what have been your primary challenges to adopting AI or implementing AI projects?",
+          "type": "multiple",
+          "options": [
+            {
+              "text": "a. Currently no AI adoption needs"
+            },
+            {
+              "text": "b. Too costly to introduce AI"
+            },
+            {
+              "text": "c. Lack of relevant technical talent"
+            },
+            {
+              "text": "d. Target benefits are difficult to quantify"
+            },
+            {
+              "text": "e. Risks are difficult to assess"
+            },
+            {
+              "text": "f. Organization’s culture does not support innovation"
+            },
+            {
+              "text": "g. Concerns about company data leaks"
+            },
+            {
+              "text": "h. Company data has not been integrated yet"
+            },
+            {
+              "text": "i. Leaders’ insufficient understanding of AI"
+            },
+            {
+              "text": "j. Inadequate IT infrastructure"
+            },
+            {
+              "text": "k. AI system stability and reliability is unsatisfactory"
+            },
+            {
+              "text": "l. High maintenance and upgrade costs"
+            },
+            {
+              "text": "m. High energy consumption/cost; fails to meet company’s energy-saving and carbon reduction targets"
+            },
+            {
+              "text": "n. Other",
+              "has_input": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
