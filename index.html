@@ -24,7 +24,7 @@
             .no-print { display: none !important; }
             .print-only { display: block !important; }
             body { background: white !important; color: black !important; }
-            .card-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+            .card-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; break-inside: avoid; page-break-inside: avoid; }
         }
     </style>
 </head>
@@ -417,27 +417,336 @@
                     </div>
                 </div>
 
-                <!-- Stage Description & Recommendations -->
+                <!-- Executive Strategic Gap Analysis Card -->
                 <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center space-x-2">
-                        <i class="fa-solid fa-lightbulb text-amber-500"></i>
-                        <span>Diagnosis Analysis & Action Recommendations</span>
-                    </h3>
-
-                    <div class="p-5 rounded-xl bg-amber-50/60 border border-amber-200/80 mb-6">
-                        <h4 class="font-bold text-amber-900 text-sm mb-1">Stage Profile: {{ maturityStage.title }}</h4>
-                        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">{{ maturityStage.description }}</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+                        <div>
+                            <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">
+                                <i class="fa-solid fa-compass-drafting text-[10px]"></i>
+                                <span>Strategic Diagnostic Synthesis</span>
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2 flex items-center space-x-2">
+                                <span>Enterprise Readiness & Strategic Posture</span>
+                            </h3>
+                        </div>
+                        <span class="text-xs text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+                            <i class="fa-solid fa-book-bookmark text-blue-600 mr-1.5"></i>
+                            Ref: MOEA AI Introduction Guidelines
+                        </span>
                     </div>
 
-                    <div class="space-y-4 mb-8">
-                        <h4 class="text-sm font-bold text-slate-900">Recommended Key Next Steps:</h4>
-                        <ul class="space-y-2.5">
-                            <li v-for="(rec, rIdx) in maturityStage.recommendations" :key="rIdx" class="flex items-start text-xs sm:text-sm text-slate-700">
-                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-2.5 flex-shrink-0"></i>
-                                <span>{{ rec }}</span>
-                            </li>
-                        </ul>
+                    <!-- 4 Metric Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200/80">
+                            <div class="flex items-center justify-between text-xs font-semibold text-emerald-700 mb-1">
+                                <span>Relative Strength</span>
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </div>
+                            <div class="font-bold text-sm text-slate-900 truncate">{{ strategicGapAnalysis.strongest.title }}</div>
+                            <div class="text-xs text-emerald-600 font-bold mt-1">Score: {{ strategicGapAnalysis.strongest.score }} / 100</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-rose-50/60 border border-rose-200/80">
+                            <div class="flex items-center justify-between text-xs font-semibold text-rose-700 mb-1">
+                                <span>Primary Bottleneck</span>
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="font-bold text-sm text-slate-900 truncate">{{ strategicGapAnalysis.weakest.title }}</div>
+                            <div class="text-xs text-rose-600 font-bold mt-1">Score: {{ strategicGapAnalysis.weakest.score }} / 100</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-blue-50/60 border border-blue-200/80">
+                            <div class="flex items-center justify-between text-xs font-semibold text-blue-700 mb-1">
+                                <span>Technology Sourcing</span>
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                            <div class="font-bold text-xs text-slate-900 leading-snug">{{ strategicGapAnalysis.techApproach }}</div>
+                            <div class="text-[11px] text-blue-600 mt-1">Q14 Sourcing Model</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-purple-50/60 border border-purple-200/80">
+                            <div class="flex items-center justify-between text-xs font-semibold text-purple-700 mb-1">
+                                <span>MLOps / O&M Posture</span>
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <div class="font-bold text-xs text-slate-900 leading-snug">{{ strategicGapAnalysis.omReadiness }}</div>
+                            <div class="text-[11px] text-purple-600 mt-1">Q15 Maintenance Level</div>
+                        </div>
                     </div>
+
+                    <!-- Stated Adoption Roadblocks from Q19 -->
+                    <div v-if="strategicGapAnalysis.topBarriers.length > 0" class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                            <i class="fa-solid fa-flag text-rose-500"></i>
+                            <span>Reported Transformation Roadblocks (From Q19 Assessment)</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span v-for="(barrier, bIdx) in strategicGapAnalysis.topBarriers" :key="bIdx" class="px-2.5 py-1 rounded-md text-xs font-medium bg-white text-slate-700 border border-slate-300 flex items-center space-x-1.5 shadow-2xs">
+                                <i class="fa-solid fa-circle-exclamation text-rose-400 text-[10px]"></i>
+                                <span>{{ barrier }}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Overall Stage Synthesis -->
+                    <div class="p-5 rounded-xl bg-amber-50/70 border border-amber-200">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 text-sm mb-1">Diagnostic Profile: {{ maturityStage.title }} (Score: {{ overallScore }}/100)</h4>
+                                <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">{{ maturityStage.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guidelines-Aligned 4-Phase Deep-Dive Recommendations -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                    <div class="mb-6 pb-4 border-b border-slate-100">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                            <span class="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                                <i class="fa-solid fa-award"></i>
+                                <span>Guidelines Theoretical Framework</span>
+                            </span>
+                            <span class="text-xs text-slate-400">August 2024 MOEA / MIC / III Standard</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2">
+                            Manufacturing AI Introduction: 4-Stage Deep-Dive Recommendations
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Actionable implementation directives structured according to the official four phases of enterprise smart transformation.
+                        </p>
+                    </div>
+
+                    <!-- 4 Phase Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div v-for="phase in guidelinesPhases" :key="phase.num" class="p-5 rounded-xl border bg-slate-50/50 hover:bg-white transition-all flex flex-col justify-between" :class="phase.cardBorder">
+                            <div>
+                                <div class="flex items-start justify-between gap-2 mb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-2xs" :class="phase.badgeColor">
+                                            <i :class="phase.icon"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ phase.num }}</div>
+                                            <h4 class="font-bold text-sm sm:text-base text-slate-900 leading-snug">{{ phase.title }} <span class="text-xs text-slate-500 font-normal">({{ phase.titleZh }})</span></h4>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-500 whitespace-nowrap">{{ phase.guidelinesRef }}</span>
+                                </div>
+
+                                <p class="text-xs text-slate-600 mb-3 leading-relaxed bg-white/70 p-3 rounded-lg border border-slate-100">
+                                    <span class="font-semibold text-slate-800">Target Objective:</span> {{ phase.objective }}
+                                </p>
+
+                                <div class="text-xs text-slate-700 mb-4 bg-blue-50/50 p-3 rounded-lg border border-blue-100">
+                                    <span class="font-semibold text-blue-900"><i class="fa-solid fa-crosshairs text-blue-600 mr-1"></i>Tailored Guidance:</span>
+                                    <span class="leading-relaxed text-slate-700"> {{ phase.customGuidance }}</span>
+                                </div>
+
+                                <div class="space-y-2.5 mb-4">
+                                    <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Key Execution Steps:</div>
+                                    <div v-for="(step, sIdx) in phase.steps" :key="sIdx" class="text-xs flex items-start space-x-2 bg-white p-2.5 rounded-lg border border-slate-100">
+                                        <span class="font-bold text-blue-600 flex-shrink-0 mt-0.5">{{ step.stepNum }}:</span>
+                                        <div>
+                                            <span class="font-semibold text-slate-800">{{ step.name }} — </span>
+                                            <span class="text-slate-600 leading-relaxed">{{ step.action }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-200/80">
+                                <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center space-x-1">
+                                    <i class="fa-solid fa-file-circle-check text-emerald-600"></i>
+                                    <span>Core Deliverables:</span>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span v-for="(del, dIdx) in phase.deliverables" :key="dIdx" class="text-[10px] px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-700 shadow-2xs">
+                                        {{ del }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customized 4-Stage AI Transformation Roadmap (Milestone-based Timeline) -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                    <div class="mb-6 pb-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-800">
+                                <i class="fa-solid fa-timeline text-[10px]"></i>
+                                <span>Implementation Roadmap</span>
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2">
+                                Customized 4-Stage AI Transformation Roadmap
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Phased execution milestone timeline tailored to {{ form.company_name || 'your enterprise' }}'s maturity index ({{ overallScore }}/100).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Roadmap Milestone Cards -->
+                    <div class="space-y-4">
+                        <div v-for="(m, mIdx) in guidelinesRoadmap" :key="mIdx" class="p-5 rounded-xl border transition-all" :class="m.status.text.includes('CURRENT') ? 'bg-blue-50/40 border-blue-300 ring-2 ring-blue-100' : 'bg-slate-50/50 border-slate-200'">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-200/60">
+                                <div class="flex items-center space-x-3">
+                                    <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center">
+                                        {{ mIdx + 1 }}
+                                    </span>
+                                    <div>
+                                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">{{ m.phase }} &bull; {{ m.timeframe }}</div>
+                                        <h4 class="font-bold text-base text-slate-900">{{ m.name }} <span class="text-xs text-slate-500 font-normal">({{ m.nameZh }})</span></h4>
+                                    </div>
+                                </div>
+                                <span class="text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider self-start sm:self-center" :class="m.status.badge">
+                                    {{ m.status.text }}
+                                </span>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-700 mb-3 leading-relaxed">
+                                <span class="font-semibold text-slate-900">Milestone Goal:</span> {{ m.goal }}
+                            </p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div class="bg-white p-3 rounded-lg border border-slate-200">
+                                    <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-list-check text-blue-600"></i>
+                                        <span>Key Work Packages</span>
+                                    </div>
+                                    <ul class="space-y-1.5 text-xs text-slate-600">
+                                        <li v-for="(wp, wpIdx) in m.workPackages" :key="wpIdx" class="flex items-start space-x-2">
+                                            <i class="fa-solid fa-angle-right text-blue-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>{{ wp }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col justify-between">
+                                    <div>
+                                        <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                                            <i class="fa-solid fa-box-archive text-purple-600"></i>
+                                            <span>Primary Deliverables</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-xs text-slate-600">
+                                            <li v-for="(del, delIdx) in m.deliverables" :key="delIdx" class="flex items-start space-x-2">
+                                                <i class="fa-solid fa-check text-emerald-500 mt-0.5 flex-shrink-0"></i>
+                                                <span>{{ del }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-emerald-50/70 border border-emerald-200 p-2.5 rounded-lg flex items-start space-x-2 text-xs text-emerald-800">
+                                <i class="fa-solid fa-shield-halved text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                <span><strong class="font-bold">Phase Verification Gate:</strong> {{ m.gate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guidelines AI Introduction Priority Evaluation Matrix (Ease vs Benefit) -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
+                    <div class="mb-6 pb-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                                <i class="fa-solid fa-table-cells text-[10px]"></i>
+                                <span>Guidelines Priority Evaluation Matrix</span>
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2">
+                                AI Introduction Priority Evaluation Matrix
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Operationalizing Guidelines Chapter 3 Figure 13: Mapping Implementation Feasibility (Data, Digital Maturity, HR, Budget) against Expected Business Benefits (Financial, Yield, ESG).
+                            </p>
+                        </div>
+                        <span class="text-xs text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg self-start sm:self-center">
+                            Quadrant Strategy Map
+                        </span>
+                    </div>
+
+                    <!-- 4 Quadrants Visual Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        
+                        <!-- Quadrant I: Immediate Quick Wins -->
+                        <div class="p-5 rounded-xl border border-emerald-200 bg-emerald-50/40">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">I</span>
+                                    <h4 class="font-bold text-sm text-emerald-950">Quadrant I: Immediate Quick Wins</h4>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-800">Priority 1 (Phase 3 PoC)</span>
+                            </div>
+                            <div class="text-[11px] text-emerald-800 font-semibold mb-3">High Expected Benefits &bull; High Implementation Ease</div>
+                            <div class="space-y-2">
+                                <div v-for="(item, iIdx) in priorityMatrix.q1" :key="'q1'+iIdx" class="bg-white p-3 rounded-lg border border-emerald-100 shadow-2xs">
+                                    <div class="font-bold text-xs text-slate-900">{{ item.name }}</div>
+                                    <div class="text-[11px] text-slate-600 mt-0.5 leading-relaxed">{{ item.desc }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant II: Strategic Transformations -->
+                        <div class="p-5 rounded-xl border border-blue-200 bg-blue-50/40">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">II</span>
+                                    <h4 class="font-bold text-sm text-blue-950">Quadrant II: Strategic Transformations</h4>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-200 text-blue-800">Priority 2 (Phase 2 Prep)</span>
+                            </div>
+                            <div class="text-[11px] text-blue-800 font-semibold mb-3">High Expected Benefits &bull; High Architecture Complexity</div>
+                            <div class="space-y-2">
+                                <div v-for="(item, iIdx) in priorityMatrix.q2" :key="'q2'+iIdx" class="bg-white p-3 rounded-lg border border-blue-100 shadow-2xs">
+                                    <div class="font-bold text-xs text-slate-900">{{ item.name }}</div>
+                                    <div class="text-[11px] text-slate-600 mt-0.5 leading-relaxed">{{ item.desc }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant III: Foundational Enablers -->
+                        <div class="p-5 rounded-xl border border-amber-200 bg-amber-50/40">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center">III</span>
+                                    <h4 class="font-bold text-sm text-amber-950">Quadrant III: Foundational Enablers</h4>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-800">Priority 3 (Quick Assist)</span>
+                            </div>
+                            <div class="text-[11px] text-amber-800 font-semibold mb-3">Moderate Benefits &bull; High Implementation Ease</div>
+                            <div class="space-y-2">
+                                <div v-for="(item, iIdx) in priorityMatrix.q3" :key="'q3'+iIdx" class="bg-white p-3 rounded-lg border border-amber-100 shadow-2xs">
+                                    <div class="font-bold text-xs text-slate-900">{{ item.name }}</div>
+                                    <div class="text-[11px] text-slate-600 mt-0.5 leading-relaxed">{{ item.desc }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quadrant IV: Deferred / Watchlist -->
+                        <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/60">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-slate-600 text-white font-bold text-xs flex items-center justify-center">IV</span>
+                                    <h4 class="font-bold text-sm text-slate-900">Quadrant IV: Deferred / Watchlist</h4>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700">Priority 4 (Defer)</span>
+                            </div>
+                            <div class="text-[11px] text-slate-600 font-semibold mb-3">High Complexity / Uncertainty &bull; Low Immediate ROI</div>
+                            <div class="space-y-2">
+                                <div v-for="(item, iIdx) in priorityMatrix.q4" :key="'q4'+iIdx" class="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
+                                    <div class="font-bold text-xs text-slate-800">{{ item.name }}</div>
+                                    <div class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{{ item.desc }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
                     <!-- AI Toolbox Matched Solutions Section (Will be printed into PDF) -->
                     <div class="border-t border-slate-200 pt-6">
@@ -788,6 +1097,364 @@
                     if (level === 'Level 4') return 'bg-purple-100 text-purple-800';
                     return 'bg-emerald-100 text-emerald-800';
                 },
+                strategicGapAnalysis() {
+                    const sorted = [...this.dimensionScores].sort((a, b) => a.score - b.score);
+                    const weakest = sorted[0] || { number: 'I', title: 'Data & Basic Facilities', score: 0 };
+                    const strongest = sorted[sorted.length - 1] || { number: 'V', title: 'Operational Benefits', score: 0 };
+
+                    const q19Sel = this.answers?.multiple?.q19 || [];
+                    const q19Options = [
+                        'Currently no AI adoption needs',
+                        'Too costly to introduce AI',
+                        'Lack of relevant technical talent',
+                        'Target benefits are difficult to quantify',
+                        'Risks are difficult to assess',
+                        'Organization’s culture does not support innovation',
+                        'Concerns about company data leaks',
+                        'Company data has not been integrated yet',
+                        'Leaders’ insufficient understanding of AI',
+                        'Inadequate IT infrastructure',
+                        'AI system stability and reliability is unsatisfactory',
+                        'High maintenance and upgrade costs',
+                        'High energy consumption/cost; fails to meet energy targets',
+                        'Other'
+                    ];
+                    const topBarriers = q19Sel.map(i => q19Options[i]).filter(Boolean);
+
+                    const q14Idx = typeof this.answers?.single?.q14 === 'number' ? this.answers.single.q14 : 1;
+                    const q14Labels = [
+                        'No AI Adoption Yet',
+                        'Outsourced SaaS & Solution Providers',
+                        'Hybrid (Small In-House + Outsourced)',
+                        'Internal Core R&D + Joint Co-Development',
+                        'Comprehensive In-House Technical R&D'
+                    ];
+                    const techApproach = q14Labels[q14Idx] || 'Outsourced Solutions';
+
+                    const q15Idx = typeof this.answers?.single?.q15 === 'number' ? this.answers.single.q15 : 1;
+                    const q15Labels = [
+                        'No Maintenance Framework',
+                        'Ad-hoc Maintenance (Lacks Governance)',
+                        'Routine Manual Monitoring & Error Correction',
+                        'Systematic MLOps / AIOps Updating',
+                        'Autonomous Self-Optimizing MLOps'
+                    ];
+                    const omReadiness = q15Labels[q15Idx] || 'Basic Monitoring';
+
+                    const q13Options = [
+                        'Product R&D and design', 'Production process', 'Supply chain management',
+                        'Quality testing', 'Equipment maintenance', 'Facility management',
+                        'Factory carbon emissions & energy', 'Customer service', 'Operational management',
+                        'Human resources', 'Logistics and warehousing'
+                    ];
+                    const currentApps = (this.answers?.multiple?.q13 || []).map(i => q13Options[i]).filter(Boolean);
+
+                    const q18Options = [
+                        'Product R&D and design', 'Production process', 'Supply chain management',
+                        'Quality testing', 'Equipment maintenance', 'Facility management',
+                        'Factory carbon emissions & energy', 'Customer service', 'Operational management',
+                        'Human resources', 'Logistics and warehousing'
+                    ];
+                    const futurePains = (this.answers?.multiple?.q18 || []).map(i => q18Options[i]).filter(Boolean);
+
+                    return {
+                        weakest,
+                        strongest,
+                        topBarriers,
+                        techApproach,
+                        omReadiness,
+                        currentApps,
+                        futurePains
+                    };
+                },
+                guidelinesPhases() {
+                    const analysis = this.strategicGapAnalysis;
+                    const company = this.form.company_name || 'Your Enterprise';
+                    const industry = this.form.sub_industry || 'Manufacturing';
+                    const dataScore = this.dimensionScores[0]?.score || 50;
+
+                    const p1PainText = analysis.futurePains.length > 0
+                        ? analysis.futurePains.slice(0, 3).join(', ')
+                        : 'production yield, equipment reliability, and energy efficiency';
+
+                    const p1BarrierText = analysis.topBarriers.length > 0
+                        ? `addressing key bottlenecks (${analysis.topBarriers.slice(0, 2).join('; ')})`
+                        : 'minimizing upfront adoption risks';
+
+                    return [
+                        {
+                            num: 'Phase 1',
+                            title: 'Conceptual Evaluation Phase',
+                            titleZh: '概念評估期',
+                            guidelinesRef: 'Guidelines Chapter 3 (Sec. 1–3)',
+                            icon: 'fa-solid fa-compass',
+                            badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+                            cardBorder: 'border-blue-200',
+                            objective: 'Identify high-impact business problems, inventory organizational readiness, and prioritize candidate applications using the Ease vs. Benefit Matrix.',
+                            customGuidance: `For ${company} (${industry}), Phase 1 should center on ${p1PainText}, while ${p1BarrierText} through the Guidelines 3-Questionnaire screening process.`,
+                            steps: [
+                                {
+                                    stepNum: 'Step 1',
+                                    name: 'Identify Primary Business Problems',
+                                    action: `Consolidate pain points across shop floor and business units. Prioritize target scenarios aligned with strategic business goals (${p1PainText}).`
+                                },
+                                {
+                                    stepNum: 'Step 2',
+                                    name: 'Evaluate Solutions & Enterprise Resources',
+                                    action: `Review solution delivery models matching your posture (${analysis.techApproach}). Contrast off-the-shelf SaaS against custom API integrations.`
+                                },
+                                {
+                                    stepNum: 'Step 3',
+                                    name: 'Determine Priorities via Evaluation Matrix',
+                                    action: 'Deploy the Guidelines Ease/Difficulty vs. Benefits Matrix to rank candidates and eliminate low-ROI vanity projects.'
+                                }
+                            ],
+                            deliverables: [
+                                'Business Problem & Opportunity Inventory',
+                                'AI Introduction Feasibility & Resources Assessment',
+                                'Priority Evaluation Matrix & Pilot Candidate Shortlist'
+                            ]
+                        },
+                        {
+                            num: 'Phase 2',
+                            title: 'Planning Stage',
+                            titleZh: '規劃階段',
+                            guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.1)',
+                            icon: 'fa-solid fa-sitemap',
+                            badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+                            cardBorder: 'border-indigo-200',
+                            objective: 'Define concrete quantitative KPIs, audit OT/IT data quality, validate application boundaries, and calculate comprehensive Total Cost of Ownership (TCO).',
+                            customGuidance: `With Dimension I (Data Foundation) scored at ${dataScore}/100, ${company} should ${dataScore >= 65 ? 'leverage existing telemetry pipelines' : 'prioritize basic sensor instrumentation and automated logging'} before locking in model architecture.`,
+                            steps: [
+                                {
+                                    stepNum: 'Step 1',
+                                    name: 'Define Specific AI Application Metrics',
+                                    action: 'Establish explicit quantitative targets (e.g., false reject rate <1%, unexpected downtime -20%, energy consumption -8%).'
+                                },
+                                {
+                                    stepNum: 'Step 2',
+                                    name: 'Evaluate Data Usability & Quality',
+                                    action: 'Audit data availability, labeling fidelity, sampling frequency, and OT/IT integration pipelines for the chosen pilot scope.'
+                                },
+                                {
+                                    stepNum: 'Step 3',
+                                    name: 'Determine Architecture & TCO Budgeting',
+                                    action: 'Model 3-year Total Cost of Ownership including software licensing, edge inference hardware/GPU, training, and ongoing O&M.'
+                                }
+                            ],
+                            deliverables: [
+                                'Quantitative KPI Specification & Baseline Benchmark',
+                                'Data Usability & Telemetry Readiness Report',
+                                'Pilot Project Charter & 3-Year TCO Financial Model'
+                            ]
+                        },
+                        {
+                            num: 'Phase 3',
+                            title: 'Proof of Concept (PoC) Stage',
+                            titleZh: '驗證階段',
+                            guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.2)',
+                            icon: 'fa-solid fa-vial-circle-check',
+                            badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+                            cardBorder: 'border-amber-200',
+                            objective: 'Develop agile model prototypes, validate predictive accuracy against real production data, establish human-in-the-loop workflows, and calculate real ROI.',
+                            customGuidance: `Run a disciplined 3–6 month pilot in a bounded operational cell (e.g., ${analysis.currentApps[0] || 'critical production line'}). Frontline operators must validate model recommendations before autonomous execution.`,
+                            steps: [
+                                {
+                                    stepNum: 'Step 1',
+                                    name: 'Agile Model Prototyping & Pilot Deployment',
+                                    action: 'Deploy pre-trained or fine-tuned model on an isolated edge appliance or sandbox connected to real production streams.'
+                                },
+                                {
+                                    stepNum: 'Step 2',
+                                    name: 'Determine Operating Mode & Operator Workflow',
+                                    action: 'Design human-in-the-loop validation: operators confirm AI alerts/setpoints, establishing seamless operational trust.'
+                                },
+                                {
+                                    stepNum: 'Step 3',
+                                    name: 'Calculate Verified ROI & Acceptance Gate',
+                                    action: 'Validate business metrics against baseline. Require documented financial payback or quality gains prior to plant-wide rollout.'
+                                }
+                            ],
+                            deliverables: [
+                                'PoC Model Accuracy & Validation Report',
+                                'Operator Human-in-the-Loop Standard Operating Procedure (SOP)',
+                                'Empirical ROI & Investment Payback Verification Gate'
+                            ]
+                        },
+                        {
+                            num: 'Phase 4',
+                            title: 'Adoption & Scale Stage',
+                            titleZh: '落地擴散階段',
+                            guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.3)',
+                            icon: 'fa-solid fa-arrows-split-up-and-left',
+                            badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+                            cardBorder: 'border-emerald-200',
+                            objective: 'Achieve deep factory-wide system integration, operationalize MLOps model retraining pipelines, and scale AI value across multi-site manufacturing.',
+                            customGuidance: `Upgrade ${company} from ${analysis.omReadiness} to systematic MLOps. Establish automated model drift monitoring to maintain high accuracy despite seasonal or raw-material fluctuations.`,
+                            steps: [
+                                {
+                                    stepNum: 'Step 1',
+                                    name: 'Full MES / ERP / SCADA Integration',
+                                    action: 'Connect AI inference engines into core execution systems via robust industrial APIs and automated data feedback loops.'
+                                },
+                                {
+                                    stepNum: 'Step 2',
+                                    name: 'Continuous Model Monitoring & MLOps Retraining',
+                                    action: 'Institute automated drift detection thresholds; retrain models on newly collected production batches without system interruption.'
+                                },
+                                {
+                                    stepNum: 'Step 3',
+                                    name: 'Enterprise AI Value Expansion & Culture',
+                                    action: 'Replicate validated models to parallel production lines and sister plants. Empower frontline staff through continuous AI literacy programs.'
+                                }
+                            ],
+                            deliverables: [
+                                'Enterprise MLOps Operational Runbook & Drift Alarm Architecture',
+                                'Factory-Wide Production Dashboard Integration',
+                                'Cross-Department AI Replication Playbook & Upskilling Plan'
+                            ]
+                        }
+                    ];
+                },
+                guidelinesRoadmap() {
+                    const score = this.overallScore;
+                    const analysis = this.strategicGapAnalysis;
+                    const company = this.form.company_name || 'Your Enterprise';
+
+                    let activePhase = 1;
+                    if (score >= 30 && score < 50) activePhase = 2;
+                    else if (score >= 50 && score < 70) activePhase = 3;
+                    else if (score >= 70) activePhase = 4;
+
+                    const getStatus = (phaseNum) => {
+                        if (phaseNum < activePhase) return { text: 'FOUNDATIONAL / COMPLETED', badge: 'bg-emerald-100 text-emerald-800 border border-emerald-300' };
+                        if (phaseNum === activePhase) return { text: 'CURRENT STRATEGIC FOCUS', badge: 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-300' };
+                        return { text: 'UPCOMING HORIZON', badge: 'bg-slate-100 text-slate-600 border border-slate-200' };
+                    };
+
+                    return [
+                        {
+                            phase: 'Phase 1',
+                            timeframe: 'Months 1 – 3',
+                            name: 'Conceptual Evaluation & Priority Mapping',
+                            nameZh: '概念評估與優先矩陣',
+                            status: getStatus(1),
+                            goal: `Establish enterprise AI charter, map shop floor pain points, and select top 1–2 high-ROI pilot candidates for ${company}.`,
+                            workPackages: [
+                                'Cross-departmental pain point discovery workshops (production, QC, maintenance)',
+                                'Apply the Guidelines Priority Evaluation Matrix (Ease vs. Benefit)',
+                                'Screen external AI solutions from the 107-tool ecosystem based on sourcing preference'
+                            ],
+                            deliverables: [
+                                'AI Opportunity Portfolio & Prioritization Matrix',
+                                'Feasibility & Technology Sourcing Strategy Brief',
+                                'Target Pilot Project Candidate Charter'
+                            ],
+                            gate: 'Executive committee approval of top pilot candidate with defined problem boundary.'
+                        },
+                        {
+                            phase: 'Phase 2',
+                            timeframe: 'Months 4 – 6',
+                            name: 'Architecture Planning & Data Readiness',
+                            nameZh: '架構規劃與資料整備',
+                            status: getStatus(2),
+                            goal: `Audit sensor data usability, establish measurable baseline metrics, and design industrial IT/OT integration architecture.`,
+                            workPackages: [
+                                `Address weakest dimension (${analysis.weakest.title}) through focused data engineering`,
+                                'Standardize data acquisition frequency, format, and ground-truth labeling',
+                                'Formulate 3-year TCO financial model and vendor evaluation RFP'
+                            ],
+                            deliverables: [
+                                'Data Usability & Quality Audit Specification',
+                                'Baseline Metric Benchmark (Yield, OEE, Downtime, kWh)',
+                                'Vendor Contract / Integration Architecture Spec'
+                            ],
+                            gate: 'Data completeness >95% and verified sample balance across operating regimes.'
+                        },
+                        {
+                            phase: 'Phase 3',
+                            timeframe: 'Months 7 – 10',
+                            name: 'High-Impact Pilot PoC & Frontline Verification',
+                            nameZh: '概念驗證與人機協同',
+                            status: getStatus(3),
+                            goal: `Execute a bounded 3–6 month pilot deployment, validate predictive accuracy, and build frontline operator trust.`,
+                            workPackages: [
+                                'Deploy pilot inference model in designated production cell or facility unit',
+                                'Implement human-in-the-loop feedback mechanisms for shop floor technicians',
+                                'Conduct bi-weekly model tuning and empirical ROI tracking'
+                            ],
+                            deliverables: [
+                                'Pilot PoC Accuracy & Performance Verification Report',
+                                'Standard Operating Procedure (SOP) for Human-AI Collaboration',
+                                'Quantitative ROI & Financial Payback Audit'
+                            ],
+                            gate: 'Model accuracy >90% (or false alarm <2%) with verified positive payback.'
+                        },
+                        {
+                            phase: 'Phase 4',
+                            timeframe: 'Months 11 – 18+',
+                            name: 'Production Rollout, MLOps & Enterprise Scale',
+                            nameZh: '全面落地、維運治理與擴散',
+                            status: getStatus(4),
+                            goal: `Integrate AI models with core MES/SCADA systems, operationalize automated MLOps drift retraining, and scale cross-plant.`,
+                            workPackages: [
+                                'Production integration with central industrial data war rooms and ERP',
+                                'Deploy automated MLOps pipeline for continuous drift detection and retraining',
+                                'Establish internal AI Center of Excellence (CoE) and scale to sister facilities'
+                            ],
+                            deliverables: [
+                                'Enterprise MLOps Governance & Drift Monitoring Dashboard',
+                                'Factory-Wide Connected Intelligence Infrastructure',
+                                'Cross-Site Scale Playbook & Continuous Training Curriculum'
+                            ],
+                            gate: 'Autonomous retraining pipeline operating with documented annual ROI.'
+                        }
+                    ];
+                },
+                priorityMatrix() {
+                    const analysis = this.strategicGapAnalysis;
+                    const pPains = analysis.futurePains;
+                    const cApps = analysis.currentApps;
+
+                    const q1Items = [];
+                    if (pPains.some(p => p.includes('energy') || p.includes('carbon'))) {
+                        q1Items.push({ name: 'Energy Telemetry & Carbon Anomaly Alerting', desc: 'Non-invasive IoT sub-meters + automated baseline alerting. High ESG benefit with rapid SaaS deployment.' });
+                    }
+                    if (pPains.some(p => p.includes('Quality') || p.includes('testing')) || cApps.some(p => p.includes('Quality'))) {
+                        q1Items.push({ name: 'Computer Vision Defect Pre-Filter', desc: 'Edge camera defect detection assisting human QC. Immediate reduction in false-reject rates.' });
+                    }
+                    if (q1Items.length === 0) {
+                        q1Items.push({ name: 'Digital Command War Room & Anomaly Alerting', desc: 'Unified real-time visibility across line status and operational metrics.' });
+                    }
+
+                    const q2Items = [];
+                    if (pPains.some(p => p.includes('Production') || p.includes('process')) || cApps.some(p => p.includes('Production'))) {
+                        q2Items.push({ name: 'AI Advanced Planning & Dynamic Scheduling (APS)', desc: 'Optimizes dynamic work order sequencing, tool changeovers, and urgent rush orders.' });
+                    }
+                    if (pPains.some(p => p.includes('Equipment') || p.includes('maintenance')) || cApps.some(p => p.includes('Equipment'))) {
+                        q2Items.push({ name: 'Predictive Maintenance (PdM) on Critical Rotating Equipment', desc: 'Vibration & acoustic ML telemetry predicting bearing/motor failure 14 days in advance.' });
+                    }
+                    if (q2Items.length === 0) {
+                        q2Items.push({ name: 'Closed-Loop Process Parameter Auto-Optimization', desc: 'Machine learning tuning of furnace, injection, or cutting speeds for optimal yield.' });
+                    }
+
+                    const q3Items = [
+                        { name: 'SOP & Maintenance Manual RAG Intelligent Q&A', desc: 'Empowers junior operators to voice-query technical manuals, shortening onboarding cycles.' },
+                        { name: 'Automated Shift Handover & Digital Inspection Logs', desc: 'Replaces paper clipboards with structured mobile data capture for downstream AI training.' }
+                    ];
+
+                    const q4Items = [
+                        { name: 'Fully Autonomous Dark Factory Control', desc: 'Deferred until MLOps maturity reaches Level 4+ and closed-loop safety controls are certified.' },
+                        { name: 'Custom Foundation LLM Pretraining from Scratch', desc: 'High compute cost with low direct manufacturing ROI; adopt domain-specific fine-tuned models instead.' }
+                    ];
+
+                    return {
+                        q1: q1Items,
+                        q2: q2Items,
+                        q3: q3Items,
+                        q4: q4Items
+                    };
+                },
                 matchedTools() {
                     return matchToolboxTools(this.answers) || [];
                 }
@@ -870,9 +1537,13 @@
                 submitAssessment() {
                     this.currentStep = 8;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    this.$nextTick(() => {
+                    if (typeof this.$nextTick === 'function') {
+                        this.$nextTick(() => {
+                            this.renderChart();
+                        });
+                    } else {
                         this.renderChart();
-                    });
+                    }
                 },
                 loadTestData() {
                     this.form.company_name = 'Test Manufacturing Co.';
