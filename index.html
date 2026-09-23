@@ -44,6 +44,13 @@
                 <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
                     Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?
                 </p>
+                <div class="mt-5 flex flex-wrap justify-center items-center gap-3">
+                    <a href="Manufacturing_AI_Introduction_Guidelines.pdf" download="Manufacturing_AI_Introduction_Guidelines.pdf" class="inline-flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-sm transition duration-200 shadow-sm">
+                        <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i>
+                        <span>Download MOEA AI Introduction Guidelines (PDF)</span>
+                        <span class="text-[10px] bg-rose-500/80 text-white px-2 py-0.5 rounded-full font-mono">85MB</span>
+                    </a>
+                </div>
             </div>
         </header>
 
@@ -91,20 +98,29 @@
                 </div>
 
                 <!-- Homepage Action Row (Join AI Toolbox on the left + Start Assessment on the right) -->
-                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit" target="_blank" rel="noopener text-decoration-none" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-md shadow-purple-500/20">
-                        <i class="fa-solid fa-plus-circle"></i>
-                        <span>Join AI Toolbox</span>
-                    </a>
+                <div class="pt-6 border-t border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                        <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit" target="_blank" rel="noopener text-decoration-none" class="flex-1 sm:flex-initial px-5 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-md shadow-purple-500/20">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <span>Join AI Toolbox</span>
+                        </a>
 
-                    <button @click="nextStep" class="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25">
-                        <span>Start Assessment</span>
-                        <i class="fa-solid fa-arrow-right text-sm"></i>
-                    </button>
-                    <button @click="loadTestData" class="w-full sm:w-auto px-8 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/25">
-                        <span>Load Test Report</span>
-                        <i class="fa-solid fa-flask text-sm"></i>
-                    </button>
+                        <a href="Manufacturing_AI_Introduction_Guidelines.pdf" download="Manufacturing_AI_Introduction_Guidelines.pdf" class="flex-1 sm:flex-initial px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 border border-slate-300">
+                            <i class="fa-solid fa-file-pdf text-rose-600"></i>
+                            <span>Download Guidelines (PDF)</span>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                        <button @click="nextStep" class="flex-1 sm:flex-initial px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25">
+                            <span>Start Assessment</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </button>
+                        <button @click="loadTestData" class="flex-1 sm:flex-initial px-6 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/25">
+                            <span>Load Test Report</span>
+                            <i class="fa-solid fa-flask text-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -504,20 +520,26 @@
 
                 <!-- Guidelines-Aligned 4-Phase Deep-Dive Recommendations -->
                 <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
-                    <div class="mb-6 pb-4 border-b border-slate-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-                            <span class="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                                <i class="fa-solid fa-award"></i>
-                                <span>Guidelines Theoretical Framework</span>
-                            </span>
-                            <span class="text-xs text-slate-400">August 2024 MOEA / MIC / III Standard</span>
+                    <div class="mb-6 pb-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <span class="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                                    <i class="fa-solid fa-award"></i>
+                                    <span>Guidelines Theoretical Framework</span>
+                                </span>
+                                <span class="text-xs text-slate-400">August 2024 MOEA / MIC / III Standard</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2">
+                                Manufacturing AI Introduction: 4-Stage Deep-Dive Recommendations
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Actionable implementation directives structured according to the official four phases of enterprise smart transformation.
+                            </p>
                         </div>
-                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2">
-                            Manufacturing AI Introduction: 4-Stage Deep-Dive Recommendations
-                        </h3>
-                        <p class="text-xs text-slate-500 mt-1">
-                            Actionable implementation directives structured according to the official four phases of enterprise smart transformation.
-                        </p>
+                        <a href="Manufacturing_AI_Introduction_Guidelines.pdf" download="Manufacturing_AI_Introduction_Guidelines.pdf" class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl transition duration-200 shadow-sm flex-shrink-0 self-start sm:self-center">
+                            <i class="fa-solid fa-file-arrow-down text-sm"></i>
+                            <span>Download Full Guidelines (PDF)</span>
+                        </a>
                     </div>
 
                     <!-- 4 Phase Cards Grid -->
@@ -814,9 +836,65 @@
             </div>
         </main>
 
+        <!-- Promoting Body & Co-development Partners Section -->
+        <div class="bg-slate-100/80 border-t border-slate-200 py-8 px-4 sm:px-6 lg:px-8 no-print mt-12">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Host / Organizing Body -->
+                    <div class="flex flex-col items-center md:items-start space-y-2.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                                Promoting Organization & Guidelines Framework
+                            </span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-center">
+                            <img src="iii-logo.png" alt="Institute for Information Industry (III) 財團法人資訊工業策進會" class="h-8 object-contain">
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed text-center md:text-left">
+                            Institute for Information Industry (III) &bull; Formulated in alignment with the Ministry of Economic Affairs (MOEA) Industry Development Administration.
+                        </p>
+                    </div>
+
+                    <!-- Co-development Partners Placeholder -->
+                    <div class="flex flex-col items-center md:items-start space-y-2.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                                Co-development Partners
+                            </span>
+                            <span class="text-[10px] bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full uppercase">Global Alliances</span>
+                        </div>
+                        <div class="w-full grid grid-cols-2 gap-3">
+                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-3 flex flex-col items-center justify-center text-center bg-white/70 min-h-[56px] hover:border-blue-400 transition">
+                                <span class="text-xs font-bold text-slate-700">International Partner</span>
+                                <span class="text-[10px] text-slate-400 mt-0.5">EU / Global Mfg Alliance</span>
+                            </div>
+                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-3 flex flex-col items-center justify-center text-center bg-white/70 min-h-[56px] hover:border-blue-400 transition">
+                                <span class="text-xs font-bold text-slate-700">Research Institute</span>
+                                <span class="text-[10px] text-slate-400 mt-0.5">International Co-development</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-400 text-center md:text-left">
+                            Reserved field for collaborating international organizations, multilateral institutions, and global industry partners.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
-        <footer class="bg-slate-900 text-amber-400 py-6 text-center text-xs font-semibold border-t border-slate-800 no-print mt-auto">
-            <p>Institute For Information Industry &copy; 2026. All rights reserved.</p>
+        <footer class="bg-slate-900 text-slate-400 py-6 text-xs font-medium border-t border-slate-800 no-print mt-auto">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white px-2.5 py-1 rounded-md shadow-2xs">
+                        <img src="iii-logo.png" alt="III Logo" class="h-4 sm:h-5 object-contain">
+                    </div>
+                    <span class="text-slate-300 text-xs font-semibold">Institute for Information Industry (資策會)</span>
+                </div>
+                <div class="text-center sm:text-right text-[11px] text-slate-400">
+                    <p>Copyright &copy; 2026 Institute for Information Industry. All rights reserved.</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Manufacturing AI Introduction Guidelines & Evaluation System</p>
+                </div>
+            </div>
         </footer>
     </div>
 
