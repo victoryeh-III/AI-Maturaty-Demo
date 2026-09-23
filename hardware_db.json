@@ -1,0 +1,1278 @@
+{
+  "Vendors": [
+    {
+      "Vendor_ID": "V001",
+      "Vendor_EN": "Advantech",
+      "Vendor_ZH": "研華",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "Taipei",
+      "Core_Categories": "Industrial PC; Edge AI; GPU IPC; Edge AI Server; Machine Vision; Automation",
+      "Service_Model": "Global Service Network",
+      "Service_Network_Summary": "4 global logistics centers; service includes technical support, RMA, repair, onsite service and solution deployment",
+      "Primary_Source_URL": "https://www.advantech.com/en-eu/ags",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Vendor_EN": "ADLINK",
+      "Vendor_ZH": "凌華",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "Taoyuan",
+      "Core_Categories": "Industrial PC; Edge AI; GPU/accelerator; Embedded Computing; Machine Vision",
+      "Service_Model": "Global Offices / Support",
+      "Service_Network_Summary": "Worldwide sales/support network; manufacturing in Taiwan/China; R&D/integration in Taiwan, China, US, Germany",
+      "Primary_Source_URL": "https://www.adlinktech.com/en/contactus",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Vendor_EN": "IEI",
+      "Vendor_ZH": "威強電",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "Industrial PC; Edge AI; GPU Computing; Embedded; Automation",
+      "Service_Model": "Global operational/service sites",
+      "Service_Network_Summary": "Taipei, Pomona, Shanghai, Tokyo, Willich; sites cover CTO, R&D, logistics, manufacturing, RMA and sales",
+      "Primary_Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Vendor_EN": "NEXCOM",
+      "Vendor_ZH": "新漢",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "Edge AI Computer; Fanless Edge Computing; Embedded; Industrial Automation; Robotics",
+      "Service_Model": "Worldwide Service Network",
+      "Service_Network_Summary": "Taiwan, USA, China and Japan direct offices/support; additional regional/channel coverage",
+      "Primary_Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Vendor_EN": "Axiomtek",
+      "Vendor_ZH": "艾訊",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "Industrial PC; Fanless Embedded; Edge AI; GPU Workstation; IIoT Gateway; Industrial Networking",
+      "Service_Model": "Worldwide Offices + Channel Partners",
+      "Service_Network_Summary": "Direct offices in Taiwan, China, Germany, Italy, Malaysia, Thailand, UK, USA; Europe channel partners",
+      "Primary_Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Vendor_EN": "Avalue",
+      "Vendor_ZH": "安勤",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "Industrial PC; Embedded; Edge AI; Panel PC; AI systems",
+      "Service_Model": "Worldwide Locations",
+      "Service_Network_Summary": "Taiwan, China, Japan, Netherlands European Service Centre, USA",
+      "Primary_Source_URL": "https://avalue.com/en/about/global",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Vendor_EN": "DFI",
+      "Vendor_ZH": "友通",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "Industrial PC; Edge AI; Embedded Boards; AI Box; AI Server; Rugged Systems",
+      "Service_Model": "Global / regional support",
+      "Service_Network_Summary": "Global industrial computing portfolio; direct global footprint should be expanded in next data pass",
+      "Primary_Source_URL": "https://pages.dfi.com/dfi-intel-edge-ai-computing-platforms",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Vendor_EN": "AAEON",
+      "Vendor_ZH": "研揚",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "New Taipei",
+      "Core_Categories": "AI@Edge; Industrial PC; Box PC; Jetson; AI Edge Server; Embedded",
+      "Service_Model": "Worldwide Offices + Channel Partners",
+      "Service_Network_Summary": "Taiwan, USA, Netherlands Europe HQ, Germany, China; local distributors provide additional service",
+      "Primary_Source_URL": "https://www.aaeon.com/en/contact/",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Vendor_EN": "ICP DAS",
+      "Vendor_ZH": "泓格",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "Hsinchu",
+      "Core_Categories": "Industrial Computing; IIoT; DAQ; Controllers; Industrial Networking; Edge",
+      "Service_Model": "Global Directory + Distributors",
+      "Service_Network_Summary": "Multiple Taiwan offices plus broad global distributor network",
+      "Primary_Source_URL": "https://www.icpdas.com/en/contact/global_directory.php",
+      "Verified_Date": "46289.0"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Vendor_EN": "Flytech",
+      "Vendor_ZH": "飛捷",
+      "HQ_Country": "Taiwan",
+      "HQ_City": "Taipei",
+      "Core_Categories": "Industrial/embedded computing; POS; retail/industrial edge systems",
+      "Service_Model": "Global Locations",
+      "Service_Network_Summary": "Taiwan HQ/manufacturing, China, Hong Kong, USA, UK",
+      "Primary_Source_URL": "https://www.flytech.com/en/contact_us.php",
+      "Verified_Date": "46289.0"
+    }
+  ],
+  "ServiceLocations": [
+    {
+      "Vendor_ID": "V001",
+      "Country": "Taiwan",
+      "City": "Taipei",
+      "Location_Type": "HQ / Design / Manufacturing / CTO / Logistics / Repair / Onsite / Solution Deployment",
+      "Capabilities": "D,M,C,L,R3,O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "China",
+      "City": "Kunshan",
+      "Location_Type": "Design / Manufacturing / CTO / Logistics / Repair",
+      "Capabilities": "D,M,C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "China",
+      "City": "Beijing",
+      "Location_Type": "Design / Onsite / Solution Deployment",
+      "Capabilities": "D,O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Japan",
+      "City": "Nogata",
+      "Location_Type": "Design / Manufacturing / CTO / Logistics / Repair",
+      "Capabilities": "D,M,C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Onsite / Solution Deployment",
+      "Capabilities": "O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Korea",
+      "City": "Incheon",
+      "Location_Type": "CTO / Logistics / Repair / Onsite / Solution Deployment",
+      "Capabilities": "C,L,R3,O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Singapore",
+      "City": "Singapore",
+      "Location_Type": "CTO / Logistics",
+      "Capabilities": "C,L",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Thailand",
+      "City": "Bangkok",
+      "Location_Type": "CTO / Logistics",
+      "Capabilities": "C,L",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Vietnam",
+      "City": "Hanoi",
+      "Location_Type": "CTO / Logistics / Repair",
+      "Capabilities": "C,L,R2",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Malaysia",
+      "City": "Penang",
+      "Location_Type": "CTO / Logistics / Repair / Onsite / Solution Deployment",
+      "Capabilities": "C,L,R3,O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Indonesia",
+      "City": "Jakarta",
+      "Location_Type": "CTO / Logistics",
+      "Capabilities": "C,L",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "India",
+      "City": "Bangalore",
+      "Location_Type": "CTO / Logistics / Repair / Onsite / Solution Deployment",
+      "Capabilities": "C,L,R3,O,S",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Czech Republic",
+      "City": "Usti nad Orlici",
+      "Location_Type": "Design / CTO / Logistics / System & Board Repair",
+      "Capabilities": "D,C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Germany",
+      "City": "Munich",
+      "Location_Type": "Design / CTO / Logistics",
+      "Capabilities": "D,C,L",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Poland",
+      "City": "Warsaw",
+      "Location_Type": "CTO / Logistics / System & Board Repair",
+      "Capabilities": "C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Netherlands",
+      "City": "Eindhoven",
+      "Location_Type": "CTO / Logistics",
+      "Capabilities": "C,L",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "USA",
+      "City": "Milpitas",
+      "Location_Type": "CTO / Logistics / System & Board Repair",
+      "Capabilities": "C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "USA",
+      "City": "Tustin",
+      "Location_Type": "Design / CTO / Logistics / System & Board Repair",
+      "Capabilities": "D,C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Canada",
+      "City": "Ottawa",
+      "Location_Type": "Design / CTO / Logistics / System & Board Repair",
+      "Capabilities": "D,C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Brazil",
+      "City": "Itajuba",
+      "Location_Type": "CTO / Logistics / System & Board Repair",
+      "Capabilities": "C,L,R3",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Mexico",
+      "City": "Guadalajara",
+      "Location_Type": "CTO / Logistics / System Repair",
+      "Capabilities": "C,L,R2",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Turkey",
+      "City": "Istanbul",
+      "Location_Type": "CTO / Logistics / System Repair",
+      "Capabilities": "C,L,R2",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Country": "Australia",
+      "City": "Melbourne",
+      "Location_Type": "CTO / Logistics / System Repair",
+      "Capabilities": "C,L,R2",
+      "Source_URL": "https://www.advantech.com/en-us/ags"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Taiwan",
+      "City": "Taoyuan",
+      "Location_Type": "Global HQ",
+      "Capabilities": "HQ",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Taiwan",
+      "City": "Hsinchu",
+      "Location_Type": "Liaison",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Taiwan",
+      "City": "Taichung",
+      "Location_Type": "Liaison",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Taiwan",
+      "City": "Tainan",
+      "Location_Type": "Liaison",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "China",
+      "City": "Beijing",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "China",
+      "City": "Shenzhen",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Japan",
+      "City": "Nagoya",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "USA",
+      "City": "San Jose",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Singapore",
+      "City": "Singapore",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "India",
+      "City": "Bangalore",
+      "Location_Type": "Liaison",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Country": "Germany",
+      "City": "Mannheim",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support / R&D & Integration",
+      "Source_URL": "https://www.adlinktech.com/en/contactus"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ",
+      "Capabilities": "CTO / R&D / Logistics / Manufacturing / RMA / Sales",
+      "Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Country": "USA",
+      "City": "Pomona",
+      "Location_Type": "Subsidiary",
+      "Capabilities": "CTO / R&D / Logistics / RMA / Sales",
+      "Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Subsidiary",
+      "Capabilities": "CTO / R&D / Logistics / Manufacturing / RMA / Sales",
+      "Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "CTO / Logistics / RMA / Sales",
+      "Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Country": "Germany",
+      "City": "Willich",
+      "Location_Type": "Office",
+      "Capabilities": "CTO / Logistics / RMA / Sales",
+      "Source_URL": "https://www.ieiworld.com/_upload/about/files/2024%20IEI%20ESG_report-EN_20251219_compressed.pdf"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ",
+      "Capabilities": "Sales / Technical Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "USA",
+      "City": "Fremont",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "China",
+      "City": "Shenzhen",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "China",
+      "City": "Beijing",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.nexcom.com/About/Page/worldwide-service-network"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Taiwan",
+      "City": "Taichung",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "China",
+      "City": "Shenzhen",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "China",
+      "City": "Beijing",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Germany",
+      "City": "Langenfeld",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Italy",
+      "City": "Muggiò",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Malaysia",
+      "City": "Petaling Jaya",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Thailand",
+      "City": "Nonthaburi",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "UK",
+      "City": "Manchester",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "USA",
+      "City": "City of Industry",
+      "Location_Type": "HQ",
+      "Capabilities": "Sales / Technical Support",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "USA",
+      "City": "Methuen",
+      "Location_Type": "Office",
+      "Capabilities": "Systems / Support",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "USA",
+      "City": "Las Vegas",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.axiomtek.com/default.aspx?ItemId=43&MenuId=AboutUs"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service / Assistance",
+      "Source_URL": "https://www.axiomtek.com/contact-us/sales-contacts"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ / Manufacturing",
+      "Capabilities": "HQ / Manufacturing",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "Taiwan",
+      "City": "Taichung",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "China",
+      "City": "Beijing",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "China",
+      "City": "Shenzhen",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Service",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "Netherlands",
+      "City": "Heemskerk",
+      "Location_Type": "European Service Centre",
+      "Capabilities": "Service",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "USA",
+      "City": "Marlboro",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Country": "USA",
+      "City": "Irvine",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ",
+      "Capabilities": "Global / Regional Support",
+      "Source_URL": "https://pages.dfi.com/dfi-intel-edge-ai-computing-platforms"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Country": "USA",
+      "City": "New Jersey",
+      "Location_Type": "Office",
+      "Capabilities": "Regional Support",
+      "Source_URL": "https://www.dfi.com/"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Country": "Japan",
+      "City": "Tokyo",
+      "Location_Type": "Office",
+      "Capabilities": "Regional Support",
+      "Source_URL": "https://www.dfi.com/"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Country": "Netherlands",
+      "City": "Rotterdam",
+      "Location_Type": "Office",
+      "Capabilities": "Regional Support",
+      "Source_URL": "https://www.dfi.com/"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Country": "China",
+      "City": "Shenzhen",
+      "Location_Type": "Office",
+      "Capabilities": "Regional Support",
+      "Source_URL": "https://www.dfi.com/"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "Taiwan",
+      "City": "New Taipei",
+      "Location_Type": "HQ",
+      "Capabilities": "Sales / Technical Support",
+      "Source_URL": "https://www.aaeon.com/en/contact/"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "USA",
+      "City": "Hazlet",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.aaeon.com/vi/article/list/worldwide_office"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "USA",
+      "City": "Orange County",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.aaeon.com/vi/article/list/worldwide_office"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "Netherlands",
+      "City": "Eindhoven",
+      "Location_Type": "Europe HQ",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.aaeon.com/vi/article/list/worldwide_office"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "Germany",
+      "City": "Langen",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.aaeon.com/vi/article/list/worldwide_office"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Country": "China",
+      "City": "Suzhou",
+      "Location_Type": "Branch",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.aaeon.com/vi/article/list/worldwide_office"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Hsinchu",
+      "Location_Type": "HQ",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Banqiao",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Xindian",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Taichung",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Tainan",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Taiwan",
+      "City": "Kaohsiung",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/global_directory.php"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Country": "Global",
+      "City": "Multiple countries",
+      "Location_Type": "Distributor network",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.icpdas.com/en/contact/distributor.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "Taiwan",
+      "City": "Taipei",
+      "Location_Type": "Global HQ",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "Taiwan",
+      "City": "Taoyuan",
+      "Location_Type": "Manufacturing Center",
+      "Capabilities": "Manufacturing",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "China",
+      "City": "Shanghai",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "Hong Kong",
+      "City": "Kowloon",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "USA",
+      "City": "Fremont",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Country": "UK",
+      "City": "Thame",
+      "Location_Type": "Office",
+      "Capabilities": "Sales / Support",
+      "Source_URL": "https://www.flytech.com/en/contact_us.php"
+    }
+  ],
+  "Products": [
+    {
+      "Product_ID": "P001",
+      "Vendor_ID": "V001",
+      "Product_or_Family": "MIC-770 V3",
+      "Category": "Industrial PC / Edge AI",
+      "Key_Specifications": "Intel Core 12/13/14 Gen; fanless; GPU expansion via MIC-75GF10/75G20/75G30",
+      "Suggested_Use_Cases": "AI Vision; Robotics; Edge AI",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.advantech.com/en-eu/products/edge-ai-computer/sub_3dcb0054-ba17-441a-925a-0869f03e4691"
+    },
+    {
+      "Product_ID": "P002",
+      "Vendor_ID": "V001",
+      "Product_or_Family": "MIC-780",
+      "Category": "Fanless Industrial Box PC / Edge AI",
+      "Key_Specifications": "Intel Core Ultra Series 2; integrated NPU; up to 36 TOPS stated by vendor",
+      "Suggested_Use_Cases": "Edge AI; Industrial Automation",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.advantech.com/en-eu/solutions/industrial-equipment-builder"
+    },
+    {
+      "Product_ID": "P003",
+      "Vendor_ID": "V001",
+      "Product_or_Family": "UNO-148 V2",
+      "Category": "Fanless DIN-Rail IPC",
+      "Key_Specifications": "13th Gen Intel Core; DIN rail",
+      "Suggested_Use_Cases": "Factory Automation; Gateway",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.advantech.com/en-eu/products/edge-ai-computer/sub_3dcb0054-ba17-441a-925a-0869f03e4691"
+    },
+    {
+      "Product_ID": "P004",
+      "Vendor_ID": "V002",
+      "Product_or_Family": "DLAP-8100 Series",
+      "Category": "AI IPC",
+      "Key_Specifications": "Intel Core Series 2 / 14th-12th Gen; up to 196GB DDR5; NVIDIA RTX A6000E 350W support; NVIDIA Qualified System",
+      "Suggested_Use_Cases": "Machine Vision; Smart Manufacturing; Robotics",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.adlinktech.com/products/Industrial_PCs_Fanless_Embedded_PCs/IPCSystems/DLAP-8100_Series?lang=en"
+    },
+    {
+      "Product_ID": "P005",
+      "Vendor_ID": "V002",
+      "Product_or_Family": "MVP-6200 Series",
+      "Category": "Expandable Industrial Computer",
+      "Key_Specifications": "Intel Core Series 2 / 14th-12th Gen; expandable industrial platform",
+      "Suggested_Use_Cases": "Automation; Edge AI",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.adlinktech.com/en/intel-based-solution"
+    },
+    {
+      "Product_ID": "P006",
+      "Vendor_ID": "V003",
+      "Product_or_Family": "IEI GPU/AI IPC Portfolio",
+      "Category": "GPU Industrial PC",
+      "Key_Specifications": "Industrial PC platforms with GPU/AI expansion; exact model selection should be added in next pass",
+      "Suggested_Use_Cases": "AI Vision; Edge AI",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.ieiworld.com/"
+    },
+    {
+      "Product_ID": "P007",
+      "Vendor_ID": "V004",
+      "Product_or_Family": "AIEdge-X500",
+      "Category": "Industrial AI Computer",
+      "Key_Specifications": "8th/9th Gen Intel Core; PCIe x16; optional NVIDIA graphics; 4x 2.5-inch storage; RAID",
+      "Suggested_Use_Cases": "AI Vision; Deep Learning; Machine Vision",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.nexcom.com/Products/multi-media-solutions/ai-edge-computer/nvidia-solutions/ai-edge-computer-aiedge-x-500"
+    },
+    {
+      "Product_ID": "P008",
+      "Vendor_ID": "V004",
+      "Product_or_Family": "AIEdge-X300",
+      "Category": "Industrial AI Computing System",
+      "Key_Specifications": "8th/9th Gen Intel Core; PCIe x16; validated with NVIDIA RTX 2060",
+      "Suggested_Use_Cases": "AI Vision; Image Analytics",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.nexcom.com/Products/multi-media-solutions/ai-edge-computer/nvidia-solutions/ai-edge-computer-aiedge-x300/Overview"
+    },
+    {
+      "Product_ID": "P009",
+      "Vendor_ID": "V005",
+      "Product_or_Family": "IPC920",
+      "Category": "Fanless Industrial System",
+      "Key_Specifications": "Intel Core Series 2 / 14th-12th Gen; up to 96GB DDR5; optional PCIe x16; -20°C to +60°C",
+      "Suggested_Use_Cases": "AI; Vision Inspection; Factory Automation",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.axiomtek.com/products/systems-and-platforms/industrial-pc/industrial-system/ipc920"
+    },
+    {
+      "Product_ID": "P010",
+      "Vendor_ID": "V006",
+      "Product_or_Family": "Avalue Industrial PC Portfolio",
+      "Category": "Industrial PC / Edge AI",
+      "Key_Specifications": "Industrial computers; product-level model mapping to be expanded",
+      "Suggested_Use_Cases": "Automation; Edge AI",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://avalue.com/en/about/global"
+    },
+    {
+      "Product_ID": "P011",
+      "Vendor_ID": "V007",
+      "Product_or_Family": "X6-MTH-ORN",
+      "Category": "Edge AI Box",
+      "Key_Specifications": "NVIDIA Orin NX AI engine up to 100 TOPS; Intel Core Ultra control processor; 64GB DDR5; industrial I/O",
+      "Suggested_Use_Cases": "Machine Vision; Robotics; Edge AI",
+      "MVP_Fit": "High",
+      "Source_URL": "https://pages.dfi.com/dfi-intel-edge-ai-computing-platforms"
+    },
+    {
+      "Product_ID": "P012",
+      "Vendor_ID": "V007",
+      "Product_or_Family": "EC633D-RPS",
+      "Category": "Industrial PC / Edge AI",
+      "Key_Specifications": "Intel Core 14th/13th/12th Gen; up to 64GB DDR5; 6 Ethernet; 5 M.2; 5G; -20°C to 70°C",
+      "Suggested_Use_Cases": "Factory Automation; Edge AI",
+      "MVP_Fit": "High",
+      "Source_URL": "https://pages.dfi.com/dfi-intel-edge-ai-computing-platforms"
+    },
+    {
+      "Product_ID": "P013",
+      "Vendor_ID": "V008",
+      "Product_or_Family": "BOXER-8642AI",
+      "Category": "Fanless AI Edge System",
+      "Key_Specifications": "NVIDIA Jetson AGX Orin; 32/64GB LPDDR5; dual GbE; CANBus/RS-232/422/485; -25°C to 55°C",
+      "Suggested_Use_Cases": "Machine Vision; AMR; Robotics",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.aaeon.com/en/product/detail/ai-edge-solutions-boxer-8642ai/specification"
+    },
+    {
+      "Product_ID": "P014",
+      "Vendor_ID": "V008",
+      "Product_or_Family": "BOXER-8653AI",
+      "Category": "Fanless AI Edge System",
+      "Key_Specifications": "NVIDIA Jetson Orin NX; 4x PoE LAN; M.2 NVMe; industrial I/O; -15°C to 60°C",
+      "Suggested_Use_Cases": "Vision AI; Inspection; Industrial Edge",
+      "MVP_Fit": "High",
+      "Source_URL": "https://www.aaeon.com/en/product/detail/ai-edge-solutions-boxer-8653ai"
+    },
+    {
+      "Product_ID": "P015",
+      "Vendor_ID": "V009",
+      "Product_or_Family": "ICP DAS Industrial Computing / IIoT Portfolio",
+      "Category": "Industrial Controller / Edge",
+      "Key_Specifications": "Industrial computers, IIoT controllers, DAQ and networking; model-level mapping to be expanded",
+      "Suggested_Use_Cases": "OT/IT Integration; Edge; Data Acquisition",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.icpdas.com/"
+    },
+    {
+      "Product_ID": "P016",
+      "Vendor_ID": "V010",
+      "Product_or_Family": "Flytech Industrial / Edge Computing Portfolio",
+      "Category": "Industrial / Embedded Computing",
+      "Key_Specifications": "Industrial and retail computing portfolio; exact AI model mapping to be expanded",
+      "Suggested_Use_Cases": "Retail AI; Edge Computing; Industrial Applications",
+      "MVP_Fit": "Medium",
+      "Source_URL": "https://www.flytech.com/"
+    }
+  ],
+  "UseCases": [
+    {
+      "UseCase_ID": "UC01",
+      "UseCase": "AI Visual Inspection",
+      "Manufacturing_Context": "Machine Vision / AOI",
+      "Hardware_Requirements": "GPU or AI accelerator; industrial IPC; camera/PoE; storage; 24/7; low latency",
+      "Suggested_Tags": "#MachineVision;#AOI;#VisionAI;#GPUIPC"
+    },
+    {
+      "UseCase_ID": "UC02",
+      "UseCase": "Predictive Maintenance",
+      "Manufacturing_Context": "Sensor / AI Analytics",
+      "Hardware_Requirements": "Fanless edge computer; industrial I/O; Ethernet; optional NPU/GPU; local storage",
+      "Suggested_Tags": "#PredictiveMaintenance;#EdgeAI;#IIoT"
+    },
+    {
+      "UseCase_ID": "UC03",
+      "UseCase": "Robotics / AMR",
+      "Manufacturing_Context": "Robotics / Autonomous Navigation",
+      "Hardware_Requirements": "GPU/NPU; camera I/O; CAN; Ethernet; rugged/fanless; wide temperature",
+      "Suggested_Tags": "#Robotics;#AMR;#EdgeAI;#GPU"
+    },
+    {
+      "UseCase_ID": "UC04",
+      "UseCase": "AI Quality Analytics",
+      "Manufacturing_Context": "Production Quality",
+      "Hardware_Requirements": "Industrial PC; AI accelerator; camera/sensor connectivity; storage",
+      "Suggested_Tags": "#QualityInspection;#VisionAI;#EdgeAI"
+    },
+    {
+      "UseCase_ID": "UC05",
+      "UseCase": "GenAI / Local LLM",
+      "Manufacturing_Context": "On-prem AI",
+      "Hardware_Requirements": "High RAM; GPU VRAM; NVMe; CUDA/NPU depending model; cybersecurity",
+      "Suggested_Tags": "#GenAI;#LLM;#GPU;#AIserver"
+    },
+    {
+      "UseCase_ID": "UC06",
+      "UseCase": "Factory Data Gateway",
+      "Manufacturing_Context": "OT/IT Integration",
+      "Hardware_Requirements": "Fanless IPC/gateway; Ethernet; OPC UA; Modbus; MQTT; DIN rail preferred",
+      "Suggested_Tags": "#Gateway;#OPCUA;#Modbus;#MQTT"
+    },
+    {
+      "UseCase_ID": "UC07",
+      "UseCase": "AI-enabled Machine Control",
+      "Manufacturing_Context": "Machine Automation",
+      "Hardware_Requirements": "Industrial PC; real-time I/O; PLC connectivity; optional AI accelerator",
+      "Suggested_Tags": "#Automation;#PLC;#EdgeAI"
+    },
+    {
+      "UseCase_ID": "UC08",
+      "UseCase": "Edge AI Server",
+      "Manufacturing_Context": "Local Inference",
+      "Hardware_Requirements": "GPU/accelerator; 64GB+ RAM; NVMe; redundant storage/networking",
+      "Suggested_Tags": "#EdgeServer;#GPU;#AIserver"
+    }
+  ],
+  "Tags": [
+    {
+      "Tag": "#IPC",
+      "Definition": "Industrial PC"
+    },
+    {
+      "Tag": "#FanlessIPC",
+      "Definition": "Fanless industrial computer"
+    },
+    {
+      "Tag": "#EdgeAI",
+      "Definition": "Edge AI computing"
+    },
+    {
+      "Tag": "#GPUIPC",
+      "Definition": "GPU-enabled industrial PC"
+    },
+    {
+      "Tag": "#AIserver",
+      "Definition": "AI/Edge server"
+    },
+    {
+      "Tag": "#NVIDIA",
+      "Definition": "NVIDIA accelerator ecosystem"
+    },
+    {
+      "Tag": "#Jetson",
+      "Definition": "NVIDIA Jetson platform"
+    },
+    {
+      "Tag": "#RTX",
+      "Definition": "NVIDIA RTX GPU"
+    },
+    {
+      "Tag": "#NPU",
+      "Definition": "Neural Processing Unit"
+    },
+    {
+      "Tag": "#MachineVision",
+      "Definition": "Machine vision"
+    },
+    {
+      "Tag": "#AOI",
+      "Definition": "Automated optical inspection"
+    },
+    {
+      "Tag": "#PredictiveMaintenance",
+      "Definition": "Predictive maintenance"
+    },
+    {
+      "Tag": "#Robotics",
+      "Definition": "Robotics"
+    },
+    {
+      "Tag": "#AMR",
+      "Definition": "Autonomous mobile robot"
+    },
+    {
+      "Tag": "#PLC",
+      "Definition": "PLC integration"
+    },
+    {
+      "Tag": "#OPCUA",
+      "Definition": "OPC UA"
+    },
+    {
+      "Tag": "#Modbus",
+      "Definition": "Modbus"
+    },
+    {
+      "Tag": "#MQTT",
+      "Definition": "MQTT"
+    },
+    {
+      "Tag": "#PoE",
+      "Definition": "Power over Ethernet"
+    },
+    {
+      "Tag": "#WideTemperature",
+      "Definition": "Wide temperature"
+    },
+    {
+      "Tag": "#DINRail",
+      "Definition": "DIN-rail"
+    },
+    {
+      "Tag": "#24x7",
+      "Definition": "24/7 industrial operation"
+    },
+    {
+      "Tag": "#GenAI",
+      "Definition": "Generative AI"
+    },
+    {
+      "Tag": "#LLM",
+      "Definition": "Local large language model"
+    }
+  ],
+  "VendorProductTags": [
+    {
+      "Vendor_ID": "V001",
+      "Product_ID": "P001",
+      "Tags": "#GPUIPC;#EdgeAI;#FanlessIPC;#MachineVision;#Robotics"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Product_ID": "P002",
+      "Tags": "#EdgeAI;#NPU;#FanlessIPC;#Automation"
+    },
+    {
+      "Vendor_ID": "V001",
+      "Product_ID": "P003",
+      "Tags": "#IPC;#FanlessIPC;#DINRail;#Automation"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Product_ID": "P004",
+      "Tags": "#GPUIPC;#EdgeAI;#MachineVision;#Robotics;#NVIDIA;#RTX"
+    },
+    {
+      "Vendor_ID": "V002",
+      "Product_ID": "P005",
+      "Tags": "#IPC;#EdgeAI;#Automation"
+    },
+    {
+      "Vendor_ID": "V003",
+      "Product_ID": "P006",
+      "Tags": "#GPUIPC;#EdgeAI;#IPC"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Product_ID": "P007",
+      "Tags": "#GPUIPC;#EdgeAI;#MachineVision;#Robotics;#NVIDIA;#RTX"
+    },
+    {
+      "Vendor_ID": "V004",
+      "Product_ID": "P008",
+      "Tags": "#GPUIPC;#EdgeAI;#MachineVision;#NVIDIA;#RTX"
+    },
+    {
+      "Vendor_ID": "V005",
+      "Product_ID": "P009",
+      "Tags": "#FanlessIPC;#WideTemperature;#MachineVision;#Automation"
+    },
+    {
+      "Vendor_ID": "V006",
+      "Product_ID": "P010",
+      "Tags": "#IPC;#EdgeAI;#Automation"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Product_ID": "P011",
+      "Tags": "#EdgeAI;#NVIDIA;#Jetson;#Robotics;#MachineVision"
+    },
+    {
+      "Vendor_ID": "V007",
+      "Product_ID": "P012",
+      "Tags": "#IPC;#EdgeAI;#WideTemperature;#5G"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Product_ID": "P013",
+      "Tags": "#EdgeAI;#Jetson;#Robotics;#MachineVision;#WideTemperature"
+    },
+    {
+      "Vendor_ID": "V008",
+      "Product_ID": "P014",
+      "Tags": "#EdgeAI;#Jetson;#PoE;#MachineVision;#WideTemperature"
+    },
+    {
+      "Vendor_ID": "V009",
+      "Product_ID": "P015",
+      "Tags": "#IPC;#EdgeAI;#OPCUA;#Modbus;#IIoT"
+    },
+    {
+      "Vendor_ID": "V010",
+      "Product_ID": "P016",
+      "Tags": "#IPC;#EdgeAI"
+    }
+  ]
+}

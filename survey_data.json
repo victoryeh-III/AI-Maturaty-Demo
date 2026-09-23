@@ -12,10 +12,23 @@
         "required": true
       },
       {
-        "id": "tax_id",
-        "label": "Tax ID:",
-        "type": "text",
-        "required": true
+        "id": "location",
+        "label": "Operating Region / Location:",
+        "type": "select",
+        "required": true,
+        "options": [
+          "North America",
+          "Latin America",
+          "Japan & Korea",
+          "Oceania",
+          "Greater China",
+          "Europe",
+          "Middle East",
+          "ASEAN",
+          "South Asia",
+          "Africa",
+          "Other"
+        ]
       },
       {
         "id": "date",

@@ -800,7 +800,7 @@
                                         <span v-if="tool.lead_time" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1"></i>{{ toolField(tool, 'lead_time') }}</span>
                                     </div>
                                     <div v-if="tool.pain_tags && tool.pain_tags.length" class="flex flex-wrap gap-1 mt-2">
-                                        <span v-for="(tag, i) in (tool.pain_tags_en || tool.pain_tags).slice(0,3)" :key="'p'+i" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200/60">{{ tag }}</span>
+                                        <span v-for="(tag, i) in (tool.pain_tags_en || []).slice(0,3)" :key="'p'+i" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200/60">{{ tag }}</span>
                                     </div>
                                     <p v-if="tool.__reason" class="text-[10px] text-slate-400 mt-2 italic"><i class="fa-solid fa-circle-info mr-1"></i>{{ tool.__reason }}</p>
                                 </div>
@@ -848,7 +848,7 @@
                             </span>
                         </div>
                         <div class="py-1">
-                            <img src="iii-logo.png" alt="Institute for Information Industry (III) 財團法人資訊工業策進會" class="h-8 sm:h-9 object-contain">
+                            <img src="iii-logo.png" alt="Institute for Information Industry (III)" class="h-8 sm:h-9 object-contain">
                         </div>
                         <p class="text-xs text-slate-500 leading-relaxed text-center md:text-left">
                             Institute for Information Industry (III) &bull; Formulated in alignment with the Ministry of Economic Affairs (MOEA) Industry Development Administration.
@@ -886,7 +886,7 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center space-x-3">
                     <img src="iii-logo-white.png" alt="III Logo" class="h-6 object-contain opacity-95">
-                    <span class="text-slate-300 text-xs font-semibold">Institute for Information Industry (資策會)</span>
+                    <span class="text-slate-300 text-xs font-semibold">Institute for Information Industry (III)</span>
                 </div>
                 <div class="text-center sm:text-right text-[11px] text-slate-400">
                     <p>Copyright &copy; 2026 Institute for Information Industry. All rights reserved.</p>
@@ -903,23 +903,20 @@
 
         const { createApp } = Vue;
 
-        // q13 option index -> toolbox Chinese category tag (for matching)
+        // q13 option index -> toolbox category prefix (for matching)
         const TOOLBOX_Q13_MAP = {
-            0: '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
-            1: '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
-            2: '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
-            3: '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
-            4: '3. 設備與維護類（無預警停機、找不到故障點...）',
-            5: '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-            6: '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-            7: '8. 儀表板或戰情中心（協助跨部門溝通）',
-            8: '8. 儀表板或戰情中心（協助跨部門溝通）',
-            9: '7. 人機協作與知識類（經驗斷層、操作複雜...）',
-            10: '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+            0: '6. R&D and Design',
+            1: '1. Scheduling and Delivery',
+            2: '4. Inventory and Supply Chain',
+            3: '2. Quality and Yield',
+            4: '3. Equipment and Maintenance',
+            5: '5. ESG, Facility and Safety',
+            6: '5. ESG, Facility and Safety',
+            7: '8. Dashboard or Situation Center',
+            8: '8. Dashboard or Situation Center',
+            9: '7. Human-AI Collaboration and Knowledge',
+            10: '4. Inventory and Supply Chain'
         };
-
-
-
 
         function matchToolboxTools(answers) {
             const selected = answers?.multiple?.q13 || [];
@@ -930,48 +927,48 @@
             const q18Options = typeof surveyData !== 'undefined' ? surveyData.dimensions.flatMap(d => d.questions).find(q => q.id === 'q18')?.options || [] : [];
 
             const q13CatMap = {
-                'Product R&D and design': '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
-                'Production process': '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
-                'Supply chain management': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
-                'Quality testing': '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
-                'Equipment maintenance': '3. 設備與維護類（無預警停機、找不到故障點...）',
-                'Facility management': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-                'Factory carbon emissions and energy consumption': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-                'Business-related customer service': '8. 儀表板或戰情中心（協助跨部門溝通）',
-                'Operational management and marketing': '8. 儀表板或戰情中心（協助跨部門溝通）',
-                'Human resources': '7. 人機協作與知識類（經驗斷層、操作複雜...）',
-                'Logistics and warehousing': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+                'Product R&D and design': '6. R&D and Design',
+                'Production process': '1. Scheduling and Delivery',
+                'Supply chain management': '4. Inventory and Supply Chain',
+                'Quality testing': '2. Quality and Yield',
+                'Equipment maintenance': '3. Equipment and Maintenance',
+                'Facility management': '5. ESG, Facility and Safety',
+                'Factory carbon emissions and energy consumption': '5. ESG, Facility and Safety',
+                'Business-related customer service': '8. Dashboard or Situation Center',
+                'Operational management and marketing': '8. Dashboard or Situation Center',
+                'Human resources': '7. Human-AI Collaboration and Knowledge',
+                'Logistics and warehousing': '4. Inventory and Supply Chain'
             };
 
             const q19PainMap = {
-                'Currently no AI adoption needs': ['9. 其他／未分類'],
-                'Too costly to introduce AI': ['9. 其他／未分類'],
-                'Lack of relevant technical talent': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
-                'Target benefits are difficult to quantify': ['8. 儀表板或戰情中心（協助跨部門溝通）'],
-                'Risks are difficult to assess': ['9. 其他／未分類'],
-                'Organization\'s culture does not support innovation': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
-                'Concerns about company data leaks': ['9. 其他／未分類'],
-                'Company data has not been integrated yet': ['8. 儀表板或戰情中心（協助跨部門溝通）'],
-                'Leaders\' insufficient understanding of AI': ['7. 人機協作與知識類（經驗斷層、操作複雜...）'],
-                'Inadequate IT infrastructure': ['9. 其他／未分類'],
-                'AI system stability and reliability is unsatisfactory': ['3. 設備與維護類（無預警停機、找不到故障點...）'],
-                'High maintenance and upgrade costs': ['3. 設備與維護類（無預警停機、找不到故障點...）'],
-                'High energy consumption/cost; fails to meet company\'s energy-saving and carbon reduction targets': ['5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）'],
-                'Other': ['9. 其他／未分類']
+                'Currently no AI adoption needs': ['9. Other'],
+                'Too costly to introduce AI': ['9. Other'],
+                'Lack of relevant technical talent': ['7. Human-AI Collaboration and Knowledge'],
+                'Target benefits are difficult to quantify': ['8. Dashboard or Situation Center'],
+                'Risks are difficult to assess': ['9. Other'],
+                'Organization's culture does not support innovation': ['7. Human-AI Collaboration and Knowledge'],
+                'Concerns about company data leaks': ['9. Other'],
+                'Company data has not been integrated yet': ['8. Dashboard or Situation Center'],
+                'Leaders' insufficient understanding of AI': ['7. Human-AI Collaboration and Knowledge'],
+                'Inadequate IT infrastructure': ['9. Other'],
+                'AI system stability and reliability is unsatisfactory': ['3. Equipment and Maintenance'],
+                'High maintenance and upgrade costs': ['3. Equipment and Maintenance'],
+                'High energy consumption/cost; fails to meet company's energy-saving and carbon reduction targets': ['5. ESG, Facility and Safety'],
+                'Other': ['9. Other']
             };
 
             const q18CatMap = {
-                'Product R&D and design': '6. 研發與設計類（開發週期長、試誤成本高、客製設計慢...）',
-                'Production process': '1. 排程與達交類（插單頻繁、換線效率低、交期不準...）',
-                'Supply chain management': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）',
-                'Quality testing': '2. 品質與良率類（肉眼漏檢、參數難調、良率不穩...）',
-                'Equipment maintenance': '3. 設備與維護類（無預警停機、找不到故障點...）',
-                'Facility management': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-                'Factory carbon emissions and energy consumption': '5. ESG、廠務與工安類（能耗高、碳盤查難、工安意外...）',
-                'Business-related customer service': '8. 儀表板或戰情中心（協助跨部門溝通）',
-                'Operational management and marketing': '8. 儀表板或戰情中心（協助跨部門溝通）',
-                'Human resources': '7. 人機協作與知識類（經驗斷層、操作複雜...）',
-                'Logistics and warehousing': '4. 庫存與供應鏈類（呆滯料、缺料、預測失準...）'
+                'Product R&D and design': '6. R&D and Design',
+                'Production process': '1. Scheduling and Delivery',
+                'Supply chain management': '4. Inventory and Supply Chain',
+                'Quality testing': '2. Quality and Yield',
+                'Equipment maintenance': '3. Equipment and Maintenance',
+                'Facility management': '5. ESG, Facility and Safety',
+                'Factory carbon emissions and energy consumption': '5. ESG, Facility and Safety',
+                'Business-related customer service': '8. Dashboard or Situation Center',
+                'Operational management and marketing': '8. Dashboard or Situation Center',
+                'Human resources': '7. Human-AI Collaboration and Knowledge',
+                'Logistics and warehousing': '4. Inventory and Supply Chain'
             };
 
             const painKeywords = [
@@ -981,11 +978,13 @@
             const cats = [...categories, ...painKeywords];
             if (!cats.length) return [];
 
+            const catPrefixes = cats.map(c => c.split(' ')[0]);
+
             const q14 = typeof answers?.single?.q14 === 'number' ? answers.single.q14 : -1;
             const q15 = typeof answers?.single?.q15 === 'number' ? answers.single.q15 : -1;
             const hay = (s) => (s || '').toLowerCase();
-            const advancedTerms = ['mlops', 'aiops', '自動化', 'self-optim', 'continuous learning', '自適應', '異常預測', '模型自我優化'];
-            const beginnerTerms = ['ready', 'proven', '快速', '1週內', '一天', '上線', '低成本'];
+            const advancedTerms = ['mlops', 'aiops', 'automation', 'self-optim', 'continuous learning', 'adaptive', 'anomaly prediction', 'model monitoring'];
+            const beginnerTerms = ['ready', 'proven', 'turnkey', 'rapid', 'quick', 'low-cost', 'plug and play', 'instant'];
 
             return (typeof TOOLBOX_TOOLS !== 'undefined' ? TOOLBOX_TOOLS : []).map(t => {
                 const txt = [t.name, t.benefit, t.provider, t.production_pain, t.non_production, ...(t.pain_tags || []), ...(t.industry_tags || [])].map(hay).join(' ');
@@ -993,8 +992,10 @@
                 let score = 0;
                 const reasons = [];
                 // category relevance
-                for (const cat of cats) {
-                    if (txt.includes(cat.toLowerCase())) {
+                for (const prefix of catPrefixes) {
+                    const allPainTags = [...(t.pain_tags || []), ...(t.pain_tags_en || [])];
+                    const matchedTag = allPainTags.some(tag => tag.startsWith(prefix));
+                    if (matchedTag || (t.production_pain_en && t.production_pain_en.toLowerCase().includes(prefix.toLowerCase()))) {
                         score += 3;
                         reasons.push('Category match');
                         break;
@@ -1002,8 +1003,8 @@
                 }
                 // q14 weighting
                 if (q14 >= 0) {
-                    const apiFull = txt.includes('完整 api');
-                    const cloudOnly = !(txt.includes('本地端') && t.deployment) && (txt.includes('雲端') || txt.includes('saas'));
+                    const apiFull = txt.includes('api') || txt.includes('sdk');
+                    const cloudOnly = !txt.includes('on-premise') && (txt.includes('cloud') || txt.includes('saas'));
                     if (q14 <= 40) {
                         if (cloudOnly) { score += 2; reasons.push('Low-code SaaS'); }
                         if (apiFull) { score -= 1; reasons.push('API required'); }
@@ -1045,7 +1046,7 @@
                     ],
                     form: {
                         company_name: '',
-                        tax_id: '',
+                        location: '',
                         sub_industry: '',
                         position_level: '',
                         department: [],
@@ -1261,7 +1262,6 @@
                         {
                             num: 'Phase 1',
                             title: 'Conceptual Evaluation Phase',
-                            titleZh: '概念評估期',
                             guidelinesRef: 'Guidelines Chapter 3 (Sec. 1–3)',
                             icon: 'fa-solid fa-compass',
                             badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
@@ -1294,7 +1294,6 @@
                         {
                             num: 'Phase 2',
                             title: 'Planning Stage',
-                            titleZh: '規劃階段',
                             guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.1)',
                             icon: 'fa-solid fa-sitemap',
                             badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
@@ -1327,7 +1326,6 @@
                         {
                             num: 'Phase 3',
                             title: 'Proof of Concept (PoC) Stage',
-                            titleZh: '驗證階段',
                             guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.2)',
                             icon: 'fa-solid fa-vial-circle-check',
                             badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
@@ -1360,7 +1358,6 @@
                         {
                             num: 'Phase 4',
                             title: 'Adoption & Scale Stage',
-                            titleZh: '落地擴散階段',
                             guidelinesRef: 'Guidelines Chapter 4 (Sec. 2.3)',
                             icon: 'fa-solid fa-arrows-split-up-and-left',
                             badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
@@ -1413,7 +1410,6 @@
                             phase: 'Phase 1',
                             timeframe: 'Months 1 – 3',
                             name: 'Conceptual Evaluation & Priority Mapping',
-                            nameZh: '概念評估與優先矩陣',
                             status: getStatus(1),
                             goal: `Establish enterprise AI charter, map shop floor pain points, and select top 1–2 high-ROI pilot candidates for ${company}.`,
                             workPackages: [
@@ -1432,7 +1428,6 @@
                             phase: 'Phase 2',
                             timeframe: 'Months 4 – 6',
                             name: 'Architecture Planning & Data Readiness',
-                            nameZh: '架構規劃與資料整備',
                             status: getStatus(2),
                             goal: `Audit sensor data usability, establish measurable baseline metrics, and design industrial IT/OT integration architecture.`,
                             workPackages: [
@@ -1451,7 +1446,6 @@
                             phase: 'Phase 3',
                             timeframe: 'Months 7 – 10',
                             name: 'High-Impact Pilot PoC & Frontline Verification',
-                            nameZh: '概念驗證與人機協同',
                             status: getStatus(3),
                             goal: `Execute a bounded 3–6 month pilot deployment, validate predictive accuracy, and build frontline operator trust.`,
                             workPackages: [
@@ -1470,7 +1464,6 @@
                             phase: 'Phase 4',
                             timeframe: 'Months 11 – 18+',
                             name: 'Production Rollout, MLOps & Enterprise Scale',
-                            nameZh: '全面落地、維運治理與擴散',
                             status: getStatus(4),
                             goal: `Integrate AI models with core MES/SCADA systems, operationalize automated MLOps drift retraining, and scale cross-plant.`,
                             workPackages: [
@@ -1623,7 +1616,7 @@
                 },
                 loadTestData() {
                     this.form.company_name = 'Test Manufacturing Co.';
-                    this.form.tax_id = '12345678';
+                    this.form.location = 'Greater China';
                     this.form.sub_industry = 'C23 Manufacture of Other Non-metallic Mineral Products';
                     this.form.position_level = 'b. Departmental middle-/senior-level supervisor';
                     this.form.department = ['a. Manufacturing-related department', 'g. AI-promotion-related department'];
