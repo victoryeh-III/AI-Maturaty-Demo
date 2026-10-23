@@ -783,45 +783,166 @@
                     </div>
                 </div>
 
-                <!-- AI Toolbox Matched Solutions Section (Will be printed into PDF) -->
+                <!-- AI Solution Matching (rule engine: hard filter + weighted ranking) -->
                 <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-base font-bold text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-toolbox text-blue-600"></i>
-                            <span>Matched AI Solutions (From AI Toolbox)</span>
-                        </h4>
-                        <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-200/60">Targeted Recommendations</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mb-4">Based on your identified operational pain points (Q18/Q19) and current AI applications (Q13), the following proven AI Toolbox solutions are recommended:</p>
-
-                    <div v-if="matchedTools.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div v-for="(tool, tIdx) in matchedTools" :key="tIdx" class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition-all flex flex-col justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-5 border-b border-slate-100">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <i class="fa-solid fa-diagram-project text-lg"></i>
+                            </div>
                             <div>
-                                <div class="flex items-start justify-between gap-2">
-                                    <h5 class="font-bold text-sm text-slate-900 leading-snug">{{ toolField(tool, 'name') }}</h5>
-                                    <a v-if="tool.url" :href="tool.url" target="_blank" rel="noopener" class="text-[11px] text-blue-600 hover:text-blue-800 font-semibold whitespace-nowrap">Visit →</a>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <h4 class="text-base font-bold text-slate-900">Matched AI Solutions</h4>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Rule Engine v1.0</span>
                                 </div>
-                                <div>
-                                    <p class="text-xs font-semibold text-slate-700 mt-1"><i class="fa-solid fa-building-circle-check mr-1 text-blue-600"></i> {{ toolField(tool, 'provider') }}</p>
-                                    <p v-if="tool.tech" class="text-xs text-slate-500 mt-1 leading-relaxed"><span class="font-semibold">Tech:</span> {{ toolField(tool, 'tech') }}</p>
-                                    <p class="text-xs text-slate-600 mb-2 leading-relaxed">{{ toolField(tool, 'benefit') }}</p>
-                                    <p v-if="tool.production_pain" class="text-xs text-slate-500 mt-1 leading-relaxed">{{ toolField(tool, 'production_pain') }}</p>
-                                    <p v-if="tool.non_production" class="text-xs text-slate-500 mt-1 leading-relaxed">{{ toolField(tool, 'non_production') }}</p>
-                                    <div class="flex flex-wrap gap-1.5 mt-2">
-                                        <span v-if="tool.deployment" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-cloud mr-1"></i>{{ toolField(tool, 'deployment') }}</span>
-                                        <span v-if="tool.pricing" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-tag mr-1"></i>{{ toolField(tool, 'pricing') }}</span>
-                                        <span v-if="tool.lead_time" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1"></i>{{ toolField(tool, 'lead_time') }}</span>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed max-w-2xl">
+                                    Screened against your deployment, data and integration constraints, then ranked on a transparent 100-point model.
+                                    Each result states why it fits, what must be resolved first, and when it should <em>not</em> be used.
+                                </p>
+                            </div>
+                        </div>
+                        <div v-if="recommendationResult" class="flex items-center gap-2 flex-shrink-0">
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">{{ recommendationResult.recommended.length }} ready</span>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-md bg-amber-50 text-amber-700 border border-amber-200">{{ recommendationResult.conditional.length }} conditional</span>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200">{{ recommendationResult.stats.excluded }} excluded</span>
+                        </div>
+                    </div>
+
+                    <div v-if="!recommendationResult || (recommendationResult.recommended.length === 0 && recommendationResult.conditional.length === 0)" class="p-4 bg-slate-50 rounded-xl text-center text-xs text-slate-500 mt-5">
+                        No application scenario selected yet. Complete questions 13 and 18 to generate matched solutions.
+                    </div>
+
+                    <div v-else class="mt-5 space-y-6">
+                        <!-- Ready now -->
+                        <div v-if="recommendationResult.recommended.length">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Ready to evaluate now</h5>
+                                <span class="text-[10px] text-slate-400">all hard constraints satisfied</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div v-for="rec in recommendationResult.recommended" :key="rec.solution_id"
+                                     class="rounded-xl border border-emerald-200 bg-emerald-50/20 p-4 flex flex-col">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div class="min-w-0">
+                                            <h6 class="font-bold text-sm text-slate-900 leading-snug">{{ rec.name }}</h6>
+                                            <p class="text-[11px] text-slate-600 mt-0.5"><i class="fa-solid fa-building mr-1"></i>{{ rec.provider }}</p>
+                                        </div>
+                                        <span class="text-[11px] font-bold px-2 py-1 rounded-md bg-emerald-600 text-white flex-shrink-0">{{ rec.score }}</span>
                                     </div>
-                                    <div v-if="tool.pain_tags && tool.pain_tags.length" class="flex flex-wrap gap-1 mt-2">
-                                        <span v-for="(tag, i) in (tool.pain_tags_en || []).slice(0,3)" :key="'p'+i" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200/60">{{ tag }}</span>
+
+                                    <div class="flex flex-wrap gap-1 mt-2">
+                                        <span v-for="s in rec.matched_scenarios" :key="s" class="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">{{ scenarioName(s) }}</span>
                                     </div>
-                                    <p v-if="tool.__reason" class="text-[10px] text-slate-400 mt-2 italic"><i class="fa-solid fa-circle-info mr-1"></i>{{ tool.__reason }}</p>
+
+                                    <ul class="mt-2.5 space-y-1">
+                                        <li v-for="(r, i) in rec.reasons" :key="'r'+i" class="text-[11px] text-slate-700 leading-relaxed flex items-start">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 mr-1.5 text-[10px] flex-shrink-0"></i><span>{{ r }}</span>
+                                        </li>
+                                    </ul>
+
+                                    <div v-if="rec.unmet_conditions.length" class="mt-2.5 p-2 rounded-lg bg-amber-50 border border-amber-200">
+                                        <p class="text-[10px] font-bold text-amber-800 uppercase tracking-wide mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Conditions to resolve</p>
+                                        <ul class="space-y-0.5">
+                                            <li v-for="(u, i) in rec.unmet_conditions" :key="'u'+i" class="text-[11px] text-amber-900 leading-relaxed">• {{ u }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div v-if="rec.prerequisites.length" class="mt-2">
+                                        <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wide mb-1">Prerequisites</p>
+                                        <ul class="space-y-0.5">
+                                            <li v-for="(q, i) in rec.prerequisites" :key="'q'+i" class="text-[11px] text-slate-600 leading-relaxed">• {{ q }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div v-if="rec.risks.length" class="mt-2">
+                                        <p class="text-[10px] font-bold text-rose-700 uppercase tracking-wide mb-1">Do not use if</p>
+                                        <ul class="space-y-0.5">
+                                            <li v-for="(k, i) in rec.risks.slice(0, 3)" :key="'k'+i" class="text-[11px] text-rose-800 leading-relaxed">• {{ k }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-1.5 mt-3 pt-2 border-t border-emerald-100">
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-server mr-1"></i>{{ rec.deployment_modes.join(' / ') }}</span>
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-tag mr-1"></i>{{ rec.cost_band }}</span>
+                                        <span v-if="rec.implementation_weeks" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1"></i>~{{ rec.implementation_weeks }} wks</span>
+                                    </div>
+
+                                    <details class="mt-2">
+                                        <summary class="text-[10px] text-slate-400 cursor-pointer hover:text-slate-600">Score breakdown</summary>
+                                        <div class="mt-1 grid grid-cols-2 gap-x-3 gap-y-0.5">
+                                            <div v-for="(v, k) in rec.breakdown" :key="k" class="flex justify-between text-[10px] text-slate-500">
+                                                <span>{{ breakdownLabel(k) }}</span><span class="font-semibold text-slate-700">{{ v }}</span>
+                                            </div>
+                                        </div>
+                                    </details>
+
+                                    <a v-if="rec.url" :href="rec.url" target="_blank" rel="noopener" class="mt-2 inline-flex items-center text-[11px] font-semibold text-blue-600 hover:text-blue-800">
+                                        Vendor page <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[9px]"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div v-else class="p-4 bg-slate-50 rounded-xl text-center text-xs text-slate-500">
-                        General AI Tooling recommendations apply. Take an exploratory assessment in AI Toolbox.
+
+                        <!-- Conditional -->
+                        <div v-if="recommendationResult.conditional.length">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Conditional — resolve prerequisites first</h5>
+                                <span class="text-[10px] text-slate-400">strong fit, but a data or integration gap remains</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div v-for="rec in recommendationResult.conditional" :key="rec.solution_id"
+                                     class="rounded-xl border border-amber-200 bg-amber-50/20 p-4 flex flex-col">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div class="min-w-0">
+                                            <h6 class="font-bold text-sm text-slate-900 leading-snug">{{ rec.name }}</h6>
+                                            <p class="text-[11px] text-slate-600 mt-0.5"><i class="fa-solid fa-building mr-1"></i>{{ rec.provider }}</p>
+                                        </div>
+                                        <span class="text-[11px] font-bold px-2 py-1 rounded-md bg-amber-500 text-white flex-shrink-0">{{ rec.score }}</span>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-1 mt-2">
+                                        <span v-for="s in rec.matched_scenarios" :key="s" class="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">{{ scenarioName(s) }}</span>
+                                    </div>
+
+                                    <ul class="mt-2.5 space-y-1">
+                                        <li v-for="(r, i) in rec.reasons" :key="'cr'+i" class="text-[11px] text-slate-700 leading-relaxed flex items-start">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 mr-1.5 text-[10px] flex-shrink-0"></i><span>{{ r }}</span>
+                                        </li>
+                                    </ul>
+
+                                    <div v-if="rec.unmet_conditions.length" class="mt-2.5 p-2 rounded-lg bg-white border border-amber-200">
+                                        <p class="text-[10px] font-bold text-amber-800 uppercase tracking-wide mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Conditions to resolve</p>
+                                        <ul class="space-y-0.5">
+                                            <li v-for="(u, i) in rec.unmet_conditions" :key="'cu'+i" class="text-[11px] text-amber-900 leading-relaxed">• {{ u }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div v-if="rec.prerequisites.length" class="mt-2">
+                                        <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wide mb-1">Prerequisites</p>
+                                        <ul class="space-y-0.5">
+                                            <li v-for="(q, i) in rec.prerequisites" :key="'cq'+i" class="text-[11px] text-slate-600 leading-relaxed">• {{ q }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-1.5 mt-3 pt-2 border-t border-amber-100">
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-server mr-1"></i>{{ rec.deployment_modes.join(' / ') }}</span>
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-tag mr-1"></i>{{ rec.cost_band }}</span>
+                                        <span v-if="rec.implementation_weeks" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1"></i>~{{ rec.implementation_weeks }} wks</span>
+                                    </div>
+
+                                    <a v-if="rec.url" :href="rec.url" target="_blank" rel="noopener" class="mt-2 inline-flex items-center text-[11px] font-semibold text-blue-600 hover:text-blue-800">
+                                        Vendor page <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[9px]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p v-if="recommendationResult.stats.excluded" class="text-[11px] text-slate-400 leading-relaxed">
+                            <i class="fa-solid fa-ban mr-1"></i>
+                            {{ recommendationResult.stats.excluded }} solutions were excluded by hard constraints (cloud-only deployment conflicting with data residency, closed systems without API, or no manufacturing scenario match). Exclusions are recorded with reasons for audit.
+                        </p>
                     </div>
                 </div>
 
@@ -987,136 +1108,13 @@
 
     <script src="toolbox_db.js"></script>
     <script src="hardware_db.js"></script>
+    <script src="matching_model.js"></script>
+    <script src="recommendation_engine.js"></script>
     <script>
         const surveyData = {"title": "Manufacturing Industry AI Maturity Survey", "sub-title": "Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?", "intro": "In the wave of smart manufacturing, AI technology is becoming a critical tool for manufacturing companies to improve efficiency, reduce costs, and strengthen competitiveness. Through this index, you can quickly diagnose your company's current AI application status, identify gaps compared to industry benchmarks, and obtain exclusive recommendations to accelerate digital transformation and secure a leading position in the future of manufacturing.", "company_info": {"title": "Company Information", "fields": [{"id": "company_name", "label": "Company name:", "type": "text", "required": true}, {"id": "location", "label": "Operating Region / Location:", "type": "select", "required": true, "options": ["North America", "Latin America", "Japan & Korea", "Oceania", "Greater China", "Europe", "Middle East", "ASEAN", "South Asia", "Africa", "Other"]}, {"id": "date", "label": "Date:", "type": "date", "required": false}, {"id": "sub_industry", "label": "Sub-industry", "desc": "Specify your sub-industry (based on the Standard Industrial Classification System established by the Executive Yuan’s Directorate General of Budget, Accounting and Statistics, DGBAS) below.", "type": "select", "required": true, "options": ["Non-C Section Manufacture", "C08 Manufacture of Food & Feed Products", "C09 Manufacture of Beverages", "C10 Manufacture of Tobacco Products", "C11 Manufacture of Textiles", "C12 Manufacture of Wearing Apparel and Clothing Accessories", "C13 Manufacture of Leather, Fur and Related Products", "C14 Manufacture of Wood and of Products of Wood and Bamboo", "C15 Manufacture of Paper and Paper Products", "C16 Printing and Reproduction of Recorded Media", "C17 Manufacture of Petroleum and Coal Products", "C18 Manufacture of Chemical Material and Fertilizers", "C19 Manufacture of Other Chemical Products", "C20 Manufacture of Pharmaceuticals and Medicinal Chemical Products", "C21 Manufacture of Rubber Products", "C22 Manufacture of Plastics Products", "C23 Manufacture of Other Non-metallic Mineral Products", "C24 Manufacture of Basic Metals", "C25 Manufacture of Fabricated Metal Products", "C26 Manufacture of Electronic Parts and Components", "C27 Manufacture of Computers, Electronic and Optical Products", "C28 Manufacture of Electrical Equipment", "C29 Manufacture of Machinery and Equipment", "C30 Manufacture of Motor Vehicles and Parts", "C31 Manufacture of Other Transport Equipment and Parts", "C32 Manufacture of Furniture", "C33 Other Manufacturing", "C34 Repair and Installation of Industrial Machinery and Equipment"]}, {"id": "position_level", "label": "Respondent’s position level", "desc": "Specify your job title/position level below.", "type": "select", "required": true, "options": ["a. C-suite (CEO/CTO/COO/CMO)", "b. Departmental middle-/senior-level supervisor", "c. Business unit junior-level supervisor", "d. Senior employee/general employee (non-managerial position)", "e. Non-worker (Student/military or police personnel/retiree, etc.)"]}, {"id": "department", "label": "Respondent’s department", "desc": "Specify your department (If there are more than one respondent, multiple departments can be specified)", "type": "checkbox_group", "required": true, "options": ["a. Manufacturing-related department", "b. Information-related department", "c. R&D department", "d. Business-related department", "e. Marketing-related department", "f. Office of the President/CEO/Other Level-one Executive", "g. AI-promotion-related department", "h. Administrative management department", "i. Other department"]}, {"id": "email", "label": "Respondent Email", "desc": "Specify your email address below.", "type": "email", "required": true}]}, "dimensions": [{"id": "dim_1", "number": "I", "title": "Data & Basic Facilities", "questions": [{"id": "q1", "num_str": "1-1 Level of digitization", "text": "1. How is your company adopting digital information systems in manufacturing?", "type": "matrix", "columns": ["a. No plans for introduction/still under evaluation", "b. System currently under development", "c. System introduced and in use"], "col_scores": [0, 50, 100], "rows": ["1.1 Manufacturing execution systems (MES)", "1.2 Equipment management systems (EMS)", "1.3 Advanced planning & scheduling (APS) systems", "1.4 Recipe management systems (RMS)", "1.5 Warehouse management systems (WMS)", "1.6 Product lifecycle management (PLM) systems", "1.7 Enterprise resource planning (ERP) systems", "1.8 Supply chain management (SCM) systems", "1.9 Customer relationship management (CRM) systems", "1.10 Enterprise business intelligence (BI) decision support & management systems"]}, {"id": "q2", "num_str": "1-2 Level of industrial IoT (IIoT) integration", "text": "2. Are your company’s current production lines or factory facilities capable of connecting to the internet and automatically collecting data?", "type": "single", "options": [{"text": "a. Most production line facilities still require manual operation and are not yet fully automated.", "score": 20}, {"text": "b. Most production line facilities are still at the automated control stage and have not yet adopted industrial IoT (IIoT).", "score": 40}, {"text": "c. In our production line facilities, IIoT is implemented only on the primary machinery of a small number of key production lines.", "score": 60}, {"text": "d. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where single-machine and full-line visualization applications are adopted.", "score": 80}, {"text": "e. In our production line facilities, IIoT has been implemented on multiple key production lines and related equipment/facilities, where two-way remote operation/control has been achieved.", "score": 100}]}, {"id": "q3", "num_str": "1-3 Degree of data integration", "text": "3. What is the degree of integration between your company’s system data collection and data connection?", "type": "single", "options": [{"text": "a. Most of our operations have not adopted digital systems, and no data has been accumulated.", "score": 20}, {"text": "b. Our company has its own information systems, most of which operate independently and are not connected.", "score": 40}, {"text": "c. Some of our company’s information systems have already been connected, allowing for application and data interoperability.", "score": 60}, {"text": "d. Our company’s information systems have connected to external third-party data resource; a “data management platform” has been established to centralize and compile all information.", "score": 80}, {"text": "e. Our company has achieved flexible data utilization within its internal information systems, and has established a “data dashboard” for visualized data analysis, which can be used for corporate business strategy analysis.", "score": 100}]}, {"id": "q4", "num_str": "1-4 Server computing capacity", "text": "4. What server computing and storage resource environments does your company currently use to support its AI-related applications?", "type": "single", "options": [{"text": "a. Our company does not use any servers or computing equipment to provide AI application services.", "score": 20}, {"text": "b. Our company uses “GPU-free” basic servers or computing equipment for data storage, access, and AI application services.", "score": 40}, {"text": "c. Our company has established its own GPU-powered servers or accessed them through cloud services to deploy its AI application services.", "score": 60}, {"text": "d. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services to train and deploy AI models for its AI application service development.", "score": 80}, {"text": "e. Through a hybrid cloud information framework, our company has established its own GPU-powered servers and accessed them through cloud services, and has self-developed onsite edge computing terminal devices to train and deploy AI models, thereby developing its own real-time AI edge computing application services.", "score": 100}]}]}, {"id": "dim_2", "number": "II", "title": "Resource Investment for AI Development", "questions": [{"id": "q5", "num_str": "2-1 Capital investment", "text": "5. In response to the introduction of AI applications for digital transformation, based on your estimate, what level of resources does your company allocate to AI-related investment in its annual plans? (Include software, hardware, projects, personnel recruitment, etc.)", "type": "single", "options": [{"text": "a. At present, we have no plans regarding AI personnel recruitment, software/hardware, or application development.", "score": 20}, {"text": "b. Our company has developed plans to recruit AI personnel, but has no budget for related software/hardware or application development.", "score": 40}, {"text": "c. Our company has developed investment plans for AI software, hardware, or applications, but has no plans to invest in AI-related talent.", "score": 60}, {"text": "d. Our company has developed investment plans for AI personnel recruitment, software/hardware, and application development.", "score": 80}, {"text": "e. Our company has dedicated departments and budget to implement plans for AI personnel, software/hardware, and applications.", "score": 100}]}, {"id": "q6", "num_str": "2-2 Personnel training", "text": "6. Has your company established any education/training mechanisms to provide AI-related training courses/resources for employees?", "type": "single", "options": [{"text": "a. Currently, our company has no need for AI courses/training and no related plans.", "score": 20}, {"text": "b. Our company has not provided any AI-related training resources; instead, supervisors encourage employees to take the initiative in learning AI-related knowledge and applications.", "score": 40}, {"text": "c. While our company has not established internal AI training resources, we encourage employees to proactively participate in external AI training courses and provides modest course subsidies.", "score": 60}, {"text": "d. Our company has established initial-phase AI training mechanisms, and encourages employees to participate in external training courses. Internal AI training courses are only provided for a small number of key personnel.", "score": 80}, {"text": "e. Our company has established comprehensive AI personnel cultivation mechanisms and regularly provides internal courses and external training opportunities for employees across various roles.", "score": 100}]}, {"id": "q7", "num_str": "2-3 AI technical personnel", "text": "7. When promoting the introduction of AI, does your company employ any AI technical staff specializing in AI algorithms, model training, software development, etc.?", "type": "single", "options": [{"text": "a. Our company has no designated headcount for AI technical roles.", "score": 20}, {"text": "b. Our company has no dedicated AI technical personnel, but its information management office is responsible for AI application assessment, development and operation/maintenance.", "score": 40}, {"text": "c. Our company has designated a few AI technical personnel in its information management office to be responsible for AI application assessment, development and operation/maintenance.", "score": 60}, {"text": "d. Our company has established an AI team in its information management office to be responsible for AI application assessment, development and operation/maintenance.", "score": 80}, {"text": "e. Our company has established a dedicated AI Technology Department, which operates independently of the information management office. The department is staffed with multiple AI professionals, and is responsible for the organization’s overall AI technology development, application promotion, and system establishment.", "score": 100}]}]}, {"id": "dim_3", "number": "III", "title": "AI Strategy Planning and Management", "questions": [{"id": "q8", "num_str": "3-1 Company AI promotion strategy", "text": "8. What are your company’s plans regarding its AI development strategy?", "type": "single", "options": [{"text": "a. Our company has not developed or announced any AI-related development strategy.", "score": 20}, {"text": "b. Our company is beginning to develop a digital transformation strategy.", "score": 40}, {"text": "c. Our company already has a digital transformation strategy in place, but does not yet have any plans specifically for AI applications.", "score": 60}, {"text": "d. Our company already has a digital transformation strategy in place and has clearly defined the role of AI applications.", "score": 80}, {"text": "e. Our company has established an independent strategic direction for AI development and set specific development goals aligned with its business strategies.", "score": 100}]}, {"id": "q9", "num_str": "3-2 AI promotion organization", "text": "9. Has your company established a dedicated department or office for promoting AI-powered digital transformation?", "type": "single", "options": [{"text": "a. No related office or department has been established yet.", "score": 20}, {"text": "b. Our company’s information or specialized department has established an AI task force to consolidate AI-related needs and task progress across various departments.", "score": 40}, {"text": "c. Our company has established an interdepartmental AI task force, which regularly reports to senior executives on AI-related needs and task progress.", "score": 60}, {"text": "d. Our company has established an AI promotion task force led by senior executives to develop annual AI objectives and regularly track task progress.", "score": 80}, {"text": "e. Our company has already established a formal, dedicated AI Promotion Committee formed by senior executives and relevant promotion organizations to set annual goals and regularly track progress.", "score": 100}]}, {"id": "q10", "num_str": "3-3 Data governance systems", "text": "10. Has your company established any management mechanisms for the data and information collected through digitalized systems?", "type": "multiple", "options": [{"text": "a. Our company has designated dedicated personnel or a team for data management to define and assign responsibilities for data maintenance.", "score": 12.5}, {"text": "b. Our company has established data indexing systems to facilitate data retrieval.", "score": 12.5}, {"text": "c. Our company has established data format standards to facilitate data consolidation and interoperability.", "score": 12.5}, {"text": "d. Our company has established data quality monitoring mechanisms for data cleaning and error handling.", "score": 12.5}, {"text": "e. Our company has established data/information security mechanisms such as access authorization controls, log records, and encryption protection.", "score": 12.5}, {"text": "f. Our company complies with international and regional data privacy (anonymization/de-identification) regulations, such as the General Data Protection Regulation (GDPR).", "score": 12.5}, {"text": "g. Our company has established data lifecycle management systems to regulate data storage and deletion procedures.", "score": 12.5}, {"text": "h. Our company has established historical data version control and recovery/traceability mechanisms.", "score": 12.5}, {"text": "i. None of the above.", "score": 0, "exclusive": true}]}, {"id": "q11", "num_str": "3-4 Trustworthy AI management", "text": "11. Has your company developed any guidelines, regulations, or policies related to the utilization of AI systems?", "type": "multiple", "options": [{"text": "a. Transparency — Users can understand and trace AI decision-making process.", "score": 14.3}, {"text": "b. Security and resilience — AI must be secure, reliable, and error-detectable, with minimized errors and resilience against attacks.", "score": 14.3}, {"text": "c. Accountability — Ensure AI inference behavior is traceable, with clear team accountability for error correction and handling of relevant issues.", "score": 14.3}, {"text": "d. Fairness — Ensure AI inference is impartial and free from discrimination and prejudice.", "score": 14.3}, {"text": "e. Privacy and data protection — Ensure AI-processed data complies with privacy regulations and relevant protection standards, and prevent the misuse of personal data.", "score": 14.3}, {"text": "f. Human oversight — AI is not allowed to make decisions entirely on its own; there must be human oversight along with emergency intervention mechanisms.", "score": 14.3}, {"text": "g. Social and environmental responsibilities — AI decisions should bring positive impacts to society and the environment rather than aggravating existing problems; enterprises should avoid technology misuse.", "score": 14.3}, {"text": "h. None of the above.", "score": 0, "exclusive": true}]}]}, {"id": "dim_4", "number": "IV", "title": "Manufacturing Industry AI System Operation & Maintenance", "questions": [{"id": "q12", "num_str": "4-1 Depth of implementing AI applications", "text": "12. Has your company introduced AI into its actual business processes?", "type": "single", "options": [{"text": "a. Our company has not yet initiated AI research or planning.", "score": 20}, {"text": "b. Our company is exploring the possibility for introducing AI into some workflows, but it has not been implemented yet.", "score": 40}, {"text": "c. Our company has implemented AI proofs of concept (PoC) in some workflows, but has not introduced them into formal business processes yet.", "score": 60}, {"text": "d. AI applications have been introduced into some business processes and fields.", "score": 80}, {"text": "e. AI applications have been introduced into most business processes and fields.", "score": 100}]}, {"id": "q13", "num_str": "4-2 Level of applied AI implementation", "text": "13. In which business fields has your company introduced AI pilot projects, or the projects that have progressed to AI applications?", "type": "multiple", "options": [{"text": "a. Product R&D and design", "score": 9.1}, {"text": "b. Production process", "score": 9.1}, {"text": "c. Supply chain management", "score": 9.1}, {"text": "d. Quality testing", "score": 9.1}, {"text": "e. Equipment maintenance", "score": 9.1}, {"text": "f. Facility management", "score": 9.1}, {"text": "g. Factory carbon emissions and energy consumption", "score": 9.1}, {"text": "h. Business-related customer service", "score": 9.1}, {"text": "i. Operational management and marketing", "score": 9.1}, {"text": "j. Human resources", "score": 9.1}, {"text": "k. Logistics and warehousing", "score": 9.1}, {"text": "l. None of the above.", "score": 0, "exclusive": true}]}, {"id": "q14", "num_str": "4-3 Technical development channels", "text": "14. What is the approach your company generally adopts to obtain technical support after the introduction of AI systems?", "type": "single", "options": [{"text": "a. Our company has not adopted any AI technologies or platform services.", "score": 20}, {"text": "b. Basically, most AI services are either outsourced or provided by AI technical service providers for comprehensive solutions.", "score": 40}, {"text": "c. Our company can establish small-scale AI system services internally; most services are outsourced to external AI technical service providers.", "score": 60}, {"text": "d. Most AI system services are established by our company internally; for advanced critical technologies, which account for a small portion, the company conducts joint R&D with AI technical service providers and external experts.", "score": 80}, {"text": "e. Our company has accumulated profound AI technical R&D strength, so all AI system services can be handled internally by its employees.", "score": 100}]}, {"id": "q15", "num_str": "4-4 AI system operation/maintenance and update", "text": "15. With any AI system your company has introduced, what is its current operation/maintenance and update status?", "type": "single", "options": [{"text": "a. Currently, our company has no AI system that needs maintenance.", "score": 20}, {"text": "b. While our company’s AI application systems have been implemented, they rely primarily on temporary maintenance from the R&D team or the IT department, lacking a comprehensive AI operation-maintenance framework.", "score": 40}, {"text": "c. While AI application systems have been implemented and basic operation-maintenance procedures (such as routine monitoring and error correction) have been established, automated monitoring and continuous AI model optimization have not yet been carried out.", "score": 60}, {"text": "d. AI systems have been incorporated into our company’s IT operation/maintenance framework, which can provide AI-powered technological monitoring (MLOps/AIOps) and optimization mechanisms, and regularly update AI models and relevant data based on business needs.", "score": 80}, {"text": "e. AI systems have been integrated with automated model monitoring, anomaly prediction, and data feedback mechanisms, and possess continuous learning, model self-optimization, and self-adaptation capabilities, enabling the systems to operate without frequent human intervention. AI systems’ automated operation-maintenance is reaching maturity.", "score": 100}]}]}, {"id": "dim_5", "number": "V", "title": "Operational Benefits from AI-powered Digital Transformation", "questions": [{"id": "q16", "num_str": "5-1 Benefits from introduced AI applications", "text": "16. Since introducing AI systems, has your company received your expected operational benefits and achieved your business goals set for AI-powered digital transformation?", "type": "single", "options": [{"text": "a. There are no plans to introduce AI; or the benefits of AI introduction have not been evaluated.", "score": 20}, {"text": "b. It is difficult to evaluate the benefits of AI introduction at this stage.", "score": 40}, {"text": "c. A preliminary evaluation of the benefits of AI introduction shows that they are not meeting expectations; therefore, continuous optimization is required.", "score": 60}, {"text": "d. The introduced AI pilot projects or application services have produced early-stage operational benefits.", "score": 80}, {"text": "e. The benefits of AI introduction have been specifically quantified, which indicates high-level benefits and the achievement of AI digital transformation goals.", "score": 100}]}, {"id": "q17", "num_str": "5-2 ROI from introducing AI", "text": "17. Regarding your company’s investment in AI development, is the ROI meeting your set targets?", "type": "single", "options": [{"text": "a. There are no plans to introduce AI; or the ROI has not been estimated.", "score": 20}, {"text": "b. Some research has been done; yet the ROI is still hard to quantify and evaluate.", "score": 40}, {"text": "c. Estimation approaches are in place; the ROI has not met expectations.", "score": 60}, {"text": "d. Estimation approaches are in place; the ROI has met basic expectations.", "score": 80}, {"text": "e. Estimation approaches are in place; the ROI indicates significant benefits.", "score": 100}]}]}, {"id": "dim_aux", "number": "A", "title": "Company’s Operational Goals and Pain Points", "is_auxiliary": true, "questions": [{"id": "q18", "num_str": "A-1 Business fields where operational pain points exist", "text": "18. In addition to the currently introduced AI applications, are there other operational pain points or business scenarios for which your company plans to introduce AI solutions at the next stage?", "type": "multiple", "options": [{"text": "a. Product R&D and design"}, {"text": "b. Production process"}, {"text": "c. Supply chain management"}, {"text": "d. Quality testing"}, {"text": "e. Equipment maintenance"}, {"text": "f. Facility management"}, {"text": "g. Factory carbon emissions and energy consumption"}, {"text": "h. Business-related customer service"}, {"text": "i. Operational management and marketing"}, {"text": "j. Human resources"}, {"text": "k. Logistics and warehousing"}, {"text": "l. Other", "has_input": true}]}, {"id": "q19", "num_str": "A-2 Challenges in introducing AI", "text": "19. Whatever AI adoption stage your company is currently at, what have been your primary challenges to adopting AI or implementing AI projects?", "type": "multiple", "options": [{"text": "a. Currently no AI adoption needs"}, {"text": "b. Too costly to introduce AI"}, {"text": "c. Lack of relevant technical talent"}, {"text": "d. Target benefits are difficult to quantify"}, {"text": "e. Risks are difficult to assess"}, {"text": "f. Organization’s culture does not support innovation"}, {"text": "g. Concerns about company data leaks"}, {"text": "h. Company data has not been integrated yet"}, {"text": "i. Leaders’ insufficient understanding of AI"}, {"text": "j. Inadequate IT infrastructure"}, {"text": "k. AI system stability and reliability is unsatisfactory"}, {"text": "l. High maintenance and upgrade costs"}, {"text": "m. High energy consumption/cost; fails to meet company’s energy-saving and carbon reduction targets"}, {"text": "n. Other", "has_input": true}]}]}]};
         const toolboxDatabase = [{"category": "a. Product R&D and design", "keywords": ["Product R&D and design", "R&D", "design", "Generative design", "simulation"], "tools": [{"name": "Generative Design & CAD Simulation AI", "provider": "CAD/CAM AI Solutions", "tech": "Generative Design, Finite Element Simulation AI", "benefit": "Automates 3D CAD modeling and structural generative optimization, cutting product design cycles by 40%.", "url": "https://ai-readiness.aimfg.org.tw"}, {"name": "AI Formula & Material Recipe Optimizer", "provider": "Smart Materials Tech", "tech": "Machine Learning Recipe Prediction", "benefit": "Predicts physical properties of chemical/material formulas to reduce R&D trial-and-error costs."}]}, {"category": "b. Production process", "keywords": ["Production process", "Scheduling optimization", "process parameter monitoring"], "tools": [{"name": "AI Advanced Planning & Dynamic Scheduling (APS)", "provider": "Smart Manufacturing Operations", "tech": "Constraint Satisfaction, Reinforcement Learning", "benefit": "Dynamically adjusts production scheduling upon urgent orders or machine breakdowns, improving OEE by 25%.", "url": "https://ai-readiness.aimfg.org.tw"}, {"name": "Process Parameter Real-Time Optimizer", "provider": "Process Intelligence Co.", "tech": "Time-series Anomaly Detection, Neural Networks", "benefit": "Monitors multi-sensor parameters in real time to prevent yield drops during complex manufacturing."}]}, {"category": "c. Supply chain management", "keywords": ["Supply chain management", "Demand forecasting", "Supplier risk"], "tools": [{"name": "AI Demand Forecasting & Inventory Optimizer", "provider": "Supply Chain AI Labs", "tech": "XGBoost, Recurrent Neural Networks", "benefit": "Predicts multi-tier customer demand fluctuations to optimize safety stock levels and reduce inventory holding costs by 30%."}]}, {"category": "d. Quality testing", "keywords": ["Quality testing", "AOI visual recognition", "defect prediction"], "tools": [{"name": "AI AOI Defect Inspection & Classification System", "provider": "VisionAI Technologies", "tech": "Computer Vision (YOLOv8, Swin Transformer)", "benefit": "Replaces manual visual inspection with 99.5% accuracy, reducing false kill rates and inspection cycle times."}, {"name": "Virtual Metrology & Defect Early-Warning System", "provider": "Precision Quality AI", "tech": "Deep Learning Regression Models", "benefit": "Predicts wafer/component dimensions without destructive testing, detecting quality anomalies in advance."}]}, {"category": "e. Equipment maintenance", "keywords": ["Equipment maintenance", "Predictive maintenance", "Vibration analysis"], "tools": [{"name": "Equipment Predictive Maintenance & Vibration Diagnostic (PdM)", "provider": "Industrial IoT & PdM Corp", "tech": "Vibration Spectrum Analysis, Anomaly Detection AI", "benefit": "Detects bearing wear and motor anomalies weeks before catastrophic failure, eliminating unplanned downtime."}]}, {"category": "f. Facility management / Energy", "keywords": ["Facility management", "Factory carbon emissions and energy consumption"], "tools": [{"name": "Smart Factory Energy Optimization & Carbon Footprint AI", "provider": "Green Tech Automation", "tech": "HVAC Control AI, Carbon Accounting Analytics", "benefit": "Optimizes HVAC and chiller operations, achieving 15-20% electricity savings and automated ESG carbon reporting."}]}, {"category": "g. Operational management, Marketing & HR", "keywords": ["Business-related customer service", "Operational management and marketing", "Human resources", "Logistics and warehousing"], "tools": [{"name": "Enterprise Generative AI Knowledge Assistant & Chatbot", "provider": "Enterprise GenAI Solutions", "tech": "LLM, Retrieval-Augmented Generation (RAG)", "benefit": "Indexes internal SOPs and technical manuals for instant staff query resolution and automated customer service response."}]}];
 
         const { createApp } = Vue;
-
-        // q13 option index -> toolbox category prefix (for matching)
-        const TOOLBOX_Q13_MAP = {
-            0: '6. R&D and Design',
-            1: '1. Scheduling and Delivery',
-            2: '4. Inventory and Supply Chain',
-            3: '2. Quality and Yield',
-            4: '3. Equipment and Maintenance',
-            5: '5. ESG, Facility and Safety',
-            6: '5. ESG, Facility and Safety',
-            7: '8. Dashboard or Situation Center',
-            8: '8. Dashboard or Situation Center',
-            9: '7. Human-AI Collaboration and Knowledge',
-            10: '4. Inventory and Supply Chain'
-        };
-
-        function matchToolboxTools(answers) {
-            const selected = answers?.multiple?.q13 || [];
-            const categories = selected.map(i => TOOLBOX_Q13_MAP[i]).filter(Boolean);
-            const q19Sel = answers?.multiple?.q19 || [];
-            const q19Options = typeof surveyData !== 'undefined' ? surveyData.dimensions.flatMap(d => d.questions).find(q => q.id === 'q19')?.options || [] : [];
-            const q18Sel = answers?.multiple?.q18 || [];
-            const q18Options = typeof surveyData !== 'undefined' ? surveyData.dimensions.flatMap(d => d.questions).find(q => q.id === 'q18')?.options || [] : [];
-
-            const q13CatMap = {
-                'Product R&D and design': '6. R&D and Design',
-                'Production process': '1. Scheduling and Delivery',
-                'Supply chain management': '4. Inventory and Supply Chain',
-                'Quality testing': '2. Quality and Yield',
-                'Equipment maintenance': '3. Equipment and Maintenance',
-                'Facility management': '5. ESG, Facility and Safety',
-                'Factory carbon emissions and energy consumption': '5. ESG, Facility and Safety',
-                'Business-related customer service': '8. Dashboard or Situation Center',
-                'Operational management and marketing': '8. Dashboard or Situation Center',
-                'Human resources': '7. Human-AI Collaboration and Knowledge',
-                'Logistics and warehousing': '4. Inventory and Supply Chain'
-            };
-
-            const q19PainMap = {
-                "Currently no AI adoption needs": ["9. Other"],
-                "Too costly to introduce AI": ["9. Other"],
-                "Lack of relevant technical talent": ["7. Human-AI Collaboration and Knowledge"],
-                "Target benefits are difficult to quantify": ["8. Dashboard or Situation Center"],
-                "Risks are difficult to assess": ["9. Other"],
-                "Organization's culture does not support innovation": ["7. Human-AI Collaboration and Knowledge"],
-                "Concerns about company data leaks": ["9. Other"],
-                "Company data has not been integrated yet": ["8. Dashboard or Situation Center"],
-                "Leaders' insufficient understanding of AI": ["7. Human-AI Collaboration and Knowledge"],
-                "Inadequate IT infrastructure": ["9. Other"],
-                "AI system stability and reliability is unsatisfactory": ["3. Equipment and Maintenance"],
-                "High maintenance and upgrade costs": ["3. Equipment and Maintenance"],
-                "High energy consumption/cost; fails to meet company's energy-saving and carbon reduction targets": ["5. ESG, Facility and Safety"],
-                "Other": ["9. Other"]
-            };
-
-            const q18CatMap = {
-                'Product R&D and design': '6. R&D and Design',
-                'Production process': '1. Scheduling and Delivery',
-                'Supply chain management': '4. Inventory and Supply Chain',
-                'Quality testing': '2. Quality and Yield',
-                'Equipment maintenance': '3. Equipment and Maintenance',
-                'Facility management': '5. ESG, Facility and Safety',
-                'Factory carbon emissions and energy consumption': '5. ESG, Facility and Safety',
-                'Business-related customer service': '8. Dashboard or Situation Center',
-                'Operational management and marketing': '8. Dashboard or Situation Center',
-                'Human resources': '7. Human-AI Collaboration and Knowledge',
-                'Logistics and warehousing': '4. Inventory and Supply Chain'
-            };
-
-            const painKeywords = [
-                ...q19Sel.flatMap(i => (q19PainMap[(q19Options[i]?.text || '').trim()]) || []),
-                ...q18Sel.map(i => q18CatMap[(q18Options[i]?.text || '').trim()]).filter(Boolean)
-            ];
-            const cats = [...categories, ...painKeywords];
-            if (!cats.length) return [];
-
-            const catPrefixes = cats.map(c => c.split(' ')[0]);
-
-            const q14 = typeof answers?.single?.q14 === 'number' ? answers.single.q14 : -1;
-            const q15 = typeof answers?.single?.q15 === 'number' ? answers.single.q15 : -1;
-            const hay = (s) => (s || '').toLowerCase();
-            const advancedTerms = ['mlops', 'aiops', 'automation', 'self-optim', 'continuous learning', 'adaptive', 'anomaly prediction', 'model monitoring'];
-            const beginnerTerms = ['ready', 'proven', 'turnkey', 'rapid', 'quick', 'low-cost', 'plug and play', 'instant'];
-
-            return (typeof TOOLBOX_TOOLS !== 'undefined' ? TOOLBOX_TOOLS : []).map(t => {
-                const txt = [t.name, t.benefit, t.provider, t.production_pain, t.non_production, ...(t.pain_tags || []), ...(t.industry_tags || [])].map(hay).join(' ');
-                const techTxt = hay(t.tech || '') + ' ' + hay(t.benefit || '');
-                let score = 0;
-                const reasons = [];
-                // category relevance
-                for (const prefix of catPrefixes) {
-                    const allPainTags = [...(t.pain_tags || []), ...(t.pain_tags_en || [])];
-                    const matchedTag = allPainTags.some(tag => tag.startsWith(prefix));
-                    if (matchedTag || (t.production_pain_en && t.production_pain_en.toLowerCase().includes(prefix.toLowerCase()))) {
-                        score += 3;
-                        reasons.push('Category match');
-                        break;
-                    }
-                }
-                // q14 weighting
-                if (q14 >= 0) {
-                    const apiFull = txt.includes('api') || txt.includes('sdk');
-                    const cloudOnly = !txt.includes('on-premise') && (txt.includes('cloud') || txt.includes('saas'));
-                    if (q14 <= 40) {
-                        if (cloudOnly) { score += 2; reasons.push('Low-code SaaS'); }
-                        if (apiFull) { score -= 1; reasons.push('API required'); }
-                    } else if (q14 >= 80) {
-                        if (apiFull) { score += 2; reasons.push('Full API integration'); }
-                    }
-                }
-                // q15 weighting
-                if (q15 >= 0) {
-                    if (q15 >= 80) {
-                        if (advancedTerms.some(term => techTxt.includes(term))) { score += 2; reasons.push('Advanced MLOps ready'); }
-                    } else if (q15 <= 40) {
-                        if (beginnerTerms.some(term => techTxt.includes(term))) { score += 1; reasons.push('Fast deployment'); }
-                    }
-                }
-                return { tool: t, score, reasons: [...new Set(reasons)] };
-            })
-            .filter(item => item.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 8)
-            .map(item => ({ ...item.tool, __reason: item.reasons.join(', ') }));
-        }
 
         createApp({
             data() {
@@ -1614,8 +1612,20 @@
                         q4: q4Items
                     };
                 },
+                recommendationResult() {
+                    if (typeof RecommendationEngine === 'undefined') return null;
+                    const answers = Object.assign({}, this.answers, { __overall: this.overallScore });
+                    try {
+                        return RecommendationEngine.recommend(answers, this.form, { limit: 6 });
+                    } catch (e) {
+                        console.error('Recommendation engine failed:', e);
+                        return null;
+                    }
+                },
                 matchedTools() {
-                    return matchToolboxTools(this.answers) || [];
+                    const r = this.recommendationResult;
+                    if (!r) return [];
+                    return r.recommended.concat(r.conditional).map(x => x.solution);
                 },
                 matchedHardware() {
                     if (typeof HARDWARE_DATABASE === 'undefined' || !HARDWARE_DATABASE.products) {
@@ -1780,6 +1790,22 @@
                         }
                     }
                     return null;
+                },
+                scenarioName(id) {
+                    const m = (typeof MATCHING_MODEL !== 'undefined') ? MATCHING_MODEL : null;
+                    if (!m) return id;
+                    const s = (m.scenarios || []).find(x => x.id === id);
+                    return s ? s.name : id;
+                },
+                breakdownLabel(key) {
+                    return {
+                        requirement_fit: 'Requirement fit',
+                        technical_compatibility: 'Technical fit',
+                        expected_benefit: 'Expected benefit',
+                        cost_feasibility: 'Cost feasibility',
+                        vendor_capability: 'Vendor capability',
+                        evidence_confidence: 'Evidence'
+                    }[key] || key;
                 },
                 toolField(tool, field) {
                     if (!tool) return '';

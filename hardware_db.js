@@ -2740,3 +2740,5 @@ const HARDWARE_DATABASE = {
     }
   ]
 };
+
+if (typeof module !== 'undefined' && module.exports) { module.exports = HARDWARE_DATABASE; }
