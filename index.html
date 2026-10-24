@@ -12,44 +12,249 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Typography: single family across the whole product -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ink-900: #0f172a;
+            --ink-800: #1e293b;
+            --ink-700: #334155;
+            --ink-500: #64748b;
+            --ink-400: #94a3b8;
+            --line: #e2e8f0;
+            --line-soft: #eef2f7;
+            --surface: #ffffff;
+            --canvas: #f8fafc;
+            --brand: #2563eb;
+            --brand-deep: #1d4ed8;
+            --accent: #7c3aed;
+            --success: #059669;
+        }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+            color: var(--ink-700);
+            background: var(--canvas);
+            font-feature-settings: 'cv02','cv03','cv04','cv11';
+        }
+
         [v-cloak] { display: none; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+
+        /* ---------- hero ---------- */
+        .hero-band {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(1100px 480px at 78% -12%, rgba(37,99,235,.30), transparent 62%),
+                linear-gradient(150deg, #0b1222 0%, #14203a 52%, #0f172a 100%);
+            border-bottom: 1px solid rgba(148,163,184,.16);
+            padding: 3.5rem 0 3.25rem;
         }
+        .hero-dots {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(148,163,184,.55) 1px, transparent 1px);
+            background-size: 22px 22px;
+            opacity: .13;
+            pointer-events: none;
+        }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: .5rem;
+            font-size: .6875rem; font-weight: 600;
+            letter-spacing: .14em; text-transform: uppercase;
+            color: #bfdbfe;
+            background: rgba(59,130,246,.14);
+            border: 1px solid rgba(96,165,250,.32);
+            padding: .375rem .75rem; border-radius: 999px;
+        }
+        .hero-title {
+            margin: 1.25rem 0 0;
+            font-size: 2.0625rem;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: #ffffff;
+        }
+        @media (min-width: 640px) { .hero-title { font-size: 2.75rem; } }
+        @media (min-width: 1024px) { .hero-title { font-size: 3.125rem; } }
+
+        .hero-sub {
+            margin-top: 1rem;
+            max-width: 58ch;
+            font-size: .9375rem;
+            line-height: 1.75;
+            color: #cbd5e1;
+        }
+        @media (min-width: 640px) { .hero-sub { font-size: 1rem; } }
+
+        .hero-cta-row { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: .625rem; }
+        .btn-guideline {
+            display: inline-flex; align-items: center; gap: .5rem;
+            max-width: 100%;
+            min-width: 0;
+            padding: .5625rem .875rem;
+            border-radius: .625rem;
+            font-size: .75rem; font-weight: 500;
+            color: #e2e8f0;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(226,232,240,.22);
+            transition: background .18s ease, border-color .18s ease;
+        }
+        .btn-guideline:hover { background: rgba(255,255,255,.12); border-color: rgba(226,232,240,.38); }
+        .pill-size {
+            font-size: .625rem; font-weight: 600; letter-spacing: .03em;
+            padding: .125rem .375rem; border-radius: .3125rem;
+            background: rgba(244,63,94,.22); color: #fecdd3;
+            border: 1px solid rgba(244,63,94,.32);
+            flex-shrink: 0;
+        }
+        @media (max-width: 639px) {
+            .btn-guideline { align-items: flex-start; text-align: left; }
+            .btn-guideline .guideline-label { white-space: normal; line-height: 1.45; }
+        }
+
+        /* ---------- entry card ---------- */
+        .entry-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 1rem;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 32px -12px rgba(15,23,42,.10);
+        }
+        @media (min-width: 640px) { .entry-card { padding: 2.75rem 2.5rem; } }
+
+        .section-eyebrow {
+            font-size: .6875rem; font-weight: 600;
+            letter-spacing: .13em; text-transform: uppercase;
+            color: var(--brand);
+        }
+        .entry-title {
+            margin-top: .625rem;
+            font-size: 1.375rem; line-height: 1.25;
+            font-weight: 800; letter-spacing: -0.02em;
+            color: var(--ink-900);
+        }
+        @media (min-width: 640px) { .entry-title { font-size: 1.625rem; } }
+
+        .entry-lede {
+            margin-top: .875rem;
+            max-width: 68ch;
+            font-size: .9375rem;
+            line-height: 1.78;
+            color: var(--ink-700);
+        }
+
+        /* ---------- numbered value props ---------- */
+        .entry-steps { margin-top: 2rem; border-top: 1px solid var(--line-soft); }
+        .entry-step {
+            display: grid;
+            grid-template-columns: 2.25rem 1fr;
+            gap: .25rem 1rem;
+            padding: 1.125rem 0;
+            border-bottom: 1px solid var(--line-soft);
+        }
+        @media (max-width: 767px) {
+            .step-desc { grid-column: 2; }
+        }
+        @media (min-width: 768px) {
+            .entry-step { grid-template-columns: 2.75rem 13rem 1fr; gap: 0 1.5rem; align-items: baseline; }
+        }
+        .step-num {
+            font-size: .8125rem; font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--brand);
+            letter-spacing: .02em;
+        }
+        .step-name {
+            font-size: .9375rem; font-weight: 600;
+            color: var(--ink-900);
+            line-height: 1.5;
+        }
+        .step-desc {
+            font-size: .875rem; line-height: 1.65;
+            color: var(--ink-500);
+        }
+
+        /* ---------- unified action grid ---------- */
+        .entry-actions {
+            margin-top: 2rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--line-soft);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: .75rem;
+        }
+        @media (min-width: 640px) { .entry-actions { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 1024px) { .entry-actions { grid-template-columns: repeat(4, 1fr); } }
+
+        .btn-action {
+            display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+            height: 2.875rem;
+            padding: 0 1rem;
+            border-radius: .75rem;
+            font-size: .8125rem; font-weight: 600;
+            letter-spacing: -0.005em;
+            white-space: nowrap;
+            transition: background .18s ease, box-shadow .18s ease, transform .1s ease, border-color .18s ease;
+        }
+        .btn-action:active { transform: translateY(1px); }
+        .btn-action i { font-size: .75rem; }
+
+        .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 6px 16px -6px rgba(37,99,235,.55); }
+        .btn-primary:hover { background: var(--brand-deep); }
+
+        .btn-accent { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); color: #fff; box-shadow: 0 6px 16px -6px rgba(124,58,237,.5); }
+        .btn-accent:hover { background: linear-gradient(135deg, #6d28d9 0%, #4338ca 100%); }
+
+        .btn-neutral { background: var(--ink-800); color: #fff; }
+        .btn-neutral:hover { background: var(--ink-900); }
+
+        .btn-ghost { background: #fff; color: var(--ink-700); border: 1px solid var(--line); }
+        .btn-ghost:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+        /* ---------- shared ---------- */
         .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,.05), 0 8px 10px -6px rgba(0,0,0,.01);
         }
+
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
             body { background: white !important; color: black !important; }
+            .hero-band { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .card-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; break-inside: avoid; page-break-inside: avoid; }
+            .entry-card { break-inside: avoid; }
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
     <div id="app" v-cloak class="flex-grow flex flex-col">
         <!-- Header / Hero Header -->
-        <header class="gradient-bg text-white py-12 px-4 sm:px-6 lg:px-8 shadow-lg relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="max-w-4xl mx-auto relative z-10 text-center">
-                <div class="inline-flex items-center space-x-2 bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3.5 py-1 rounded-full text-xs font-semibold mb-5 tracking-wide uppercase">
-                    <i class="fa-solid fa-microchip"></i>
-                    <span>Industry 4.0 & AI Evaluation 2.0</span>
-                </div>
-                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">
-                    Manufacturing Industry AI Maturity Survey
-                </h1>
-                <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                    Manufacturing AI Maturity Index: What stage is your enterprise in AI transformation?
-                </p>
-                <div class="mt-5 flex flex-wrap justify-center items-center gap-3">
-                    <a href="Manufacturing%20Guidelines%20for%20the%20introduction%20of%20AI.pdf" download="Manufacturing Guidelines for the introduction of AI.pdf" class="inline-flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-sm transition duration-200 shadow-sm">
-                        <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i>
-                        <span>Manufacturing Guidelines for the introduction of AI</span>
-                        <span class="text-[10px] bg-rose-500/80 text-white px-2 py-0.5 rounded-full font-mono">85MB</span>
-                    </a>
+        <header class="hero-band text-white">
+            <div class="hero-dots"></div>
+            <div class="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-3xl">
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span>Industry 4.0 &amp; AI Evaluation 2.0</span>
+                    </span>
+                    <h1 class="hero-title">Manufacturing Industry<br class="hidden sm:block"> AI Maturity Survey</h1>
+                    <p class="hero-sub">
+                        A standardized diagnostic of your AI readiness, paired with a matched path to the
+                        solutions, industrial hardware and service partners that fit your plant.
+                    </p>
+                    <div class="hero-cta-row">
+                        <a href="Manufacturing%20Guidelines%20for%20the%20introduction%20of%20AI.pdf"
+                           download="Manufacturing Guidelines for the introduction of AI.pdf"
+                           class="btn-guideline">
+                            <i class="fa-solid fa-file-pdf text-rose-300"></i>
+                            <span class="guideline-label">Manufacturing Guidelines for the introduction of AI</span>
+                                            <span class="pill-size">85 MB</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -58,71 +263,55 @@
         <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
             
             <!-- Welcome / Intro Card (Stage 0) -->
-            <div v-if="currentStep === 0" class="bg-white rounded-2xl p-6 sm:p-10 card-shadow border border-slate-100">
-                <div class="flex items-center space-x-4 mb-8">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold flex-shrink-0">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-900">Welcome to the Survey</h2>
-                        <p class="text-xs text-slate-500 mt-0.5">Diagnose your AI readiness and match customized solutions from AI Toolbox</p>
-                    </div>
-                </div>
-
-                <p class="text-slate-600 leading-relaxed text-sm sm:text-base mb-10 bg-slate-50 p-6 rounded-xl border border-slate-100">
-                    In the wave of smart manufacturing, AI technology is becoming a critical tool for manufacturing companies to improve efficiency, reduce costs, and strengthen competitiveness. Through this index, you can quickly diagnose your company's current AI application status, identify gaps compared to industry benchmarks, and obtain exclusive recommendations to accelerate digital transformation and secure a leading position in the future of manufacturing.
+            <section v-if="currentStep === 0" class="entry-card">
+                <span class="section-eyebrow">Start here</span>
+                <h2 class="entry-title">Diagnose where you are — then decide what to do next</h2>
+                <p class="entry-lede">
+                    Most AI programmes stall because the first project was chosen before the plant was
+                    understood. This survey gives you a defensible picture of your data foundation, investment,
+                    strategy, operations and realised benefits, then narrows the AI Toolbox catalogue down to
+                    the solutions that actually match your constraints.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="p-5 rounded-xl bg-blue-50/50 border border-blue-100/60 flex items-start space-x-3">
-                        <i class="fa-solid fa-shield-halved text-blue-600 text-lg mt-1"></i>
-                        <div>
-                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">19 Standardized Items</h4>
-                            <p class="text-xs text-slate-500 mt-1">5 Core Dimensions + Operational Pain Points</p>
-                        </div>
+                <div class="entry-steps">
+                    <div class="entry-step">
+                        <span class="step-num">01</span>
+                        <span class="step-name">Standardized assessment</span>
+                        <span class="step-desc">19 items across five dimensions, plus your operational pain points and constraints.</span>
                     </div>
-                    <div class="p-5 rounded-xl bg-emerald-50/50 border border-emerald-100/60 flex items-start space-x-3">
-                        <i class="fa-solid fa-bolt text-emerald-600 text-lg mt-1"></i>
-                        <div>
-                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">Instant Diagnosis</h4>
-                            <p class="text-xs text-slate-500 mt-1">Automated Radar Chart & Level Calculation</p>
-                        </div>
+                    <div class="entry-step">
+                        <span class="step-num">02</span>
+                        <span class="step-name">Instant diagnosis</span>
+                        <span class="step-desc">Maturity score, five-axis radar chart and a prioritised 18-month roadmap.</span>
                     </div>
-                    <div class="p-5 rounded-xl bg-purple-50/50 border border-purple-100/60 flex items-start space-x-3">
-                        <i class="fa-solid fa-toolbox text-purple-600 text-lg mt-1"></i>
-                        <div>
-                            <h4 class="font-semibold text-xs sm:text-sm text-slate-900">AI Toolbox Matching</h4>
-                            <p class="text-xs text-slate-500 mt-1">Matched AI Solutions integrated into PDF Report</p>
-                        </div>
+                    <div class="entry-step">
+                        <span class="step-num">03</span>
+                        <span class="step-name">Matched solutions</span>
+                        <span class="step-desc">Rule-screened AI tools, industrial edge hardware and local service coverage.</span>
                     </div>
                 </div>
 
-                <!-- Homepage Action Row (Join AI Toolbox on the left + Start Assessment on the right) -->
-                <div class="pt-6 border-t border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-4">
-                    <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-                        <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit" target="_blank" rel="noopener text-decoration-none" class="flex-1 sm:flex-initial px-5 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-md shadow-purple-500/20">
-                            <i class="fa-solid fa-plus-circle"></i>
-                            <span>Join AI Toolbox</span>
-                        </a>
-
-                        <a href="https://github.com/victoryeh-III/AI-Maturaty-Demo/blob/main/README.md" target="_blank" rel="noopener text-decoration-none" class="flex-1 sm:flex-initial px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 border border-slate-300">
-                            <i class="fa-brands fa-github text-slate-700 text-base"></i>
-                            <span>About This Survey</span>
-                        </a>
-                    </div>
-
-                    <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-                        <button @click="nextStep" class="flex-1 sm:flex-initial px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25">
-                            <span>Start Assessment</span>
-                            <i class="fa-solid fa-arrow-right text-sm"></i>
-                        </button>
-                        <button @click="loadTestData" class="flex-1 sm:flex-initial px-6 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/25">
-                            <span>Load Test Report</span>
-                            <i class="fa-solid fa-flask text-sm"></i>
-                        </button>
-                    </div>
+                <div class="entry-actions">
+                    <button @click="nextStep" class="btn-action btn-primary">
+                        <span>Start Assessment</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <a href="https://docs.google.com/forms/d/1Vx9oEqBuHAh5nnzCTkb8bEqBKRxh7NyL26DS4tupD2w/edit"
+                       target="_blank" rel="noopener" class="btn-action btn-accent">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Join AI Toolbox</span>
+                    </a>
+                    <button @click="loadTestData" class="btn-action btn-neutral">
+                        <i class="fa-solid fa-flask"></i>
+                        <span>Load Test Report</span>
+                    </button>
+                    <a href="https://github.com/victoryeh-III/AI-Maturaty-Demo/blob/main/README.md"
+                       target="_blank" rel="noopener" class="btn-action btn-ghost">
+                        <i class="fa-brands fa-github"></i>
+                        <span>About This Survey</span>
+                    </a>
                 </div>
-            </div>
+            </section>
 
             <!-- Progress Bar (for Steps 1 to 7) -->
             <div v-if="currentStep >= 1 && currentStep <= 7" class="mb-10">
